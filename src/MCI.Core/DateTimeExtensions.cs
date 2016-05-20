@@ -237,8 +237,5 @@ namespace Miharu
                 current = current.AddMonths(diff);
             }
         }
-
-
-
     }
 }
