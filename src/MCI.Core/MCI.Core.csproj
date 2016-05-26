@@ -84,7 +84,6 @@
     <Compile Include="Success.cs" />
     <Compile Include="TaskExtensions.cs" />
     <Compile Include="Try.cs" />
-    <Compile Include="TryExtensions.cs" />
     <Compile Include="TryHelper.cs" />
     <Compile Include="TryTaskExtensions.cs" />
     <Compile Include="TryTaskFactory.cs" />

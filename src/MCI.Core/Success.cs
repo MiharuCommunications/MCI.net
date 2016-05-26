@@ -153,6 +153,31 @@ namespace Miharu
         }
 
 
+        public override Try<T> Where(Func<T, bool> f)
+        {
+            try
+            {
+                if (f(this.value))
+                {
+                    return new Success<T>(this.value);
+                }
+                else
+                {
+                    return new Failure<T>(new Exception("Where fail"));
+                }
+            }
+            catch (Exception e)
+            {
+                return new Failure<T>(e);
+            }
+        }
+
+        public override void ForEach(Action<T> f)
+        {
+            f(this.value);
+        }
+
+
         public override Try Collapse()
         {
             return new Success();

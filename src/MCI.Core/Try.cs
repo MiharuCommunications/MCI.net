@@ -42,6 +42,9 @@ namespace Miharu
         public abstract Try<A> Throw<E>() where E : Exception;
         public abstract Try<A> Throw<E>(Action<E> when) where E : Exception;
 
+        public abstract Try<A> Where(Func<A, bool> f);
+
+        public abstract void ForEach(Action<A> f);
 
         public abstract Try Collapse();
 
