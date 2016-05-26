@@ -72,5 +72,21 @@ namespace Miharu
         {
             return new None<C>();
         }
+
+
+        public override Option<T> Where(Func<T, bool> f)
+        {
+            return new None<T>();
+        }
+
+        public override void ForEach(Action<T> f)
+        {
+            return;
+        }
+
+        public override Try<T> ToTry(Exception ex)
+        {
+            return new Failure<T>(ex);
+        }
     }
 }

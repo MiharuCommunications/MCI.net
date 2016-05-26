@@ -79,5 +79,29 @@ namespace Miharu
 
             return f(x).SelectMany(y => new Some<C>(g(x, y)));
         }
+
+
+        public override Option<T> Where(Func<T, bool> f)
+        {
+            if (f(this.value))
+            {
+                return new Some<T>(this.value);
+            }
+            else
+            {
+                return new None<T>();
+            }
+        }
+
+
+        public override void ForEach(Action<T> f)
+        {
+            f(this.value);
+        }
+
+        public override Try<T> ToTry(Exception ex)
+        {
+            return new Success<T>(this.value);
+        }
     }
 }

@@ -57,6 +57,11 @@ namespace Miharu
 
         public abstract Option<T> Recover(Func<T> f);
 
+        public abstract Option<T> Where(Func<T, bool> f);
+        public abstract void ForEach(Action<T> f);
+
+        public abstract Try<T> ToTry(Exception ex);
+
         /// <summary>
         /// 値を Option モナドに格納して返します。
         /// </summary>
