@@ -15,6 +15,7 @@ namespace Miharu
         // https://github.com/LangExt/LangExt/blob/master/LangExt/Option.QueryExpr.cs
         // を参考にしました。
 
+        /*
         public static Option<B> Select<A, B>(this Option<A> opt, Func<A, B> f)
         {
             if (opt.IsDefined)
@@ -41,6 +42,7 @@ namespace Miharu
                 return new None<C>();
             }
         }
+        */
 
 
         public static Option<A> Where<A>(this Option<A> opt, Func<A, bool> f)

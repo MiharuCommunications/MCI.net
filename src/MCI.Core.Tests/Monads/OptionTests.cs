@@ -53,7 +53,7 @@ namespace Miharu.Core.Tests.Monads
                          select x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11 + x12 + x13 + x14 + x15 + x16 + x17 + x18 + x19 + x20 + x21 + x22 + x23 + x24 + x25 + x26 + x27 + x28 + x29 + x30;
 
             Assert.True(result.IsDefined);
-            Assert.True(result.Map(num => num == 465).GetOrElse(false));
+            Assert.True(result.Select(num => num == 465).GetOrElse(false));
 
             var r = from x1 in GetIntOpt("1")
                     from x2 in GetIntOpt("2")

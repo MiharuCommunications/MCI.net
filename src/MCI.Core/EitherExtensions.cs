@@ -40,7 +40,7 @@ namespace Miharu
             {
                 var x = p.Get();
 
-                return f(x).ToOption().FlatMap(y => new Some<C>(g(x, y)));
+                return f(x).ToOption().SelectMany(y => new Some<C>(g(x, y)));
             }
             else
             {

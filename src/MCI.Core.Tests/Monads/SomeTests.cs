@@ -29,6 +29,7 @@
             Assert.True(this.Value.IsDefined);
         }
 
+        /*
         [Fact]
         public void MapTest()
         {
@@ -38,10 +39,12 @@
             Assert.Equal(int.MaxValue, result.Get());
         }
 
+
         public void FlatMapTest()
         {
             throw new NotImplementedException();
         }
+        */
 
         public void GetTest()
         {

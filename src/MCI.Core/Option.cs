@@ -32,8 +32,9 @@ namespace Miharu
         public abstract bool IsDefined { get; }
 
 
-        public abstract Option<B> Map<B>(Func<T, B> f);
-        public abstract Option<B> FlatMap<B>(Func<T, Option<B>> f);
+        public abstract Option<B> Select<B>(Func<T, B> f);
+        public abstract Option<B> SelectMany<B>(Func<T, Option<B>> f);
+        public abstract Option<C> SelectMany<B, C>(Func<T, Option<B>> f, Func<T, B, C> g);
 
         /// <summary>
         /// <para>値を取り出します。</para>

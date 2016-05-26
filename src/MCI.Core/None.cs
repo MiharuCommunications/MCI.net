@@ -58,14 +58,19 @@ namespace Miharu
             return new Some<T>(f());
         }
 
-        public override Option<B> Map<B>(Func<T, B> f)
+        public override Option<B> Select<B>(Func<T, B> f)
         {
             return new None<B>();
         }
 
-        public override Option<B> FlatMap<B>(Func<T, Option<B>> f)
+        public override Option<B> SelectMany<B>(Func<T, Option<B>> f)
         {
             return new None<B>();
+        }
+
+        public override Option<C> SelectMany<B, C>(Func<T, Option<B>> f, Func<T, B, C> g)
+        {
+            return new None<C>();
         }
     }
 }
