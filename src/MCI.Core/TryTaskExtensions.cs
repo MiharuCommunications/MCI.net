@@ -17,7 +17,7 @@ namespace Miharu
         {
             return source.ContinueWith(task =>
             {
-                return task.Result.Map(f);
+                return task.Result.Select(f);
             });
         }
 
@@ -46,13 +46,13 @@ namespace Miharu
 
             return resultTask;
         }
-        
+
 
         public static Task<Try<B>> Select<A, B>(this Task<Try<A>> source, Func<A, B> f)
         {
             return source.ContinueWith(task =>
             {
-                return task.Result.Map(f);
+                return task.Result.Select(f);
             });
         }
 

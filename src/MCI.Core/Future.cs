@@ -23,7 +23,7 @@ namespace Miharu
         {
             return new Future<B>(this.FutureTask.ContinueWith(t =>
             {
-                return t.Result.Map(f);
+                return t.Result.Select(f);
             }));
         }
 
@@ -98,7 +98,7 @@ namespace Miharu
         {
             return new Future(this.FutureTask.ContinueWith(task =>
             {
-                return task.Result.Map(f);
+                return task.Result.Select(f);
             }));
         }
 

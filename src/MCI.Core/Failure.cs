@@ -58,24 +58,29 @@ namespace Miharu
         }
 
 
-        public override Try<TResult> Map<TResult>(Func<T, TResult> f)
+        public override Try<TResult> Select<TResult>(Func<T, TResult> f)
         {
             return new Failure<TResult>(this.exception);
         }
 
-        public override Try Map(Action<T> f)
+        public override Try Select(Action<T> f)
         {
             return new Failure(this.exception);
         }
 
-        public override Try<TResult> FlatMap<TResult>(Func<T, Try<TResult>> f)
+        public override Try<TResult> SelectMany<TResult>(Func<T, Try<TResult>> f)
         {
             return new Failure<TResult>(this.exception);
         }
 
-        public override Try FlatMap(Func<T, Try> f)
+        public override Try SelectMany(Func<T, Try> f)
         {
             return new Failure(this.exception);
+        }
+
+        public override Try<C> SelectMany<B, C>(Func<T, Try<B>> f, Func<T, B, C> g)
+        {
+            return new Failure<C>(this.exception);
         }
 
         public override Option<T> ToOption()
@@ -180,13 +185,13 @@ namespace Miharu
         }
 
 
-        public override Try Map(Action f)
+        public override Try Select(Action f)
         {
             return this;
         }
 
 
-        public override Try FlatMap(Func<Try> f)
+        public override Try SelectMany(Func<Try> f)
         {
             return this;
         }

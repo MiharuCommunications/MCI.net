@@ -24,11 +24,13 @@ namespace Miharu
         public abstract A GetOrElse(Func<A> f);
         public abstract Exception GetException();
 
-        public abstract Try<B> Map<B>(Func<A, B> f);
-        public abstract Try Map(Action<A> f);
 
-        public abstract Try<B> FlatMap<B>(Func<A, Try<B>> f);
-        public abstract Try FlatMap(Func<A, Try> f);
+        public abstract Try<B> Select<B>(Func<A, B> f);
+        public abstract Try Select(Action<A> f);
+
+        public abstract Try<B> SelectMany<B>(Func<A, Try<B>> f);
+        public abstract Try SelectMany(Func<A, Try> f);
+        public abstract Try<C> SelectMany<B, C>(Func<A, Try<B>> f, Func<A, B, C> g);
 
         public abstract Try<A> Recover(Func<Exception, A> f);
         public abstract Try<A> RecoverWith(Func<Exception, Try<A>> f);
@@ -92,8 +94,8 @@ namespace Miharu
 
         public abstract Exception GetException();
 
-        public abstract Try Map(Action f);
-        public abstract Try FlatMap(Func<Try> f);
+        public abstract Try Select(Action f);
+        public abstract Try SelectMany(Func<Try> f);
         public abstract void ForEach(Action f);
 
         public abstract Try Recover(Action<Exception> f);

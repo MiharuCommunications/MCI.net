@@ -17,7 +17,7 @@ namespace Miharu
         {
             return new Future<B>(source.FutureTask.ContinueWith(t =>
             {
-                return t.Result.Map(f);
+                return t.Result.Select(f);
             }));
         }
 

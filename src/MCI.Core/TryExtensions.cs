@@ -9,6 +9,7 @@ namespace Miharu
 
     public static class TryExtensions
     {
+        /*
         public static Try<B> Select<A, B>(this Try<A> source, Func<A, B> f)
         {
             if (source.IsSuccess)
@@ -36,6 +37,7 @@ namespace Miharu
                 return new Failure<C>(source.GetException());
             }
         }
+        */
 
 
         public static Try<A> Where<A>(this Try<A> source, Func<A, bool> f)
