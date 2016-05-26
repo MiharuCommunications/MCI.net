@@ -29,23 +29,6 @@
             Assert.True(this.Value.IsDefined);
         }
 
-        /*
-        [Fact]
-        public void MapTest()
-        {
-            var result = this.Value.Map(i => int.MaxValue);
-
-            Assert.True(result.IsDefined);
-            Assert.Equal(int.MaxValue, result.Get());
-        }
-
-
-        public void FlatMapTest()
-        {
-            throw new NotImplementedException();
-        }
-        */
-
         public void GetTest()
         {
             throw new NotImplementedException();

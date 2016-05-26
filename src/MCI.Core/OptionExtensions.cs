@@ -12,39 +12,6 @@ namespace Miharu
 
     public static class OptionExtensions
     {
-        // https://github.com/LangExt/LangExt/blob/master/LangExt/Option.QueryExpr.cs
-        // を参考にしました。
-
-        /*
-        public static Option<B> Select<A, B>(this Option<A> opt, Func<A, B> f)
-        {
-            if (opt.IsDefined)
-            {
-                return new Some<B>(f(opt.Get()));
-            }
-            else
-            {
-                return new None<B>();
-            }
-        }
-
-
-        public static Option<C> SelectMany<A, B, C>(this Option<A> opt, Func<A, Option<B>> f, Func<A, B, C> g)
-        {
-            if (opt.IsDefined)
-            {
-                var x = opt.Get();
-
-                return f(x).FlatMap(y => new Some<C>(g(x, y)));
-            }
-            else
-            {
-                return new None<C>();
-            }
-        }
-        */
-
-
         public static Option<A> Where<A>(this Option<A> opt, Func<A, bool> f)
         {
             if (opt.IsDefined)

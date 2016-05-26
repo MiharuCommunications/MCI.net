@@ -80,7 +80,6 @@
     <Compile Include="Monads\EitherTests.cs" />
     <Compile Include="Monads\FutureTests.cs" />
     <Compile Include="Monads\IOptionTests.cs" />
-    <Compile Include="Monads\Option2Tests.cs" />
     <Compile Include="Monads\OptionTests.cs" />
     <Compile Include="Monads\SomeTests.cs" />
     <Compile Include="Monads\TryTests.cs" />

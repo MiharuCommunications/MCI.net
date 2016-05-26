@@ -14,11 +14,6 @@
 
         void IsDefinedTest();
 
-        /*
-        void MapTest();
-        void FlatMapTest();
-        */
-
         void GetTest();
         void GetOrElseTest();
 
