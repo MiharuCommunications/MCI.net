@@ -9,10 +9,67 @@ namespace Miharu.Core.Tests.Monads
 {
     public class OptionTests
     {
+        private readonly Option<int> some = Option.Return(0);
+        private readonly Option<int> none = Option.Fail<int>();
+
+        private readonly Func<int, int> sq = i => i * i;
+
+        public void IsSome<T>(Option<T> opt, T value)
+        {
+            Assert.True(opt.IsDefined);
+
+            Assert.Equal(opt.Get(), value);
+        }
+
+        public void IsNone<T>(Option<T> opt)
+        {
+            Assert.True(opt.IsEmpty);
+        }
+
         [Fact]
         public void CreateTest()
         {
-            Assert.True(Option.Return(6).IsDefined);
+            Assert.True(this.some.IsDefined);
+
+            Assert.False(this.none.IsDefined);
+        }
+
+
+        [Fact]
+        public void IsTest()
+        {
+            Assert.True(this.some.IsDefined);
+            Assert.False(this.some.IsEmpty);
+
+            Assert.False(this.none.IsDefined);
+            Assert.True(this.none.IsEmpty);
+        }
+
+
+        [Fact]
+        public void SelectTest()
+        {
+            var some2 = this.some.Select(this.sq);
+            var none2 = this.none.Select(this.sq);
+
+            this.IsSome(some2, this.sq(this.some.Get()));
+
+            this.IsNone(none2);
+        }
+
+
+        [Fact]
+        public void SelectManyTest()
+        {
+            var some2 = this.some.SelectMany(i => Option.Return(this.sq(i)));
+            var none2 = this.some.SelectMany(i => Option.Fail<int>());
+
+            var none3 = this.none.SelectMany(i => Option.Return(0));
+
+            this.IsSome<int>(some2, this.sq(this.some.Get()));
+
+            this.IsNone(none2);
+            this.IsNone(none3);
         }
 
 
@@ -82,17 +139,5 @@ namespace Miharu.Core.Tests.Monads
         }
 
 
-        [Fact]
-        public void IsTest()
-        {
-            var optSome = Option<string>.Return("aaa");
-            Assert.True(optSome.IsDefined);
-            Assert.False(optSome.IsEmpty);
-
-
-            var optNone = Option<string>.Fail();
-            Assert.False(optNone.IsDefined);
-            Assert.True(optNone.IsEmpty);
-        }
     }
 }
