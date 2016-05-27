@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCI.Formats", "MCI.Formats\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCI.Formats.Tests", "MCI.Formats.Tests\MCI.Formats.Tests.csproj", "{2E9D0979-4197-4D6C-89FA-248188EB745C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCI.TestRunner", "MCI.TestRunner\MCI.TestRunner.csproj", "{7DFBF5DC-10E6-4D0C-8E3D-48F56BCCD6AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{2E9D0979-4197-4D6C-89FA-248188EB745C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E9D0979-4197-4D6C-89FA-248188EB745C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E9D0979-4197-4D6C-89FA-248188EB745C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DFBF5DC-10E6-4D0C-8E3D-48F56BCCD6AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DFBF5DC-10E6-4D0C-8E3D-48F56BCCD6AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DFBF5DC-10E6-4D0C-8E3D-48F56BCCD6AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DFBF5DC-10E6-4D0C-8E3D-48F56BCCD6AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
