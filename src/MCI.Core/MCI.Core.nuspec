@@ -1,0 +1,23 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>MCI.Core</id>
+    <title>MCI.Core</title>
+    <authors>Miharu Communications Inc.</authors>
+
+
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MCI C# Library</description>
+    <summary>MCI C# Library</summary>
+    <tags>Miharu</tags>
+
+
+    <version>0.9.1.0</version>
+    <projectUrl>https://github.com/MiharuCommunications/MCI.net</projectUrl>
+    <owners>Miharu Communications Inc.</owners>
+    <copyright>Copyright (C) Miharu Communications Inc. 2016</copyright>
+
+    <dependencies>
+    </dependencies>
+  </metadata>
+</package>
