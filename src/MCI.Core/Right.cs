@@ -46,5 +46,22 @@ namespace Miharu
         {
             return new Left<R, L>(this.Value);
         }
+
+        public override Either<L, R2> Select<R2>(Func<R, R2> f)
+        {
+            return new Right<L, R2>(f(this.Value));
+        }
+
+        public override Either<L, R2> SelectMany<R2>(Func<R, Either<L, R2>> f)
+        {
+            return f(this.Value);
+        }
+
+        public override Either<L, R3> SelectMany<R2, R3>(Func<R, Either<L, R2>> f, Func<R, R2, R3> g)
+        {
+            var x = this.Value;
+
+            return f(x).SelectMany(y => new Right<L, R3>(g(x, y)));
+        }
     }
 }

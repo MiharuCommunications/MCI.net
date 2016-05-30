@@ -30,5 +30,13 @@ namespace Miharu
         public abstract A Fold<A>(Func<L, A> fl, Func<R, A> fr);
 
         public abstract Either<R, L> Swap();
+
+
+
+        public abstract Either<L, R2> Select<R2>(Func<R, R2> f);
+
+        public abstract Either<L, R2> SelectMany<R2>(Func<R, Either<L, R2>> f);
+        public abstract Either<L, R3> SelectMany<R2, R3>(Func<R, Either<L, R2>> f, Func<R, R2, R3> g);
+
     }
 }
