@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
-    <id>MCI.Reactive</id>
-    <title>MCI.Reactive</title>
+    <id>MCI.Converters</id>
+    <title>MCI.Converters</title>
     <authors>Miharu Communications Inc.</authors>
 
 
@@ -18,8 +18,6 @@
     <copyright>Copyright © Miharu Communications Inc. 2016</copyright>
 
     <dependencies>
-        <dependency id="MCI.Core" version="0.9.0.1" />
-        <dependency id="Rx-Main" version="2.2.5" />
     </dependencies>
   </metadata>
 </package>

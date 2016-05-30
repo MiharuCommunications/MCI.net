@@ -6,16 +6,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2E9D0979-4197-4D6C-89FA-248188EB745C}</ProjectGuid>
+    <ProjectGuid>{93585A0C-FB47-490B-B6C6-6D868465D567}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Miharu.Formats.Tests</RootNamespace>
-    <AssemblyName>MCI.Formats.Tests</AssemblyName>
+    <RootNamespace>Miharu.Converters.Tests</RootNamespace>
+    <AssemblyName>MCI.Converters.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>69091871</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>c3e23e03</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -65,20 +65,13 @@
     <Compile Include="UrlEncode\UrlEncoderTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MCI.Core\MCI.Core.csproj">
-      <Project>{ba3620a9-c6d0-411a-9aab-8e35f4e5f3e3}</Project>
-      <Name>MCI.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MCI.Formats\MCI.Formats.csproj">
-      <Project>{00e37cd7-2c6f-4d54-9ee3-86987640113d}</Project>
-      <Name>MCI.Formats</Name>
+    <ProjectReference Include="..\MCI.Converters\MCI.Converters.csproj">
+      <Project>{dd550aae-1c8c-49b2-b98b-06e4f6c16dd6}</Project>
+      <Name>MCI.Converters</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

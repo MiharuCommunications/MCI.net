@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 using Xunit;
-using Miharu.Formats.UrlEncode;
+using Miharu.Converters.UrlEncode;
 using System.Web;
 
-namespace Miharu.Formats.Tests.UrlEncode
+
+namespace Miharu.Converters.Tests.UrlEncode
 {
     public class UrlEncoderTests
     {

@@ -1,4 +1,4 @@
-﻿namespace Miharu.Formats.UrlEncode
+﻿namespace Miharu.Converters.UrlEncode
 {
     using System;
     using System.Collections.Generic;
@@ -14,7 +14,7 @@
     {
         public static string Encode(string source, Encoding code)
         {
-//            var bytes = code.GetBytes(source);
+            //            var bytes = code.GetBytes(source);
             var builder = new StringBuilder(source.Length * 3);
 
 
