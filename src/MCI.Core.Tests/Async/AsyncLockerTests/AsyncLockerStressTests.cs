@@ -10,7 +10,7 @@ namespace Miharu.Core.Tests.Async.AsyncLockerTests
 {
     public class AsyncLockerStressTests
     {
-        [Fact]
+        // [Fact]
         public void StressTestAsync()
         {
             const int N = 100;

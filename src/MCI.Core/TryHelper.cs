@@ -35,5 +35,31 @@
                 return new Failure<T>(ex);
             }
         }
+
+
+        public static Try ReturnTimeoutException(string message)
+        {
+            try
+            {
+                throw new TimeoutException(message);
+            }
+            catch (Exception ex)
+            {
+                return Try.Fail(ex);
+            }
+        }
+
+        public static Try<T> ReturnTimeoutException<T>(string message)
+        {
+            try
+            {
+                throw new TimeoutException(message);
+            }
+            catch (Exception ex)
+            {
+                return Try<T>.Fail(ex);
+            }
+        }
+
     }
 }

@@ -14,10 +14,13 @@ namespace Miharu.Async
 
     public class ThreadSafeCounter
     {
+        private readonly object syncRoot;
+
         private int counter;
 
         public ThreadSafeCounter()
         {
+            this.syncRoot = new object();
             this.counter = 0;
         }
 
@@ -25,19 +28,28 @@ namespace Miharu.Async
         {
             get
             {
-                return this.counter;
+                lock (this.syncRoot)
+                {
+                    return this.counter;
+                }
             }
         }
 
         public void Increment()
         {
-            Interlocked.Increment(ref this.counter);
+            lock (this.syncRoot)
+            {
+                this.counter++;
+            }
         }
 
 
         public void Decrement()
         {
-            Interlocked.Decrement(ref this.counter);
+            lock (this.syncRoot)
+            {
+                this.counter--;
+            }
         }
     }
 }

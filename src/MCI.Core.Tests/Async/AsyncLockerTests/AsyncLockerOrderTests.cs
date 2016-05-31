@@ -10,7 +10,7 @@ namespace Miharu.Core.Tests.Async.AsyncLockerTests
 {
     public class AsyncLockerOrderTests
     {
-        [Fact]
+        // [Fact]
         public async Task OrderTest()
         {
             var locker = new AsyncLocker();
