@@ -1,8 +1,6 @@
 language: csharp
 mono:
   - latest
-  - 3.12.0
-  - 3.10.0
 solution: ./src/MCI.net.sln
 install:
   - nuget restore ./src/MCI.net.sln
