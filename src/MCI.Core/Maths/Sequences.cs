@@ -1,4 +1,9 @@
-﻿namespace Miharu.Maths
+﻿//-----------------------------------------------------------------------
+// <copyright file="Sequences.cs" company="Miharu Communications Inc.">
+//     © 2016 Miharu Communications Inc.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace Miharu.Maths
 {
     using System;
     using System.Collections.Generic;

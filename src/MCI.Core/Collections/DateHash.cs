@@ -1,4 +1,9 @@
-﻿namespace Miharu.Collections
+﻿//-----------------------------------------------------------------------
+// <copyright file="DateHash.cs" company="Miharu Communications Inc.">
+//     © 2016 Miharu Communications Inc.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace Miharu.Collections
 {
     using System;
 
