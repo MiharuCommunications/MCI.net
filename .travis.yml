@@ -6,9 +6,9 @@ mono:
 solution: ./src/MCI.net.sln
 install:
   - nuget restore ./src/MCI.net.sln
-  - nuget install xunit.runners -Version 2.0.0 -OutputDirectory testrunner
+  - nuget install xunit.runner.console -Version 2.0.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release ./src/MCI.net.sln
-  - mono ./testrunner/xunit.runners.2.0.0/tools/xunit.console.clr4.exe ./src/MCI.Core.Tests/bin/Release/MCI.Core.Tests.dll
-  - mono ./testrunner/xunit.runners.2.0.0/tools/xunit.console.clr4.exe ./src/MCI.Reactive.Tests/bin/Release/MCI.Reactive.Tests.dll
-  - mono ./testrunner/xunit.runners.2.0.0/tools/xunit.console.clr4.exe ./src/MCI.Converters.Tests/bin/Release/MCI.Converters.Tests.dll
+  - mono ./testrunner/xunit.runner.console.2.0.0/tools/xunit.console.exe ./src/MCI.Core.Tests/bin/Release/MCI.Core.Tests.dll
+  - mono ./testrunner/xunit.runner.console.2.0.0/tools/xunit.console.exe ./src/MCI.Reactive.Tests/bin/Release/MCI.Reactive.Tests.dll
+  - mono ./testrunner/xunit.runner.console.2.0.0/tools/xunit.console.exe ./src/MCI.Converters.Tests/bin/Release/MCI.Converters.Tests.dll
