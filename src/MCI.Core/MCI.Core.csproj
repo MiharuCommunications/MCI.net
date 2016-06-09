@@ -56,6 +56,7 @@
     <Compile Include="DayOfWeekExtensions.cs" />
     <Compile Include="Debugs\LoggerHelper.cs" />
     <Compile Include="DictionaryExtensions.cs" />
+    <Compile Include="DisposableCollection.cs" />
     <Compile Include="Either.cs" />
     <Compile Include="EitherExtensions.cs" />
     <Compile Include="Failure.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="StringExtensions.cs" />
     <Compile Include="Success.cs" />
     <Compile Include="TaskExtensions.cs" />
+    <Compile Include="ThrowHelper.cs" />
     <Compile Include="Try.cs" />
     <Compile Include="TryHelper.cs" />
     <Compile Include="TryTaskExtensions.cs" />

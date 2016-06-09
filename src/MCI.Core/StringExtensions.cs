@@ -28,7 +28,7 @@ namespace Miharu
         {
             if ((object)source == null)
             {
-                throw new ArgumentNullException("source");
+                ThrowHelper.ThrowArgumentNullException("source");
             }
 
             if (count < 1)
@@ -68,7 +68,7 @@ namespace Miharu
         {
             if ((object)strs == null)
             {
-                throw new ArgumentNullException("strs");
+                ThrowHelper.ThrowArgumentNullException("strs");
             }
 
             var builder = new StringBuilder();
@@ -92,12 +92,12 @@ namespace Miharu
         {
             if ((object)strs == null)
             {
-                throw new ArgumentNullException("strs");
+                ThrowHelper.ThrowArgumentNullException("strs");
             }
 
             if ((object)separator == null)
             {
-                throw new ArgumentNullException("separator");
+                ThrowHelper.ThrowArgumentNullException("separator");
             }
 
             var i = -1;
@@ -122,12 +122,12 @@ namespace Miharu
         {
             if ((object)strs == null)
             {
-                throw new ArgumentNullException("strs");
+                ThrowHelper.ThrowArgumentNullException("strs");
             }
 
             if ((object)separator == null)
             {
-                throw new ArgumentNullException("separator");
+                ThrowHelper.ThrowArgumentNullException("separator");
             }
 
             var i = -1;
@@ -150,6 +150,16 @@ namespace Miharu
 
         public static string Concat(this IEnumerable<char> chars, char separator)
         {
+            if ((object)chars == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("chars");
+            }
+
+            if ((object)separator == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("separator");
+            }
+
             var count = chars.Count();
             if (count < 1)
             {
@@ -171,6 +181,11 @@ namespace Miharu
 
         public static string Concat(this IEnumerable<char> chars)
         {
+            if ((object)chars == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("chars");
+            }
+
             return new string(chars.ToArray());
         }
 
@@ -178,12 +193,12 @@ namespace Miharu
         {
             if ((object)chars == null)
             {
-                throw new ArgumentNullException("chars");
+                ThrowHelper.ThrowArgumentNullException("chars");
             }
 
             if ((object)separator == null)
             {
-                throw new ArgumentNullException("separator");
+                ThrowHelper.ThrowArgumentNullException("separator");
             }
 
             var i = -1;
@@ -215,7 +230,7 @@ namespace Miharu
         {
             if ((object)text == null)
             {
-                throw new ArgumentNullException("text");
+                ThrowHelper.ThrowArgumentNullException("text");
             }
 
             return text.Split('\n', '\r');
@@ -223,6 +238,16 @@ namespace Miharu
 
         public static string Intercalate(this IEnumerable<string> source, string separator)
         {
+            if ((object)source == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("source");
+            }
+
+            if ((object)separator == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("separator");
+            }
+
             var i = -1;
             var builder = new StringBuilder();
 
