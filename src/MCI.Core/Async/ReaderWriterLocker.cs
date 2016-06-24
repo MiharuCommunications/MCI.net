@@ -37,7 +37,7 @@ namespace Miharu.Async
 
         public Try Write(Func<Try> f)
         {
-            var result = Try.Fail(new NotImplementedException());
+            var result = TryHelper.ReturnNotImplementedException();
             this.locker.EnterWriteLock();
             try
             {
@@ -59,7 +59,7 @@ namespace Miharu.Async
 
         public Task<Try> WriteAsync(Func<Try> f)
         {
-            var result = Try.Fail(new NotImplementedException());
+            var result = TryHelper.ReturnNotImplementedException();
             var task = new Task<Try>(() => result);
 
             Task.Factory.StartNew(() =>
@@ -110,7 +110,7 @@ namespace Miharu.Async
 
         public Try<T> Read<T>(Func<Try<T>> f)
         {
-            var result = Try<T>.Fail(new NotImplementedException());
+            var result = TryHelper.ReturnNotImplementedException<T>();
 
             this.locker.EnterReadLock();
             try
@@ -131,7 +131,7 @@ namespace Miharu.Async
 
         public Task<Try<T>> ReadAsync<T>(Func<Try<T>> f)
         {
-            var result = Try<T>.Fail(new NotImplementedException());
+            var result = TryHelper.ReturnNotImplementedException<T>();
             var task = new Task<Try<T>>(() => result);
 
             Task.Factory.StartNew(() =>

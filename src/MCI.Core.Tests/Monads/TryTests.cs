@@ -20,6 +20,14 @@ namespace Miharu.Core.Tests.Monads
             Assert.True(result.GetOrElse(0) == 3);
         }
 
+        [Fact]
+        public void StackTraceTest()
+        {
+            var result = GetInt("zzz");
+
+            return;
+        }
+
 
         public static Try<int> GetInt(string str)
         {

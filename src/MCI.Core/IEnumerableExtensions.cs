@@ -308,6 +308,11 @@ namespace Miharu
 
         public static decimal? Marge(this IEnumerable<decimal> collection)
         {
+            if ((object)collection == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("collection");
+            }
+
             if (collection.Count() < 1)
             {
                 return null;
@@ -327,6 +332,11 @@ namespace Miharu
 
         public static decimal? Marge<T>(this IEnumerable<T> collection, Func<T, decimal> f)
         {
+            if ((object)collection == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("collection");
+            }
+
             if (collection.Count() < 1)
             {
                 return null;
@@ -346,6 +356,11 @@ namespace Miharu
 
         public static int? Marge(this IEnumerable<int> collection)
         {
+            if ((object)collection == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("collection");
+            }
+
             if (collection.Count() < 1)
             {
                 return null;
@@ -365,6 +380,11 @@ namespace Miharu
 
         public static int? Marge<T>(this IEnumerable<T> collection, Func<T, int> f)
         {
+            if ((object)collection == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("collection");
+            }
+
             if (collection.Count() < 1)
             {
                 return null;
@@ -391,6 +411,11 @@ namespace Miharu
 
         public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<T>> collection)
         {
+            if ((object)collection == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("collection");
+            }
+
             foreach (var i in collection)
             {
                 foreach (var j in i)
@@ -403,6 +428,11 @@ namespace Miharu
 
         public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<IEnumerable<T>>> collection)
         {
+            if ((object)collection == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("collection");
+            }
+
             foreach (var i in collection)
             {
                 foreach (var j in i)
@@ -418,6 +448,11 @@ namespace Miharu
 
         public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<IEnumerable<IEnumerable<T>>>> collection)
         {
+            if ((object)collection == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("collection");
+            }
+
             foreach (var i in collection)
             {
                 foreach (var j in i)
@@ -435,6 +470,11 @@ namespace Miharu
 
         public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<IEnumerable<IEnumerable<IEnumerable<T>>>>> collection)
         {
+            if ((object)collection == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("collection");
+            }
+
             foreach (var i in collection)
             {
                 foreach (var j in i)

@@ -17,7 +17,7 @@
         {
             if ((object)source == null)
             {
-                return Try<byte[]>.Fail(new NullReferenceException());
+                return TryHelper.ReturnArgumentNullException<byte[]>("source");
             }
 
             if (string.IsNullOrWhiteSpace(source))

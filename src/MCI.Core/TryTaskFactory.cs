@@ -15,7 +15,7 @@ namespace Miharu
     {
         public static Task<Try<A>> FromTask<A>(Task<A> source, TimeSpan timeout)
         {
-            var reseult = Try<A>.Fail(new NotImplementedException());
+            var reseult = TryHelper.ReturnNotImplementedException<A>();
             var dest = new Task<Try<A>>(() => reseult);
 
             source.ContinueWith(s =>
@@ -44,7 +44,7 @@ namespace Miharu
                     }
                     else
                     {
-                        reseult = Try<A>.Fail(new TimeoutException());
+                        reseult = TryHelper.ReturnTimeoutException<A>("TryTaskFactory.FromTask");
                         dest.RunSynchronously();
                     }
                 }
@@ -56,7 +56,7 @@ namespace Miharu
 
         public static Task<Try<TEventArgs>> FromEvent<THandler, TEventArgs>(Func<Action<TEventArgs>, THandler> taker, Action<THandler> bind, Action<THandler> unbind, TimeSpan timeout)
         {
-            var result = Try<TEventArgs>.Fail(new NotImplementedException());
+            var result = TryHelper.ReturnNotImplementedException<TEventArgs>();
             var task = new Task<Try<TEventArgs>>(() => result);
 
             THandler handler = default(THandler);
@@ -90,7 +90,7 @@ namespace Miharu
                     else
                     {
                         unbind(handler);
-                        result = Try<TEventArgs>.Fail(new TimeoutException());
+                        result = TryHelper.ReturnTimeoutException<TEventArgs>("TryTaskFactory.FromEvent");
                         task.RunSynchronously();
                     }
                 }

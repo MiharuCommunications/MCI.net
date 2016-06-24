@@ -13,7 +13,7 @@ namespace Miharu
     {
         public static Task<Try<IEnumerable<A>>> AsTask<A>(this IObservable<A> source)
         {
-            var result = Try<IEnumerable<A>>.Fail(new NotImplementedException());
+            var result = TryHelper.ReturnNotImplementedException<IEnumerable<A>>();
             var task = new Task<Try<IEnumerable<A>>>(() => result);
             var collection = new List<A>();
 
@@ -59,7 +59,7 @@ namespace Miharu
 
         public static Task<Try<IEnumerable<A>>> AsTask<A>(this IObservable<A> source, TimeSpan timeout)
         {
-            var result = Try<IEnumerable<A>>.Fail(new NotImplementedException());
+            var result = TryHelper.ReturnNotImplementedException<IEnumerable<A>>();
             var task = new Task<Try<IEnumerable<A>>>(() => result);
             var collection = new List<A>();
 
@@ -107,7 +107,7 @@ namespace Miharu
                     {
                         killer.Dispose();
 
-                        result = Try<IEnumerable<A>>.Fail(new TimeoutException());
+                        result = TryHelper.ReturnTimeoutException<IEnumerable<A>>("IObservableExtensions.AsTask");
                         task.RunSynchronously();
                     }
                 }

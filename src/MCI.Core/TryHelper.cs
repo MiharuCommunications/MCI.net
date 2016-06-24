@@ -17,11 +17,12 @@ namespace Miharu
     /// </summary>
     public static class TryHelper
     {
-        public static Try ReturnArgumentOutOfRangeException()
+
+        public static Try ReturnArgumentNullException(string paramName)
         {
             try
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentNullException(paramName);
             }
             catch (Exception ex)
             {
@@ -29,11 +30,36 @@ namespace Miharu
             }
         }
 
-        public static Try<T> ReturnArgumentOutOfRangeException<T>()
+        public static Try<T> ReturnArgumentNullException<T>(string paramName)
         {
             try
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentNullException(paramName);
+            }
+            catch (Exception ex)
+            {
+                return new Failure<T>(ex);
+            }
+        }
+
+
+        public static Try ReturnArgumentOutOfRangeException(string paramName)
+        {
+            try
+            {
+                throw new ArgumentOutOfRangeException(paramName);
+            }
+            catch (Exception ex)
+            {
+                return new Failure(ex);
+            }
+        }
+
+        public static Try<T> ReturnArgumentOutOfRangeException<T>(string paramName)
+        {
+            try
+            {
+                throw new ArgumentOutOfRangeException(paramName);
             }
             catch (Exception ex)
             {
@@ -59,6 +85,54 @@ namespace Miharu
             try
             {
                 throw new TimeoutException(message);
+            }
+            catch (Exception ex)
+            {
+                return Try<T>.Fail(ex);
+            }
+        }
+
+        public static Try ReturnNotImplementedException()
+        {
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (Exception ex)
+            {
+                return Try.Fail(ex);
+            }
+        }
+
+        public static Try<T> ReturnNotImplementedException<T>()
+        {
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (Exception ex)
+            {
+                return Try<T>.Fail(ex);
+            }
+        }
+
+        public static Try ReturnNotImplementedException(string message)
+        {
+            try
+            {
+                throw new NotImplementedException(message);
+            }
+            catch (Exception ex)
+            {
+                return Try.Fail(ex);
+            }
+        }
+
+        public static Try<T> ReturnNotImplementedException<T>(string message)
+        {
+            try
+            {
+                throw new NotImplementedException(message);
             }
             catch (Exception ex)
             {
