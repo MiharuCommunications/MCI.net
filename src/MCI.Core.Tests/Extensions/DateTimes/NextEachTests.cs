@@ -10,35 +10,18 @@ namespace Miharu.Core.Tests.Extensions.DateTimes
 {
     public class NextEachTests
     {
-        public static object[] NextEachMinuteTestSource
+        public static IEnumerable<object[]> GetNextEachMinuteTestSource()
         {
-            get
-            {
-                return new object[]
-                {
-                    new object[] { "2016/5/1 0:1:0", "2016/5/1 0:0:1", 0 },
-                    new object[] { "2016/5/1 0:0:0", "2016/5/1 0:0:0", 0 }
-                };
-            }
+            yield return new object[] { "2016/5/1 0:1:0", "2016/5/1 0:0:1", 0 };
+            yield return new object[] { "2016/5/1 0:0:0", "2016/5/1 0:0:0", 0 };
+
+            yield return new object[] { "2015/8/10 10:30:30", "2015/8/10 10:30:20", 30 };
+            yield return new object[] { "2015/8/10 10:30:30", "2015/8/10 10:30:30", 30 };
+            yield return new object[] { "2015/8/10 10:31:30", "2015/8/10 10:30:40", 30 };
         }
-
-
-        public static object[] NextEachHourTestSource
-        {
-            get
-            {
-                return new object[]
-                {
-                    new object[] { "2016/5/1 1:0:0", "2016/5/1 0:1:1", 0, 0 },
-                    new object[] { "2016/5/1 0:0:0", "2016/5/1 0:0:0", 0, 0 }
-                };
-            }
-        }
-
-
 
         [Theory,
-        MemberData("NextEachMinuteTestSource")]
+        MemberData("GetNextEachMinuteTestSource")]
         public void NextEachMinuteTest(string expected, string source, int second)
         {
             var e = DateTime.Parse(expected);
@@ -50,8 +33,19 @@ namespace Miharu.Core.Tests.Extensions.DateTimes
         }
 
 
+
+        public static IEnumerable<object[]> GetNextEachHourTestSource()
+        {
+            yield return new object[] { "2016/5/1 1:0:0", "2016/5/1 0:1:1", 0, 0 };
+            yield return new object[] { "2016/5/1 0:0:0", "2016/5/1 0:0:0", 0, 0 };
+
+            yield return new object[] { "2015/8/10 10:30:30", "2015/8/10 10:30:20", 30, 30 };
+            yield return new object[] { "2015/8/10 10:30:30", "2015/8/10 10:30:30", 30, 30 };
+            yield return new object[] { "2015/8/10 11:30:30", "2015/8/10 10:30:40", 30, 30 };
+        }
+
         [Theory,
-        MemberData("NextEachHourTestSource")]
+        MemberData("GetNextEachHourTestSource")]
         public void NextEachHourTest(string expected, string source, int minute, int second)
         {
             var e = DateTime.Parse(expected);
@@ -63,6 +57,20 @@ namespace Miharu.Core.Tests.Extensions.DateTimes
         }
 
 
+
+
+        public static IEnumerable<object[]> GetNextEachDaySource()
+        {
+            yield return new object[] { new DateTime(2015, 8, 10, 10, 30, 30), new DateTime(2015, 8, 10, 10, 30, 20), 10, 30, 30 };
+            yield return new object[] { new DateTime(2015, 8, 10, 10, 30, 30), new DateTime(2015, 8, 10, 10, 30, 30), 10, 30, 30 };
+            yield return new object[] { new DateTime(2015, 8, 11, 10, 30, 30), new DateTime(2015, 8, 10, 10, 30, 40), 10, 30, 30 };
+        }
+
+        [Theory, MemberData("GetNextEachDaySource")]
+        public void NextEachDay(DateTime expected, DateTime from, int hour, int minute, int second)
+        {
+            Assert.True(expected.IsSameSecond(from.NextEachDay(hour, minute, second)));
+        }
 
 
     }

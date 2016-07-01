@@ -30,14 +30,22 @@ namespace Miharu.Core.Tests.Extensions
         }
 
 
-        [Fact]
-        public void IsSame()
+        public static IEnumerable<object[]> GetIsSameSource()
         {
-            Assert.True((new int[] { 1, 2, 3, 4, 5 }).IsSame(new int[] { 1, 2, 3, 4, 5 }));
+            yield return new object[] { true, new int[] { }, new int[] { } };
+            yield return new object[] { true, new int[] { 1 }, new int[] { 1 } };
+            yield return new object[] { true, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 } };
 
+            yield return new object[] { false, new int[] { 1 }, new int[] { } };
+            yield return new object[] { false, new int[] { }, new int[] { 1 } };
+            yield return new object[] { false, new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4, 5 } };
+            yield return new object[] { false, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4 } };
+        }
 
-
-            Assert.False((new int[] { 1, 2, 3, 4, 5 }).IsSame(new int[] { 1, 2, 3, 4 }));
+        [Theory, MemberData("GetIsSameSource")]
+        public void IsSameTest(bool expected, int[] source1, int[] source2)
+        {
+            Assert.Equal(expected, source1.IsSame(source2));
         }
     }
 }

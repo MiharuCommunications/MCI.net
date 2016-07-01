@@ -9,34 +9,30 @@ namespace Miharu.Core.Tests.Extensions
 {
     public class DateTimeExtensionsTests
     {
-        public static readonly object[] IsSameDateSource =
+        public static IEnumerable<object[]> GetIsSameDateSource()
         {
-            new object[] { true, new DateTime(2015, 7, 13), new DateTime(2015, 7, 13) },
-            new object[] { false, new DateTime(2015, 7,14), new DateTime(2015, 7, 13) },
-        };
+            yield return new object[] { true, new DateTime(2015, 7, 13), new DateTime(2015, 7, 13) };
+            yield return new object[] { false, new DateTime(2015, 7, 14), new DateTime(2015, 7, 13) };
+        }
 
 
-
-        [Theory, MemberData("IsSameDateSource")]
+        [Theory, MemberData("GetIsSameDateSource")]
         public void IsSameDateTest(bool expected, DateTime dt1, DateTime dt2)
         {
             Assert.Equal(expected, dt1.IsSameDate(dt2));
         }
 
 
-
-
-        public static readonly object[] ToSource =
+        public static IEnumerable<object[]> GetToSource()
         {
-            new object[] { new DateTime[] { new DateTime(2015, 7, 13) }, new DateTime(2015, 7, 13), new DateTime(2015, 7, 13) },
+            yield return new object[] { new DateTime[] { new DateTime(2015, 7, 13) }, new DateTime(2015, 7, 13), new DateTime(2015, 7, 13) };
 
-            new object[] { new DateTime[] { new DateTime(2015, 7, 13), new DateTime(2015, 7, 14) }, new DateTime(2015, 7, 13), new DateTime(2015, 7, 14) },
-            new object[] { new DateTime[] { new DateTime(2015, 7, 14), new DateTime(2015, 7, 13) }, new DateTime(2015, 7, 14), new DateTime(2015, 7, 13) },
-        };
+            yield return new object[] { new DateTime[] { new DateTime(2015, 7, 13), new DateTime(2015, 7, 14) }, new DateTime(2015, 7, 13), new DateTime(2015, 7, 14) };
+            yield return new object[] { new DateTime[] { new DateTime(2015, 7, 14), new DateTime(2015, 7, 13) }, new DateTime(2015, 7, 14), new DateTime(2015, 7, 13) };
+        }
 
 
-
-        [Theory, MemberData("ToSource")]
+        [Theory, MemberData("GetToSource")]
         public void ToTest(DateTime[] expected, DateTime from, DateTime to)
         {
             Assert.Equal(expected, from.To(to));
@@ -126,73 +122,6 @@ namespace Miharu.Core.Tests.Extensions
                 }
             }
         }
-
-
-
-        public static object[] NextEachMinuteSource
-        {
-            get
-            {
-                return new object[]
-                {
-                    new object[] { new DateTime(2015, 8, 10, 10, 30, 30), new DateTime(2015, 8, 10, 10, 30, 20), 30 },
-                    new object[] { new DateTime(2015, 8, 10, 10, 30, 30), new DateTime(2015, 8, 10, 10, 30, 30), 30 },
-                    new object[] { new DateTime(2015, 8, 10, 10, 31, 30), new DateTime(2015, 8, 10, 10, 30, 40), 30 },
-                };
-            }
-        }
-
-        [Theory, MemberData("NextEachMinuteSource")]
-        public void NextEachMinute(DateTime expected, DateTime from, int second)
-        {
-            Assert.True(expected.IsSameSecond(from.NextEachMinute(second)));
-        }
-
-
-
-
-        public static object[] NextEachHourSource
-        {
-            get
-            {
-                return new object[]
-                {
-                    new object[] { new DateTime(2015, 8, 10, 10, 30, 30), new DateTime(2015, 8, 10, 10, 30, 20), 30, 30 },
-                    new object[] { new DateTime(2015, 8, 10, 10, 30, 30), new DateTime(2015, 8, 10, 10, 30, 30), 30, 30 },
-                    new object[] { new DateTime(2015, 8, 10, 11, 30, 30), new DateTime(2015, 8, 10, 10, 30, 40), 30, 30 },
-                };
-            }
-        }
-
-        [Theory, MemberData("NextEachHourSource")]
-        public void NextEachHour(DateTime expected, DateTime from, int minute, int second)
-        {
-            Assert.True(expected.IsSameSecond(from.NextEachHour(minute, second)));
-        }
-
-
-
-
-        public static object[] NextEachDaySource
-        {
-            get
-            {
-                return new object[]
-                {
-                    new object[] { new DateTime(2015, 8, 10, 10, 30, 30), new DateTime(2015, 8, 10, 10, 30, 20), 10, 30, 30 },
-                    new object[] { new DateTime(2015, 8, 10, 10, 30, 30), new DateTime(2015, 8, 10, 10, 30, 30), 10, 30, 30 },
-                    new object[] { new DateTime(2015, 8, 11, 10, 30, 30), new DateTime(2015, 8, 10, 10, 30, 40), 10, 30, 30 },
-                };
-            }
-        }
-
-        [Theory, MemberData("NextEachDaySource")]
-        public void NextEachDay(DateTime expected, DateTime from, int hour, int minute, int second)
-        {
-            Assert.True(expected.IsSameSecond(from.NextEachDay(hour, minute, second)));
-        }
-
-
 
 
     }

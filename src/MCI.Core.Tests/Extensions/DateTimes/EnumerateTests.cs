@@ -10,22 +10,16 @@ namespace Miharu.Core.Tests.Extensions.DateTimes
 {
     public class EnumerateTests
     {
-        public static object[] EnumerateDaysSource
+        public static IEnumerable<object[]> GetEnumerateDaysSource()
         {
-            get
+            yield return new object[]
             {
-                return new object[]
-                {
-                    new object[]
-                    {
-                        new DateTime[] { new DateTime(2016, 3, 25), new DateTime(2016, 3, 26), new DateTime(2016, 3, 27) },
-                        new DateTime(2016, 3, 25, 12, 11, 10), new DateTime(2016, 3, 27, 11, 10, 10)
-                    }
-                };
-            }
+                new DateTime[] { new DateTime(2016, 3, 25), new DateTime(2016, 3, 26), new DateTime(2016, 3, 27) },
+                new DateTime(2016, 3, 25, 12, 11, 10), new DateTime(2016, 3, 27, 11, 10, 10)
+            };
         }
 
-        [Theory, MemberData("EnumerateDaysSource")]
+        [Theory, MemberData("GetEnumerateDaysSource")]
         public void EnumerateDays(DateTime[] expected, DateTime start, DateTime end)
         {
             var result = start.EnumerateDays(end);
@@ -39,23 +33,16 @@ namespace Miharu.Core.Tests.Extensions.DateTimes
         }
 
 
-
-        public static object[] EnumerateMonthsSource
+        public static IEnumerable<object[]> GetEnumerateMonthsSource()
         {
-            get
+            yield return new object[]
             {
-                return new object[]
-                {
-                    new object[]
-                    {
-                        new DateTime[] { new DateTime(2016, 3, 1), new DateTime(2016, 4, 1), new DateTime(2016, 5, 1) },
-                        new DateTime(2016, 3, 25, 12, 11, 10), new DateTime(2016, 5, 27, 11, 10, 10)
-                    }
-                };
-            }
+                new DateTime[] { new DateTime(2016, 3, 1), new DateTime(2016, 4, 1), new DateTime(2016, 5, 1) },
+                new DateTime(2016, 3, 25, 12, 11, 10), new DateTime(2016, 5, 27, 11, 10, 10)
+            };
         }
 
-        [Theory, MemberData("EnumerateMonthsSource")]
+        [Theory, MemberData("GetEnumerateMonthsSource")]
         public void EnumerateMonths(DateTime[] expected, DateTime start, DateTime end)
         {
             var result = start.EnumerateMonths(end);

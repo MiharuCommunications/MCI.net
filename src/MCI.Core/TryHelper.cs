@@ -140,5 +140,31 @@ namespace Miharu
             }
         }
 
+
+
+        public static Try ReturnObjectDisposedException(string message)
+        {
+            try
+            {
+                throw new ObjectDisposedException(message);
+            }
+            catch (Exception ex)
+            {
+                return Try.Fail(ex);
+            }
+        }
+
+        public static Try<T> ReturnObjectDisposedException<T>(string message)
+        {
+            try
+            {
+                throw new ObjectDisposedException(message);
+            }
+            catch (Exception ex)
+            {
+                return Try<T>.Fail(ex);
+            }
+        }
+
     }
 }

@@ -46,6 +46,7 @@
     <Compile Include="Async\Schedulers\PeriodicScheduledAction.cs" />
     <Compile Include="Async\Schedulers\PeriodicScheduler.cs" />
     <Compile Include="Async\ThreadSafeCounter.cs" />
+    <Compile Include="Callback.cs" />
     <Compile Include="Collections\DailyCollection.cs" />
     <Compile Include="Collections\DateHash.cs" />
     <Compile Include="Collections\NotifyCollectionMonitor.cs" />
