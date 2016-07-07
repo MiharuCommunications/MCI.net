@@ -9,6 +9,64 @@ namespace Miharu.Core.Tests.Monads
 {
     public class OptionTests
     {
+        [Fact]
+        public void SomeTests()
+        {
+            var opt = Option<int>.Return(0);
+
+            Assert.True(opt.IsDefined);
+            Assert.False(opt.IsEmpty);
+
+            Assert.Equal(0, opt.Get());
+
+            Assert.Equal(0, opt.GetOrElse(100));
+            Assert.Equal(0, opt.GetOrElse(() =>
+            {
+                throw new Exception();
+            }));
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                opt.ForEach(i =>
+                {
+                    throw new InvalidOperationException();
+                });
+            });
+        }
+
+        [Fact]
+        public void NoneTests()
+        {
+            var opt = Option<int>.Fail();
+
+            Assert.False(opt.IsDefined);
+            Assert.True(opt.IsEmpty);
+
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                opt.Get();
+            });
+
+            Assert.Equal(0, opt.GetOrElse(0));
+            Assert.Equal(0, opt.GetOrElse(() =>
+            {
+                return 0;
+            }));
+
+            opt.ForEach(i =>
+            {
+                Assert.True(false);
+            });
+        }
+
+
+
+
+
+
+
+
+
         private readonly Option<int> some = Option.Return(0);
         private readonly Option<int> none = Option.Fail<int>();
 
@@ -26,24 +84,7 @@ namespace Miharu.Core.Tests.Monads
             Assert.True(opt.IsEmpty);
         }
 
-        [Fact]
-        public void CreateTest()
-        {
-            Assert.True(this.some.IsDefined);
 
-            Assert.False(this.none.IsDefined);
-        }
-
-
-        [Fact]
-        public void IsTest()
-        {
-            Assert.True(this.some.IsDefined);
-            Assert.False(this.some.IsEmpty);
-
-            Assert.False(this.none.IsDefined);
-            Assert.True(this.none.IsEmpty);
-        }
 
 
         [Fact]

@@ -12,8 +12,17 @@ namespace Miharu.Core.Tests.Extensions.IEnumerableExtensionsTests
     {
         public static IEnumerable<object[]> GetFlatten2TestSource()
         {
-            yield return new object[] { new int[] { }, new int[][] { new int[] { }, new int[] { } } };
-            yield return new object[] { new int[] { 1, 2, 1, 2 }, new int[][] { new int[] { 1, 2 }, new int[] { 1, 2 } } };
+            yield return new object[]
+            {
+                new int[] { },
+                new int[][] { new int[] { }, new int[] { } }
+            };
+
+            yield return new object[]
+            {
+                new int[] { 1, 2, 1, 2 },
+                new int[][] { new int[] { 1, 2 }, new int[] { 1, 2 } }
+            };
         }
 
         [Theory, MemberData("GetFlatten2TestSource")]
