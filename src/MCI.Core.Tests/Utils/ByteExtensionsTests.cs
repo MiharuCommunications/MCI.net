@@ -12,53 +12,53 @@
 
     public class ByteExtensionsTests
     {
-        public static object[] ToByteArraySuccessSource = new object[]
+        public static IEnumerable<object[]> GetToByteArraySourceSuccessCases()
         {
-            new object[] { new byte[] { }, "" },
-            new object[] { new byte[] { 0x00 }, "00" },
-            new object[] { new byte[] { 0xFF }, "FF" },
-            new object[] { new byte[] { 0xFF, 0xFF }, "FFFF" },
-        };
+            yield return new object[] { new byte[] { }, "" };
+            yield return new object[] { new byte[] { 0x00 }, "00" };
+            yield return new object[] { new byte[] { 0xFF }, "FF" };
+            yield return new object[] { new byte[] { 0xFF, 0xFF }, "FFFF" };
+        }
 
-
-        [Theory, MemberData("ToByteArraySuccessSource")]
-        public void ToByteArraySuccess(byte[] expected, string source)
+        [Theory, MemberData("GetToByteArraySourceSuccessCases")]
+        public void ToByteArraySuccessCase(byte[] expected, string source)
         {
             var result = source.ToByteArray();
 
-            Assert.True(result.IsSuccess);
-            Assert.Equal(expected, result.Get());
+            Assert.Equal(expected, result);
         }
 
 
-        public static object[] ToByteArrayFailureSource = new object[]
+        [Fact]
+        public void ToByteArrayFailureCases()
         {
-            new object[] { new NullReferenceException(), null },
-            new object[] { new FormatException(), "F" },
-            new object[] { new FormatException(), "GG" },
-        };
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                ((string)null).ToByteArray();
+            });
 
+            Assert.Throws<FormatException>(() =>
+            {
+                "F".ToByteArray();
+            });
 
-        [Theory, MemberData("ToByteArrayFailureSource")]
-        public void ToByteArrayFailure(Exception expected, string source)
-        {
-            var result = source.ToByteArray();
-
-            Assert.True(result.IsFailure);
-            Assert.Equal(expected.GetType(), result.GetException().GetType());
+            Assert.Throws<FormatException>(() =>
+            {
+                "GG".ToByteArray();
+            });
         }
 
 
 
 
-        public static readonly object[] ToHexStringSource = new object[]
+        public static IEnumerable<object[]> GetToHexStringSourceSuccessCases()
         {
-            new object[] { "", new byte[] { } },
-            new object[] { "FF", new byte[] { 0xFF } },
-        };
+            yield return new object[] { "", new byte[] { } };
+            yield return new object[] { "FF", new byte[] { 0xFF } };
+        }
 
 
-        [Theory, MemberData("ToHexStringSource")]
+        [Theory, MemberData("GetToHexStringSourceSuccessCases")]
         public void ToHexString(string expected, byte[] source)
         {
             Assert.Equal(expected, source.ToHexString());

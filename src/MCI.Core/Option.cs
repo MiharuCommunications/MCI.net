@@ -60,6 +60,7 @@ namespace Miharu
         public abstract Option<T> Where(Func<T, bool> f);
         public abstract void ForEach(Action<T> f);
 
+        public abstract Try<T> ToTry();
         public abstract Try<T> ToTry(Exception ex);
 
         /// <summary>

@@ -49,7 +49,7 @@ namespace Miharu
         public abstract Try Collapse();
 
 
-
+        [Obsolete("スタックトレースが消失するため非推奨")]
         public static Try<A> Execute(Func<A> f)
         {
             try
@@ -62,6 +62,7 @@ namespace Miharu
             }
         }
 
+        [Obsolete("スタックトレースが消失するため非推奨")]
         public static Try<A> FlatExecute(Func<Try<A>> f)
         {
             try
@@ -108,6 +109,7 @@ namespace Miharu
         public abstract Try Throw<E>(Action<E> when) where E : Exception;
         public abstract Option<Exception> ToException();
 
+        [Obsolete("スタックトレースが消失するため非推奨")]
         public static Try Execute(Action f)
         {
             try
@@ -121,6 +123,7 @@ namespace Miharu
             }
         }
 
+        [Obsolete("スタックトレースが消失するため非推奨")]
         public static Try FlatExecute(Func<Try> f)
         {
             try
