@@ -22,11 +22,7 @@ namespace Miharu
             {
                 lock (dest)
                 {
-                    if (dest.IsCompleted)
-                    {
-                        return;
-                    }
-                    else
+                    if (!dest.IsCompleted)
                     {
                         reseult = Try<A>.Success(s.Result);
                         dest.RunSynchronously();
@@ -38,11 +34,7 @@ namespace Miharu
             {
                 lock (dest)
                 {
-                    if (dest.IsCompleted)
-                    {
-                        return;
-                    }
-                    else
+                    if (!dest.IsCompleted)
                     {
                         reseult = TryHelper.ReturnTimeoutException<A>("TryTaskFactory.FromTask");
                         dest.RunSynchronously();
@@ -64,11 +56,7 @@ namespace Miharu
             {
                 lock (task)
                 {
-                    if (task.IsCompleted)
-                    {
-                        return;
-                    }
-                    else
+                    if (!task.IsCompleted)
                     {
                         unbind(handler);
                         result = Try<TEventArgs>.Success(args);
@@ -83,11 +71,7 @@ namespace Miharu
             {
                 lock (task)
                 {
-                    if (task.IsCompleted)
-                    {
-                        return;
-                    }
-                    else
+                    if (!task.IsCompleted)
                     {
                         unbind(handler);
                         result = TryHelper.ReturnTimeoutException<TEventArgs>("TryTaskFactory.FromEvent");

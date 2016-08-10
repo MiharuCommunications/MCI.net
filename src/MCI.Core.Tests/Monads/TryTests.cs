@@ -97,10 +97,14 @@ namespace Miharu.Core.Tests.Monads
 
         public static Try<int> GetInt(string str)
         {
-            return Try<int>.Execute(() =>
+            try
             {
-                return int.Parse(str);
-            });
+                return Try<int>.Success(int.Parse(str));
+            }
+            catch (Exception ex)
+            {
+                return Try<int>.Fail(ex);
+            }
         }
     }
 }

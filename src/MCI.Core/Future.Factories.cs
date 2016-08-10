@@ -43,7 +43,16 @@ namespace Miharu
 
         public static Future<A> FromExecute<A>(Func<A> f)
         {
-            var result = Try<A>.Execute(f);
+            var result = Try<A>.Fail(new NotImplementedException());
+
+            try
+            {
+                result = Try<A>.Success(f());
+            }
+            catch (Exception ex)
+            {
+                result = Try<A>.Fail(ex);
+            }
 
             return new Future<A>(Task.FromResult(result));
         }
@@ -59,13 +68,11 @@ namespace Miharu
             {
                 lock (dest)
                 {
-                    if (dest.IsCompleted)
+                    if (!dest.IsCompleted)
                     {
-                        return;
+                        reseult = Try<A>.Success(s.Result);
+                        dest.RunSynchronously();
                     }
-
-                    reseult = Try<A>.Success(s.Result);
-                    dest.RunSynchronously();
                 }
 
             });
@@ -74,13 +81,11 @@ namespace Miharu
             {
                 lock (dest)
                 {
-                    if (dest.IsCompleted)
+                    if (!dest.IsCompleted)
                     {
-                        return;
+                        reseult = Try<A>.Fail(new TimeoutException());
+                        dest.RunSynchronously();
                     }
-
-                    reseult = Try<A>.Fail(new TimeoutException());
-                    dest.RunSynchronously();
                 }
 
             });
@@ -100,14 +105,12 @@ namespace Miharu
             {
                 lock (task)
                 {
-                    if (task.IsCompleted)
+                    if (!task.IsCompleted)
                     {
-                        return;
+                        unbind(handler);
+                        result = Try<TEventArgs>.Success(args);
+                        task.RunSynchronously();
                     }
-
-                    unbind(handler);
-                    result = Try<TEventArgs>.Success(args);
-                    task.RunSynchronously();
                 }
             });
 
@@ -117,14 +120,12 @@ namespace Miharu
             {
                 lock (task)
                 {
-                    if (task.IsCompleted)
+                    if (!task.IsCompleted)
                     {
-                        return;
+                        unbind(handler);
+                        result = Try<TEventArgs>.Fail(new TimeoutException());
+                        task.RunSynchronously();
                     }
-
-                    unbind(handler);
-                    result = Try<TEventArgs>.Fail(new TimeoutException());
-                    task.RunSynchronously();
                 }
             });
 

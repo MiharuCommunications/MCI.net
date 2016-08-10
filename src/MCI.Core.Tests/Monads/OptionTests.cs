@@ -159,7 +159,14 @@ namespace Miharu.Core.Tests.Monads
 
         public static Option<int> GetIntOpt(string str)
         {
-            return Try<int>.Execute(() => int.Parse(str)).ToOption();
+            try
+            {
+                return Option<int>.Return(int.Parse(str));
+            }
+            catch (Exception ex)
+            {
+                return Option<int>.Fail();
+            }
         }
 
         public static Option<int> AddIntOpt(int x, int y)
