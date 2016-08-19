@@ -16,11 +16,29 @@ namespace Miharu
         {
         }
 
+        /// <summary>
+        /// Get <c>true</c> if the <c>Try</c> is a <c>Success</c>, <c>false</c> otherwise.
+        /// </summary>
         public abstract bool IsSuccess { get; }
+
+        /// <summary>
+        /// Get <c>true</c> if the <c>Try</c> is a <c>Failure</c>, <c>false</c> otherwise.
+        /// </summary>
         public abstract bool IsFailure { get; }
 
+        /// <summary>
+        /// Returns the value from this <c>Success</c> or throws the exception if this is a <c>Failure</c>.
+        /// </summary>
+        /// <returns></returns>
         public abstract A Get();
+
+        /// <summary>
+        /// Returns this <c>Try</c> if it's a <c>Success</c> or the given <c>def</c> argument if this is a <c>Failure</c>.
+        /// </summary>
+        /// <param name="def"></param>
+        /// <returns></returns>
         public abstract A GetOrElse(A def);
+
         public abstract A GetOrElse(Func<A> f);
         public abstract Exception GetException();
 
