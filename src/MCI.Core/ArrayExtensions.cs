@@ -15,48 +15,6 @@ namespace Miharu
     /// </summary>
     public static class ArrayExtensions
     {
-        /// <summary>
-        /// 配列の単射
-        /// </summary>
-        /// <typeparam name="A"></typeparam>
-        /// <typeparam name="B"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="f"></param>
-        /// <returns></returns>
-        public static B[] Map<A, B>(this A[] collection, Func<A, B> f)
-        {
-            var array = new B[collection.Length];
-
-            for (var i = 0; i < collection.Length; i++)
-            {
-                array[i] = f(collection[i]);
-            }
-
-            return array;
-        }
-
-
-        public static B[] FlatMap<A, B>(this A[] collection, Func<A, B[]> f)
-        {
-            var result = new List<B>();
-
-            for (var i = 0; i < collection.Length; i++)
-            {
-                result.AddRange(f(collection[i]));
-            }
-
-            return result.ToArray();
-        }
-
-        public static void ForEach<A>(this A[] collection, Action<A> f)
-        {
-            for (var i = 0; i < collection.Length; i++)
-            {
-                f(collection[i]);
-            }
-        }
-
-
         public static B FoldLeft<A, B>(this A[] collection, B start, Func<B, A, B> f)
         {
             var temp = start;
