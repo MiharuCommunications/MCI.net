@@ -61,5 +61,15 @@ namespace Miharu
         {
             return new Left<L, R3>(this.Value);
         }
+
+        public override Option<R> ToOption()
+        {
+            return Option<R>.Fail();
+        }
+
+        public override void ForEach(Action<R> f)
+        {
+            return;
+        }
     }
 }

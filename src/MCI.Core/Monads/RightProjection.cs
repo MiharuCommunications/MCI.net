@@ -71,30 +71,6 @@ namespace Miharu.Monads
             }
         }
 
-        public Either<L, X> Map<X>(Func<R, X> f)
-        {
-            if (this.e.IsRight)
-            {
-                return new Right<L, X>(f(((Right<L, R>)this.e).Value));
-            }
-            else
-            {
-                return new Left<L, X>(((Left<L, R>)this.e).Value);
-            }
-        }
-
-        public Either<L, X> FlatMap<X>(Func<R, Either<L, X>> f)
-        {
-            if (this.e.IsRight)
-            {
-                return f(((Right<L, R>)this.e).Value);
-            }
-            else
-            {
-                return new Left<L, X>(((Left<L, R>)this.e).Value);
-            }
-        }
-
         public override Option<R> ToOption()
         {
             if (this.e.IsRight)
@@ -106,5 +82,45 @@ namespace Miharu.Monads
                 return new None<R>();
             }
         }
+
+
+        public Either<L, R2> Select<R2>(Func<R, R2> f)
+        {
+            if (this.e.IsRight)
+            {
+                return new Right<L, R2>(f(((Right<L, R>)this.e).Value));
+            }
+            else
+            {
+                return new Left<L, R2>(((Left<L, R>)this.e).Value);
+            }
+        }
+
+        public Either<L, R2> SelectMany<R2>(Func<R, Either<L, R2>> f)
+        {
+            if (this.e.IsRight)
+            {
+                return f(((Right<L, R>)this.e).Value);
+            }
+            else
+            {
+                return new Left<L, R2>(((Left<L, R>)this.e).Value);
+            }
+        }
+
+        public Either<L, R3> SelectMany<R2, R3>(Func<R, Either<L, R2>> f, Func<R, R2, R3> g)
+        {
+            if (this.e.IsRight)
+            {
+                var x = ((Right<L, R>)this.e).Value;
+
+                return f(x).Right.SelectMany(y => new Right<L, R3>(g(x, y)));
+            }
+            else
+            {
+                return new Left<L, R3>(((Left<L, R>)this.e).Value);
+            }
+        }
+
     }
 }
