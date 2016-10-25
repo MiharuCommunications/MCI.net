@@ -16,11 +16,29 @@ namespace Miharu
         {
         }
 
+        /// <summary>
+        /// Get <c>true</c> if the <c>Try</c> is a <c>Success</c>, <c>false</c> otherwise.
+        /// </summary>
         public abstract bool IsSuccess { get; }
+
+        /// <summary>
+        /// Get <c>true</c> if the <c>Try</c> is a <c>Failure</c>, <c>false</c> otherwise.
+        /// </summary>
         public abstract bool IsFailure { get; }
 
+        /// <summary>
+        /// Returns the value from this <c>Success</c> or throws the exception if this is a <c>Failure</c>.
+        /// </summary>
+        /// <returns></returns>
         public abstract A Get();
+
+        /// <summary>
+        /// Returns this <c>Try</c> if it's a <c>Success</c> or the given <c>def</c> argument if this is a <c>Failure</c>.
+        /// </summary>
+        /// <param name="def"></param>
+        /// <returns></returns>
         public abstract A GetOrElse(A def);
+
         public abstract A GetOrElse(Func<A> f);
         public abstract Exception GetException();
 
@@ -49,7 +67,7 @@ namespace Miharu
         public abstract Try Collapse();
 
 
-
+        [Obsolete("スタックトレースが消失するため非推奨")]
         public static Try<A> Execute(Func<A> f)
         {
             try
@@ -62,6 +80,7 @@ namespace Miharu
             }
         }
 
+        [Obsolete("スタックトレースが消失するため非推奨")]
         public static Try<A> FlatExecute(Func<Try<A>> f)
         {
             try
@@ -108,6 +127,7 @@ namespace Miharu
         public abstract Try Throw<E>(Action<E> when) where E : Exception;
         public abstract Option<Exception> ToException();
 
+        [Obsolete("スタックトレースが消失するため非推奨")]
         public static Try Execute(Action f)
         {
             try
@@ -121,6 +141,7 @@ namespace Miharu
             }
         }
 
+        [Obsolete("スタックトレースが消失するため非推奨")]
         public static Try FlatExecute(Func<Try> f)
         {
             try

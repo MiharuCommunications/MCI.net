@@ -13,23 +13,23 @@
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        public static Try<byte[]> ToByteArray(this string source)
+        public static byte[] ToByteArray(this string source)
         {
             if ((object)source == null)
             {
-                return Try<byte[]>.Fail(new NullReferenceException());
+                ThrowHelper.ThrowArgumentNullException("source");
             }
 
-            if (string.IsNullOrWhiteSpace(source))
+            if (source == string.Empty)
             {
-                return Try<byte[]>.Success(new byte[0]);
+                return new byte[0];
             }
 
             var len = source.Length;
 
             if (len % 2 != 0)
             {
-                return Try<byte[]>.Fail(new FormatException());
+                throw new FormatException();
             }
 
             var max = len / 2;
@@ -42,7 +42,7 @@
 
                 if (up.IsEmpty || dn.IsEmpty)
                 {
-                    return Try<byte[]>.Fail(new FormatException());
+                    throw new FormatException();
                 }
                 else
                 {
@@ -50,7 +50,7 @@
                 }
             }
 
-            return Try<byte[]>.Success(result);
+            return result;
         }
 
 
@@ -110,6 +110,11 @@
         /// <returns></returns>
         public static string ToHexString(this byte[] bytes)
         {
+            if ((object)bytes == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("bytes");
+            }
+
             var builder = new StringBuilder(bytes.Length * 2);
 
             foreach (var b in bytes)

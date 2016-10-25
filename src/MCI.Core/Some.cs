@@ -99,6 +99,12 @@ namespace Miharu
             f(this.value);
         }
 
+
+        public override Try<T> ToTry()
+        {
+            return Try<T>.Success(this.value);
+        }
+
         public override Try<T> ToTry(Exception ex)
         {
             return new Success<T>(this.value);

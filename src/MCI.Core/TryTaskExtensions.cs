@@ -13,7 +13,7 @@ namespace Miharu
 
     public static class TryTaskExtensions
     {
-        public static Task<Try<B>> Map<A, B>(this Task<Try<A>> source, Func<A, B> f)
+        public static Task<Try<B>> Select<A, B>(this Task<Try<A>> source, Func<A, B> f)
         {
             return source.ContinueWith(task =>
             {
@@ -22,7 +22,7 @@ namespace Miharu
         }
 
 
-        public static Task<Try<B>> FlatMap<A, B>(this Task<Try<A>> source, Func<A, Task<Try<B>>> f)
+        public static Task<Try<B>> SelectMany<A, B>(this Task<Try<A>> source, Func<A, Task<Try<B>>> f)
         {
             var result = Try<B>.Fail(new NotImplementedException());
             var resultTask = new Task<Try<B>>(() => result);
@@ -45,15 +45,6 @@ namespace Miharu
             });
 
             return resultTask;
-        }
-
-
-        public static Task<Try<B>> Select<A, B>(this Task<Try<A>> source, Func<A, B> f)
-        {
-            return source.ContinueWith(task =>
-            {
-                return task.Result.Select(f);
-            });
         }
 
 

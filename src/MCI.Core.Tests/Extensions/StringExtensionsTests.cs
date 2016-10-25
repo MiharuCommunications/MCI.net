@@ -9,23 +9,16 @@
 
     public class StringExtensionsTests
     {
-        public static object[] ConcatSourceSeparatedString
+        public static IEnumerable<object[]> GetConcatSeparatedWithStringSource()
         {
-            get
-            {
-                return new object[]
-                {
-                    new object[] { new string[] { }, "bb", "" },
-                    new object[] { new string[] { "" }, "bb", "" },
-                    new object[] { new string[] { "aa" }, "bb", "aa" },
-                    new object[] { new string[] { "aa", "aa", "aa" }, "bb", "aabbaabbaa" }
-                };
-            }
+            yield return new object[] { "", new string[] { }, "bb" };
+            yield return new object[] { "", new string[] { "" }, "bb" };
+            yield return new object[] { "aa", new string[] { "aa" }, "bb" };
+            yield return new object[] { "aabbaabbaa", new string[] { "aa", "aa", "aa" }, "bb" };
         }
 
-
-        [Theory, MemberData("ConcatSourceSeparatedString")]
-        public void ConcatTest(string[] strs, string separator, string expected)
+        [Theory, MemberData("GetConcatSeparatedWithStringSource")]
+        public void ConcatTest(string expected, string[] strs, string separator)
         {
             Assert.Equal(expected, strs.Concat(separator));
 
@@ -34,28 +27,26 @@
         }
 
 
-
-        public static object[] DivideSource =
+        public static IEnumerable<object[]> GetDivideSource()
         {
-            new object[]{ "123123123123", 3, new string[] { "123", "123", "123", "123" } },
-        };
-
-
-        [Theory, MemberData("DivideSource")]
-        public void DivideTest(string source, int count, string[] dest)
-        {
-            Assert.Equal(dest, source.Divide(count));
+            yield return new object[] { new string[] { "123", "123", "123", "123" }, "123123123123", 3 };
         }
 
 
-
-        public static object[] IntercalateSource =
+        [Theory, MemberData("GetDivideSource")]
+        public void DivideTest(string[] expected, string source, int length)
         {
-            new object[] { string.Empty, new string[] {  }, string.Empty },
-            new object[] { "a", new string[] { "a" }, string.Empty },
-        };
+            Assert.Equal(expected, source.Divide(length));
+        }
 
-        [Theory, MemberData("IntercalateSource")]
+
+        public static IEnumerable<object[]> GetIntercalateSource()
+        {
+            yield return new object[] { string.Empty, new string[] {  }, string.Empty };
+            yield return new object[] { "a", new string[] { "a" }, string.Empty };
+        }
+
+        [Theory, MemberData("GetIntercalateSource")]
         public void Intercalate(string expected, string[] source, string separator)
         {
             Assert.Equal(expected, source.Intercalate(separator));

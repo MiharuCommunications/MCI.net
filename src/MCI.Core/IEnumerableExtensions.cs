@@ -12,38 +12,6 @@ namespace Miharu
 
     public static class IEnumerableExtensions
     {
-        public static IEnumerable<B> Map<A, B>(this IEnumerable<A> collection, Func<A, B> f)
-        {
-            foreach (var item in collection)
-            {
-                yield return f(item);
-            }
-        }
-
-
-        public static IEnumerable<B> FlatMap<A, B>(this IEnumerable<A> collection, Func<A, IEnumerable<B>> f)
-        {
-            foreach (var item in collection)
-            {
-                foreach (var mitem in f(item))
-                {
-                    yield return mitem;
-                }
-            }
-        }
-
-
-
-
-        public static void ForEach<A>(this IEnumerable<A> collection, Action<A> f)
-        {
-            foreach (var item in collection)
-            {
-                f(item);
-            }
-        }
-
-
         public static int IndexOf<A>(this IEnumerable<A> collection, Func<A, bool> f)
         {
             var i = -1;
@@ -197,27 +165,6 @@ namespace Miharu
 
 
         /// <summary>
-        /// 先頭 n 個分の要素を削除したコレクションを返します。
-        /// </summary>
-        /// <typeparam name="A"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public static IEnumerable<A> Drop<A>(this IEnumerable<A> collection, int n)
-        {
-            var i = -1;
-            foreach (var item in collection)
-            {
-                checked { i++; }
-
-                if (n <= i)
-                {
-                    yield return item;
-                }
-            }
-        }
-
-        /// <summary>
         /// 末尾 n 個分の要素を削除したコレクションを返します。
         /// </summary>
         /// <typeparam name="A"></typeparam>
@@ -248,33 +195,6 @@ namespace Miharu
             }
         }
 
-        /// <summary>
-        /// 先頭から順に、条件を満たしている要素を削除したコレクションを返します。
-        /// </summary>
-        /// <typeparam name="A"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        public static IEnumerable<A> DropWhile<A>(this IEnumerable<A> collection, Func<A, bool> p)
-        {
-            var reached = false;
-
-            foreach (var item in collection)
-            {
-                if (reached)
-                {
-                    yield return item;
-                }
-                else
-                {
-                    if (!p(item))
-                    {
-                        reached = true;
-                        yield return item;
-                    }
-                }
-            }
-        }
 
 
 
@@ -308,6 +228,11 @@ namespace Miharu
 
         public static decimal? Marge(this IEnumerable<decimal> collection)
         {
+            if ((object)collection == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("collection");
+            }
+
             if (collection.Count() < 1)
             {
                 return null;
@@ -327,6 +252,11 @@ namespace Miharu
 
         public static decimal? Marge<T>(this IEnumerable<T> collection, Func<T, decimal> f)
         {
+            if ((object)collection == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("collection");
+            }
+
             if (collection.Count() < 1)
             {
                 return null;
@@ -346,6 +276,11 @@ namespace Miharu
 
         public static int? Marge(this IEnumerable<int> collection)
         {
+            if ((object)collection == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("collection");
+            }
+
             if (collection.Count() < 1)
             {
                 return null;
@@ -365,6 +300,11 @@ namespace Miharu
 
         public static int? Marge<T>(this IEnumerable<T> collection, Func<T, int> f)
         {
+            if ((object)collection == null)
+            {
+                ThrowHelper.ThrowArgumentNullException("collection");
+            }
+
             if (collection.Count() < 1)
             {
                 return null;
@@ -378,78 +318,6 @@ namespace Miharu
             else
             {
                 return null;
-            }
-        }
-
-
-
-
-
-
-
-
-
-        public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<T>> collection)
-        {
-            foreach (var i in collection)
-            {
-                foreach (var j in i)
-                {
-                    yield return j;
-                }
-            }
-        }
-
-
-        public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<IEnumerable<T>>> collection)
-        {
-            foreach (var i in collection)
-            {
-                foreach (var j in i)
-                {
-                    foreach (var k in j)
-                    {
-                        yield return k;
-                    }
-                }
-            }
-        }
-
-
-        public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<IEnumerable<IEnumerable<T>>>> collection)
-        {
-            foreach (var i in collection)
-            {
-                foreach (var j in i)
-                {
-                    foreach (var k in j)
-                    {
-                        foreach (var l in k)
-                        {
-                            yield return l;
-                        }
-                    }
-                }
-            }
-        }
-
-        public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<IEnumerable<IEnumerable<IEnumerable<T>>>>> collection)
-        {
-            foreach (var i in collection)
-            {
-                foreach (var j in i)
-                {
-                    foreach (var k in j)
-                    {
-                        foreach (var l in k)
-                        {
-                            foreach (var m in l)
-                            {
-                                yield return m;
-                            }
-                        }
-                    }
-                }
             }
         }
 

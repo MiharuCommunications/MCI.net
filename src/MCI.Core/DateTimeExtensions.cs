@@ -66,7 +66,7 @@ namespace Miharu
             if (len == 0)
             {
                 // !!!
-                throw new ArgumentOutOfRangeException("DateTimeExtensions.Average");
+                throw new ArgumentOutOfRangeException("collection");
             }
 
             if (len == 1)

@@ -71,19 +71,19 @@
     <Compile Include="Extensions\ArrayExtensionsTests.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="Extensions\DateTimes\EnumerateTests.cs" />
-    <Compile Include="Extensions\IEnumerableExtensionsTests\IEnumerableExtensionsFlattenTests.cs" />
-    <Compile Include="Extensions\IEnumerableExtensionsTests\IEnumerableExtensionsMappingTests.cs" />
+    <Compile Include="Extensions\DateTimes\NextEachTests.cs" />
+    <Compile Include="Extensions\DayOfWeekExtensionsTests.cs" />
     <Compile Include="Extensions\IEnumerableExtensionsTests\IEnumerableExtensionsTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="Helpers\DateTimeHelperTests.cs" />
     <Compile Include="Maths\SequencesTests.cs" />
+    <Compile Include="Monads\EitherProjectionTests.cs" />
     <Compile Include="Monads\EitherTests.cs" />
     <Compile Include="Monads\FutureTests.cs" />
-    <Compile Include="Monads\IOptionTests.cs" />
     <Compile Include="Monads\OptionTests.cs" />
-    <Compile Include="Monads\SomeTests.cs" />
     <Compile Include="Monads\TryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\ByteExtensionsTests.cs" />
     <Compile Include="Utils\RingBufferTests.cs" />
   </ItemGroup>
   <ItemGroup>

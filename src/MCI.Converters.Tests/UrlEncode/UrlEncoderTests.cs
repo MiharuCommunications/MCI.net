@@ -34,9 +34,10 @@ namespace Miharu.Converters.Tests.UrlEncode
             Assert.Equal(source, UrlEncoder.Decode(encoded, code));
         }
 
-
+        /*
         [Theory,
         InlineData("this is a pen.")]
+        */
         public void Compare(string source)
         {
             var codes = new Encoding[]

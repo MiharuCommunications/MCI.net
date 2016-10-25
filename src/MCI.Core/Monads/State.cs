@@ -21,7 +21,7 @@ namespace Miharu.Monads
 
 
 
-        public State<S, B> FlatMap<B>(Func<A, State<S, B>> f)
+        public State<S, B> SelectMany<B>(Func<A, State<S, B>> f)
         {
             return new State<S, B>(s =>
             {
@@ -31,7 +31,7 @@ namespace Miharu.Monads
             });
         }
 
-        public State<S, B> Map<B>(Func<A, B> f)
+        public State<S, B> Select<B>(Func<A, B> f)
         {
             return new State<S, B>(s =>
             {

@@ -9,68 +9,106 @@ namespace Miharu.Core.Tests.Monads
 {
     public class OptionTests
     {
-        private readonly Option<int> some = Option.Return(0);
-        private readonly Option<int> none = Option.Fail<int>();
-
-        private readonly Func<int, int> sq = i => i * i;
-
-        public void IsSome<T>(Option<T> opt, T value)
+        [Fact]
+        public void SomeTests()
         {
+            var opt = Option<int>.Return(0);
+
+            // Propertiese
             Assert.True(opt.IsDefined);
+            Assert.False(opt.IsEmpty);
 
-            Assert.Equal(opt.Get(), value);
+            // Get
+            Assert.Equal(0, opt.Get());
+
+            Assert.Equal(0, opt.GetOrElse(100));
+            Assert.Equal(0, opt.GetOrElse(() =>
+            {
+                throw new Exception();
+            }));
+
+            // ForEach
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                opt.ForEach(i =>
+                {
+                    throw new InvalidOperationException();
+                });
+            });
+
+            // Select
+            Assert.Equal(1, opt.Select(i => i + 1).Get());
+            Assert.Equal(1, opt.SelectMany(i => Option.Return(i + 1)).Get());
+
+            // Recover
+            Assert.True(opt.Recover(() =>
+            {
+                throw new InvalidOperationException();
+            }).IsDefined);
+
+            // Where
+            Assert.Equal(0, opt.Where(i => true).Get());
+            Assert.True(opt.Where(i => false).IsEmpty);
+
+            // ToTry
+            Assert.Equal(0, opt.ToTry().Get());
+            Assert.Equal(0, opt.ToTry(new InvalidOperationException()).Get());
         }
 
-        public void IsNone<T>(Option<T> opt)
+        [Fact]
+        public void NoneTests()
         {
+            var opt = Option<int>.Fail();
+
+            // Propertiese
+            Assert.False(opt.IsDefined);
             Assert.True(opt.IsEmpty);
+
+            // Get
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                opt.Get();
+            });
+
+            Assert.Equal(0, opt.GetOrElse(0));
+            Assert.Equal(0, opt.GetOrElse(() =>
+            {
+                return 0;
+            }));
+
+            // ForEach
+            opt.ForEach(i =>
+            {
+                Assert.True(false);
+            });
+
+            // Select
+            Assert.True(opt.Select(i => i + 1).IsEmpty);
+            Assert.True(opt.SelectMany(i => Option.Return(i + 1)).IsEmpty);
+
+            // Recover
+            Assert.Equal(1, opt.Recover(() => 1).Get());
+
+            // Where
+            Assert.True(opt.Where(i => true).IsEmpty);
+            Assert.True(opt.Where(i => false).IsEmpty);
+
+            // ToTry
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                opt.ToTry().Get();
+            });
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                opt.ToTry(new InvalidOperationException()).Get();
+            });
         }
 
-        [Fact]
-        public void CreateTest()
-        {
-            Assert.True(this.some.IsDefined);
-
-            Assert.False(this.none.IsDefined);
-        }
 
 
-        [Fact]
-        public void IsTest()
-        {
-            Assert.True(this.some.IsDefined);
-            Assert.False(this.some.IsEmpty);
-
-            Assert.False(this.none.IsDefined);
-            Assert.True(this.none.IsEmpty);
-        }
 
 
-        [Fact]
-        public void SelectTest()
-        {
-            var some2 = this.some.Select(this.sq);
-            var none2 = this.none.Select(this.sq);
 
-            this.IsSome(some2, this.sq(this.some.Get()));
-
-            this.IsNone(none2);
-        }
-
-
-        [Fact]
-        public void SelectManyTest()
-        {
-            var some2 = this.some.SelectMany(i => Option.Return(this.sq(i)));
-            var none2 = this.some.SelectMany(i => Option.Fail<int>());
-
-            var none3 = this.none.SelectMany(i => Option.Return(0));
-
-            this.IsSome<int>(some2, this.sq(this.some.Get()));
-
-            this.IsNone(none2);
-            this.IsNone(none3);
-        }
 
 
 
@@ -121,7 +159,14 @@ namespace Miharu.Core.Tests.Monads
 
         public static Option<int> GetIntOpt(string str)
         {
-            return Try<int>.Execute(() => int.Parse(str)).ToOption();
+            try
+            {
+                return Option<int>.Return(int.Parse(str));
+            }
+            catch (Exception ex)
+            {
+                return Option<int>.Fail();
+            }
         }
 
         public static Option<int> AddIntOpt(int x, int y)

@@ -9,29 +9,81 @@ namespace Miharu.Core.Tests.Monads
 {
     public class EitherTests
     {
+        private Either<string, int> left = new Left<string, int>("");
+
+        private Either<string, int> right = new Right<string, int>(0);
+
         [Fact]
-        public void IsTest()
+        public void IsTests()
         {
-            Either<string, int> r = new Right<string, int>(10);
+            Assert.True(this.left.IsLeft);
+            Assert.False(this.left.IsRight);
 
-            Assert.True(r.IsRight);
-            Assert.False(r.IsLeft);
-
-            Either<string, int> l = new Left<string, int>("a");
-
-            Assert.True(l.IsLeft);
-            Assert.False(l.IsRight);
+            Assert.False(this.right.IsLeft);
+            Assert.True(this.right.IsRight);
         }
+
+
+        [Fact]
+        public void MonadTests()
+        {
+
+
+
+        }
+
+
+        [Fact]
+        public void RightTests()
+        {
+            Either<string, int> e = new Right<string, int>(0);
+
+            Assert.True(e.IsRight);
+            Assert.False(e.IsLeft);
+
+
+            var s = e.Swap();
+
+            Assert.False(s.IsRight);
+            Assert.True(s.IsLeft);
+        }
+
+
+        [Fact]
+        public void LeftTests()
+        {
+            Either<string, int> e = new Left<string, int>("0");
+
+            Assert.False(e.IsRight);
+            Assert.True(e.IsLeft);
+
+
+
+            var s = e.Swap();
+
+            Assert.True(s.IsRight);
+            Assert.False(s.IsLeft);
+        }
+
+
+
+
+
+
+
+
 
         [Fact]
         public void LINQTest()
         {
+            /*
             var result = from e1 in GetInt("1").Right
                          from e2 in GetInt("2").Right
                          select e1 + e2;
 
             Assert.True(result.IsDefined);
             Assert.True(result.Get() == 3);
+            */
         }
 
 

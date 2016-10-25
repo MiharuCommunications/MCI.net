@@ -13,62 +13,6 @@ namespace Miharu
 
     public static class FutureExtensions
     {
-        public static Future<B> Select<A, B>(this Future<A> source, Func<A, B> f)
-        {
-            return new Future<B>(source.FutureTask.ContinueWith(t =>
-            {
-                return t.Result.Select(f);
-            }));
-        }
-
-        public static Future<C> SelectMany<A, B, C>(this Future<A> source, Func<A, Future<B>> f, Func<A, B, C> g)
-        {
-            var result = Try<C>.Fail(new NotImplementedException());
-            var resultTask = new Task<Try<C>>(() => result);
-
-            source.FutureTask.ContinueWith(t =>
-            {
-                if (t.Result.IsSuccess)
-                {
-                    var x = t.Result.Get();
-                    f(x).FutureTask.ContinueWith(t2 =>
-                    {
-                        if (t2.Result.IsSuccess)
-                        {
-                            result = Try<C>.Success(g(x, t2.Result.Get()));
-                        }
-                        else
-                        {
-                            result = Try<C>.Fail(t2.Result.GetException());
-                        }
-
-                        resultTask.RunSynchronously();
-                    });
-                }
-                else
-                {
-                    result = Try<C>.Fail(t.Result.GetException());
-                    resultTask.RunSynchronously();
-                }
-            });
-
-            return new Future<C>(resultTask);
-        }
-
-        public static Future<A> Where<A>(this Future<A> source, Func<A, bool> f)
-        {
-            var result = Try<A>.Fail(new NotImplementedException());
-            var task = new Task<Try<A>>(() => result);
-
-            source.FutureTask.ContinueWith(t =>
-            {
-                result = t.Result.Where(f);
-                task.RunSynchronously();
-            });
-
-            return new Future<A>(task);
-        }
-
         public static FutureAwaiter<A> GetAwaiter<A>(this Future<A> future)
         {
             return new FutureAwaiter<A>(future);

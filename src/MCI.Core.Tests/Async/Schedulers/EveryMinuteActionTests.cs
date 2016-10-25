@@ -10,7 +10,7 @@ namespace Miharu.Core.Tests.Async.Schedulers
 {
     public class EveryMinuteActionTests
     {
-        [Fact]
+        // [Fact]
         public async Task Run()
         {
             var list = new List<DateTime>();

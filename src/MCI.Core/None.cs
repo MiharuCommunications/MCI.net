@@ -84,6 +84,18 @@ namespace Miharu
             return;
         }
 
+        public override Try<T> ToTry()
+        {
+            try
+            {
+                throw new NullReferenceException();
+            }
+            catch (Exception ex)
+            {
+                return Try<T>.Fail(ex);
+            }
+        }
+
         public override Try<T> ToTry(Exception ex)
         {
             return new Failure<T>(ex);
