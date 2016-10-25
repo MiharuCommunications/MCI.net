@@ -25,9 +25,9 @@ namespace Miharu.Core.Tests.Monads
 
 
         [Fact]
-        public void MapTest()
+        public void SelectTest()
         {
-            var result = GetFutureInt("1").Map(Square);
+            var result = GetFutureInt("1").Select(Square);
 
             Assert.Equal(1, result.AsTask().Result.Get());
 
@@ -35,9 +35,9 @@ namespace Miharu.Core.Tests.Monads
 
 
         [Fact]
-        public void FlatMapTest()
+        public void SelectManyTest()
         {
-            var result = GetFutureInt("1").FlatMap(i => GetFutureInt("2"));
+            var result = GetFutureInt("1").SelectMany(i => GetFutureInt("2"));
 
             Assert.Equal(2, result.Get());
         }

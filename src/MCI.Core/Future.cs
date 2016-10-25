@@ -19,7 +19,7 @@ namespace Miharu
         }
 
 
-        public Future<B> Map<B>(Func<A, B> f)
+        public Future<B> Select<B>(Func<A, B> f)
         {
             return new Future<B>(this.FutureTask.ContinueWith(t =>
             {
@@ -28,7 +28,7 @@ namespace Miharu
         }
 
 
-        public Future<B> FlatMap<B>(Func<A, Future<B>> f)
+        public Future<B> SelectMany<B>(Func<A, Future<B>> f)
         {
             // 自身の task で ContinueWith
             // その後 出来た task でも ContinueWith
@@ -57,6 +57,56 @@ namespace Miharu
 
             return new Future<B>(resultTask);
         }
+
+        public Future<C> SelectMany<B, C>(Func<A, Future<B>> f, Func<A, B, C> g)
+        {
+            var result = Try<C>.Fail(new NotImplementedException());
+            var resultTask = new Task<Try<C>>(() => result);
+
+            this.FutureTask.ContinueWith(t =>
+            {
+                if (t.Result.IsSuccess)
+                {
+                    var x = t.Result.Get();
+                    f(x).FutureTask.ContinueWith(t2 =>
+                    {
+                        if (t2.Result.IsSuccess)
+                        {
+                            result = Try<C>.Success(g(x, t2.Result.Get()));
+                        }
+                        else
+                        {
+                            result = Try<C>.Fail(t2.Result.GetException());
+                        }
+
+                        resultTask.RunSynchronously();
+                    });
+                }
+                else
+                {
+                    result = Try<C>.Fail(t.Result.GetException());
+                    resultTask.RunSynchronously();
+                }
+            });
+
+            return new Future<C>(resultTask);
+        }
+
+        public Future<A> Where(Func<A, bool> f)
+        {
+            var result = Try<A>.Fail(new NotImplementedException());
+            var task = new Task<Try<A>>(() => result);
+
+            this.FutureTask.ContinueWith(t =>
+            {
+                result = t.Result.Where(f);
+                task.RunSynchronously();
+            });
+
+            return new Future<A>(task);
+        }
+
+
 
         public Task<Try<A>> AsTask()
         {
@@ -94,7 +144,7 @@ namespace Miharu
         }
 
 
-        public Future Map(Action f)
+        public Future Select(Action f)
         {
             return new Future(this.FutureTask.ContinueWith(task =>
             {
@@ -103,7 +153,7 @@ namespace Miharu
         }
 
 
-        public Future FlatMap(Func<Future> f)
+        public Future SelectMany(Func<Future> f)
         {
             var result = Try.Fail(new NotImplementedException());
             var resultTask = new Task<Try>(() => result);
