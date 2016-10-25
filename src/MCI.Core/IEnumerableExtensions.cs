@@ -12,38 +12,6 @@ namespace Miharu
 
     public static class IEnumerableExtensions
     {
-        public static IEnumerable<B> Map<A, B>(this IEnumerable<A> collection, Func<A, B> f)
-        {
-            foreach (var item in collection)
-            {
-                yield return f(item);
-            }
-        }
-
-
-        public static IEnumerable<B> FlatMap<A, B>(this IEnumerable<A> collection, Func<A, IEnumerable<B>> f)
-        {
-            foreach (var item in collection)
-            {
-                foreach (var mitem in f(item))
-                {
-                    yield return mitem;
-                }
-            }
-        }
-
-
-
-
-        public static void ForEach<A>(this IEnumerable<A> collection, Action<A> f)
-        {
-            foreach (var item in collection)
-            {
-                f(item);
-            }
-        }
-
-
         public static int IndexOf<A>(this IEnumerable<A> collection, Func<A, bool> f)
         {
             var i = -1;
@@ -197,27 +165,6 @@ namespace Miharu
 
 
         /// <summary>
-        /// 先頭 n 個分の要素を削除したコレクションを返します。
-        /// </summary>
-        /// <typeparam name="A"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public static IEnumerable<A> Drop<A>(this IEnumerable<A> collection, int n)
-        {
-            var i = -1;
-            foreach (var item in collection)
-            {
-                checked { i++; }
-
-                if (n <= i)
-                {
-                    yield return item;
-                }
-            }
-        }
-
-        /// <summary>
         /// 末尾 n 個分の要素を削除したコレクションを返します。
         /// </summary>
         /// <typeparam name="A"></typeparam>
@@ -248,33 +195,6 @@ namespace Miharu
             }
         }
 
-        /// <summary>
-        /// 先頭から順に、条件を満たしている要素を削除したコレクションを返します。
-        /// </summary>
-        /// <typeparam name="A"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        public static IEnumerable<A> DropWhile<A>(this IEnumerable<A> collection, Func<A, bool> p)
-        {
-            var reached = false;
-
-            foreach (var item in collection)
-            {
-                if (reached)
-                {
-                    yield return item;
-                }
-                else
-                {
-                    if (!p(item))
-                    {
-                        reached = true;
-                        yield return item;
-                    }
-                }
-            }
-        }
 
 
 
@@ -398,98 +318,6 @@ namespace Miharu
             else
             {
                 return null;
-            }
-        }
-
-
-
-
-
-
-
-
-
-        public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<T>> collection)
-        {
-            if ((object)collection == null)
-            {
-                ThrowHelper.ThrowArgumentNullException("collection");
-            }
-
-            foreach (var i in collection)
-            {
-                foreach (var j in i)
-                {
-                    yield return j;
-                }
-            }
-        }
-
-
-        public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<IEnumerable<T>>> collection)
-        {
-            if ((object)collection == null)
-            {
-                ThrowHelper.ThrowArgumentNullException("collection");
-            }
-
-            foreach (var i in collection)
-            {
-                foreach (var j in i)
-                {
-                    foreach (var k in j)
-                    {
-                        yield return k;
-                    }
-                }
-            }
-        }
-
-
-        public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<IEnumerable<IEnumerable<T>>>> collection)
-        {
-            if ((object)collection == null)
-            {
-                ThrowHelper.ThrowArgumentNullException("collection");
-            }
-
-            foreach (var i in collection)
-            {
-                foreach (var j in i)
-                {
-                    foreach (var k in j)
-                    {
-                        foreach (var l in k)
-                        {
-                            yield return l;
-                        }
-                    }
-                }
-            }
-        }
-
-        public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<IEnumerable<IEnumerable<IEnumerable<T>>>>> collection)
-        {
-            if ((object)collection == null)
-            {
-                ThrowHelper.ThrowArgumentNullException("collection");
-            }
-
-            foreach (var i in collection)
-            {
-                foreach (var j in i)
-                {
-                    foreach (var k in j)
-                    {
-                        foreach (var l in k)
-                        {
-                            foreach (var m in l)
-                            {
-                                yield return m;
-                            }
-                        }
-                    }
-                }
             }
         }
 

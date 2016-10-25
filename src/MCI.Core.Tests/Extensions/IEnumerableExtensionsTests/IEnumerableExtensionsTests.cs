@@ -68,7 +68,7 @@ namespace Miharu.Core.Tests.Extensions.IEnumerableExtensionsTests
         [Theory, MemberData("TailsTestSource")]
         public void TailsTest(int[][] expected, int[] source)
         {
-            Assert.Equal(expected, source.Tails().Map(c => c.ToArray()).ToArray());
+            Assert.Equal(expected, source.Tails().Select(c => c.ToArray()).ToArray());
         }
 
 
@@ -98,11 +98,9 @@ namespace Miharu.Core.Tests.Extensions.IEnumerableExtensionsTests
         }
 
 
-        [Fact]
-        public void DropWhileTest()
-        {
-            Assert.Equal(new int[] { 4, 5, 6 }, new int[] { 1, 2, 3, 4, 5, 6 }.DropWhile(n => n < 4));
-        }
+
+
+
 
 
         [Fact]

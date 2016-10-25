@@ -33,9 +33,7 @@
         {
             get
             {
-                var intkeys = this.dictionary.Keys;
-
-                return intkeys.Map(DateHash.ToDateTime).ToList();
+                return this.dictionary.Keys.Select(DateHash.ToDateTime).ToList();
             }
         }
 
