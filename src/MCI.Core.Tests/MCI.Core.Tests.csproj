@@ -73,8 +73,6 @@
     <Compile Include="Extensions\DateTimes\EnumerateTests.cs" />
     <Compile Include="Extensions\DateTimes\NextEachTests.cs" />
     <Compile Include="Extensions\DayOfWeekExtensionsTests.cs" />
-    <Compile Include="Extensions\IEnumerableExtensionsTests\IEnumerableExtensionsFlattenTests.cs" />
-    <Compile Include="Extensions\IEnumerableExtensionsTests\IEnumerableExtensionsMappingTests.cs" />
     <Compile Include="Extensions\IEnumerableExtensionsTests\IEnumerableExtensionsTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="Helpers\DateTimeHelperTests.cs" />
