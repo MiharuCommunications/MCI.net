@@ -63,5 +63,15 @@ namespace Miharu
 
             return f(x).SelectMany(y => new Right<L, R3>(g(x, y)));
         }
+
+        public override Option<R> ToOption()
+        {
+            return Option<R>.Return(this.Value);
+        }
+
+        public override void ForEach(Action<R> f)
+        {
+            f(this.Value);
+        }
     }
 }

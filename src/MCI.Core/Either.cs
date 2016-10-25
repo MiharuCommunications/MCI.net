@@ -38,5 +38,8 @@ namespace Miharu
         public abstract Either<L, R2> SelectMany<R2>(Func<R, Either<L, R2>> f);
         public abstract Either<L, R3> SelectMany<R2, R3>(Func<R, Either<L, R2>> f, Func<R, R2, R3> g);
 
+        public abstract Option<R> ToOption();
+
+        public abstract void ForEach(Action<R> f);
     }
 }
