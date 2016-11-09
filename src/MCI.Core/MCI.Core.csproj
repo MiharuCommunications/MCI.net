@@ -60,6 +60,8 @@
     <Compile Include="DisposableCollection.cs" />
     <Compile Include="Either.cs" />
     <Compile Include="EitherExtensions.cs" />
+    <Compile Include="Errors\IError.cs" />
+    <Compile Include="Errors\FileIOError.cs" />
     <Compile Include="Failure.cs" />
     <Compile Include="Future.cs" />
     <Compile Include="Future.Factories.cs" />

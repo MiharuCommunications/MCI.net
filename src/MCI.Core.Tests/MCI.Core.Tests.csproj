@@ -68,6 +68,7 @@
     <Compile Include="Async\Schedulers\EveryMinuteActionTests.cs" />
     <Compile Include="Collections\DateHashTests.cs" />
     <Compile Include="Collections\NotifyCollectionMonitorTests.cs" />
+    <Compile Include="Errors\UseCase.cs" />
     <Compile Include="Extensions\ArrayExtensionsTests.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="Extensions\DateTimes\EnumerateTests.cs" />
