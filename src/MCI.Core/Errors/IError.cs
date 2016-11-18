@@ -8,7 +8,6 @@
 
     public interface IError
     {
-        string ErrorMessage { get; }
     }
 
 
@@ -23,8 +22,27 @@
         TimeSpan Timeout { get; }
     }
 
-    public interface IFileIOError : IError
+    public interface IUnkownError : IError
     {
-        string Target { get; }
+        Exception InnerException { get; }
+    }
+
+    public class UnkownError : IUnkownError
+    {
+        public Exception InnerException { get; private set; }
+
+        public string ErrorMessage { get; private set; }
+
+        public UnkownError(Exception exception)
+        {
+            this.InnerException = exception;
+            this.ErrorMessage = "原因不明のエラーです。";
+        }
+
+        public UnkownError(Exception exception, string message)
+        {
+            this.InnerException = exception;
+            this.ErrorMessage = message;
+        }
     }
 }
