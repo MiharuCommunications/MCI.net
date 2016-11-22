@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
 
-
+    [Obsolete("未実装")]
     public class DelegateCommand<T> : ICommand
     {
         private Action<T> execute;
@@ -98,6 +98,7 @@
 
 
 
+    [Obsolete("未実装")]
     public class DelegateCommand : ICommand
     {
         private Action<object> execute;
