@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Windows.Markup;
 
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
@@ -8,13 +9,13 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("MCI.Wpf")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Miharu Communications Inc.")]
 [assembly: AssemblyProduct("MCI.Wpf")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright (C) Miharu Communications Inc. 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// ComVisible を false に設定すると、その型はこのアセンブリ内で COM コンポーネントから 
+// ComVisible を false に設定すると、その型はこのアセンブリ内で COM コンポーネントから
 // 参照不可能になります。COM からこのアセンブリ内の型にアクセスする場合は、
 // その型の ComVisible 属性を true に設定してください。
 [assembly: ComVisible(false)]
@@ -25,12 +26,17 @@ using System.Runtime.InteropServices;
 // アセンブリのバージョン情報は、以下の 4 つの値で構成されています:
 //
 //      Major Version
-//      Minor Version 
+//      Minor Version
 //      Build Number
 //      Revision
 //
-// すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を 
+// すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.9.6.0")]
+[assembly: AssemblyInformationalVersion("0.9.6.0")]
+[assembly: AssemblyFileVersion("0.9.6.0")]
+
+
+// WPF 用の名前空間の登録
+[assembly: XmlnsDefinition("http://schemas.miharu.co.jp/cslibs/2017/wpf", "Miharu.Wpf.Behaviors")]

@@ -12,9 +12,7 @@
         string Target { get; }
     }
 
-    public interface INotEnoughDiskSpaceError : IFileIOError
-    {
-    }
+    public interface INotEnoughDiskSpaceError : IFileIOError { }
 
     public class NotEnoughDiskSpaceError : INotEnoughDiskSpaceError
     {
@@ -25,16 +23,10 @@
 
 
         public string Target { get; private set; }
-
-        public string ErrorMessage
-        {
-            get { throw new NotImplementedException(); }
-        }
     }
 
-    public interface IFileNotFoundError : IFileIOError
-    {
-    }
+    public interface IFileNotFoundError : IFileIOError { }
+
 
     public class FileNotFoundError : IFileNotFoundError
     {
@@ -43,18 +35,11 @@
             this.Target = target;
         }
 
-        public string ErrorMessage
-        {
-            get { throw new NotImplementedException(); }
-        }
-
         public string Target { get; private set; }
     }
 
 
-    public interface IDirectoryNotFoundError : IFileIOError
-    {
-    }
+    public interface IDirectoryNotFoundError : IFileIOError { }
 
     public class DirectoryNotFoundError : IDirectoryNotFoundError
     {
@@ -63,18 +48,12 @@
             this.Target = target;
         }
 
-        public string ErrorMessage
-        {
-            get { throw new NotImplementedException(); }
-        }
-
         public string Target { get; private set; }
     }
 
 
-    public interface IFileIsEmptyError : IFileIOError
-    {
-    }
+    public interface IFileIsEmptyError : IFileIOError { }
+
 
     public class FileIsEmptyError : IFileIsEmptyError
     {
@@ -84,11 +63,6 @@
         }
 
         public string Target { get; private set; }
-
-        public string ErrorMessage
-        {
-            get { throw new NotImplementedException(); }
-        }
     }
 
     public interface IFileIsBrokenError : IFileIOError
@@ -103,10 +77,5 @@
         }
 
         public string Target { get; private set; }
-
-        public string ErrorMessage
-        {
-            get { throw new NotImplementedException(); }
-        }
     }
 }
