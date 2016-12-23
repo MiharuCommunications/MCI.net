@@ -6,9 +6,6 @@
 namespace Miharu
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Miharu.Monads;
 
     public abstract class Either<L, R>
@@ -38,8 +35,20 @@ namespace Miharu
         public abstract Either<L, R2> SelectMany<R2>(Func<R, Either<L, R2>> f);
         public abstract Either<L, R3> SelectMany<R2, R3>(Func<R, Either<L, R2>> f, Func<R, R2, R3> g);
 
+        public abstract R Get();
+
         public abstract Option<R> ToOption();
 
         public abstract void ForEach(Action<R> f);
+
+        public abstract bool Exists(Func<R, bool> p);
+
+        public abstract R GetOrElse(R value);
+        public abstract R GetOrElse(Func<R> f);
+
+        public abstract Either<L, R> OrElse(Func<Either<L,R>> f);
+
+        public abstract Either<L, R> Recover(Func<L, R> f);
+
     }
 }

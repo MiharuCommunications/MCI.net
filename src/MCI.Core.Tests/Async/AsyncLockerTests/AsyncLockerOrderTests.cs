@@ -22,6 +22,8 @@ namespace Miharu.Core.Tests.Async.AsyncLockerTests
                 await locker.WithLock(async () =>
                 {
                     list.Add(j);
+
+                    return Try.Success();
                 });
             }
 

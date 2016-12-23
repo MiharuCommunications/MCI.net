@@ -1,41 +1,34 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="AsyncLocker.cs" company="Miharu Communications Inc.">
-//     © 2015 Miharu Communications Inc.
-// </copyright>
-//-----------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace Miharu.Async
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-
-    /// <summary>
-    /// async/await を用いてノンブロッキングな lock を提供するクラス
-    /// </summary>
-    public class AsyncLocker : IDisposable
+    public class TypedAsyncLocker<T> : IDisposable
     {
-        private bool isExecuting = false;
+        private object sync = new object();
 
         private bool disposed = false;
 
-        private Queue<Func<Task>> tasks = new Queue<Func<Task>>();
-
         private object locker = new object();
 
-        public AsyncLocker()
+        private Queue<Func<Task>> tasks = new Queue<Func<Task>>();
+
+        private bool isExecuting = false;
+
+        public TypedAsyncLocker()
         {
         }
 
-
-        public Task<Try> WithLock(Func<Task<Try>> action)
+        public Task<Try<T>> WithLock(Func<Task<Try<T>>> action)
         {
-            var result = Try.Fail(new TimeoutException());
-            var task = new Task<Try>(() => result);
+            var result = Try<T>.Fail(new TimeoutException());
+            var task = new Task<Try<T>>(() => result);
 
-
-            lock (this.locker)
+            lock (this.sync)
             {
-                // キューに入れる
                 this.tasks.Enqueue(async () =>
                 {
                     try
@@ -44,7 +37,7 @@ namespace Miharu.Async
                     }
                     catch(Exception ex)
                     {
-                        result = Try.Fail(ex);
+                        result = Try<T>.Fail(ex);
                     }
                     finally
                     {
@@ -56,7 +49,6 @@ namespace Miharu.Async
                 {
                     this.isExecuting = true;
 
-                    // キューが処理中でなければ、実行する
                     Task.Factory.StartNew(async () =>
                     {
                         while (true)
@@ -71,7 +63,7 @@ namespace Miharu.Async
                             {
                             }
 
-                            lock (this.locker)
+                            lock (this.sync)
                             {
                                 if (this.tasks.Count == 0)
                                 {
@@ -86,9 +78,6 @@ namespace Miharu.Async
 
             return task;
         }
-
-
-
 
         protected virtual void Dispose(bool disposing)
         {
@@ -113,6 +102,11 @@ namespace Miharu.Async
         {
             this.Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        ~TypedAsyncLocker()
+        {
+            this.Dispose();
         }
     }
 }

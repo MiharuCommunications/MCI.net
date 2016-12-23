@@ -163,7 +163,7 @@ namespace Miharu.Core.Tests.Monads
             {
                 return Option<int>.Return(int.Parse(str));
             }
-            catch (Exception ex)
+            catch
             {
                 return Option<int>.Fail();
             }

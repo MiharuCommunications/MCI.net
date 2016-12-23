@@ -32,6 +32,8 @@ namespace Miharu.Core.Tests.Async.AsyncLockerTests
                         }
 
                         list.Add(i);
+
+                        return Try.Success();
                     });
                 }
             };

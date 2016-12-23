@@ -9,44 +9,66 @@ namespace Miharu
     using Miharu.Monads;
 
     /// <summary>
-    /// Option モナド
+    /// Option Monad
     /// </summary>
-    /// <typeparam name="T">格納する値の型</typeparam>
+    /// <typeparam name="T">type of value which Option monad hold</typeparam>
     public abstract class Option<T>
     {
         /// <summary>
-        /// 使用不可
+        /// can't use from other assemblies
         /// </summary>
         internal protected Option()
         {
         }
 
         /// <summary>
-        /// 空かどうか
+        /// Get true if the option is an instance of None, false otherwise.
         /// </summary>
         public abstract bool IsEmpty { get; }
 
         /// <summary>
-        /// 値が含まれるかどうか
+        /// Get true if the option is an instance of Some, false otherwise.
         /// </summary>
         public abstract bool IsDefined { get; }
 
-
+        /// <summary>
+        /// <para>Return a Some containing the result of applying f to this Option's value if this Option is nonempty.</para>
+        /// <para>Otherwise return None.</para>
+        /// </summary>
+        /// <typeparam name="B">a type of value which returned option hold</typeparam>
+        /// <param name="f">function to apply</param>
+        /// <returns></returns>
         public abstract Option<B> Select<B>(Func<T, B> f);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="B"></typeparam>
+        /// <param name="f"></param>
+        /// <returns></returns>
         public abstract Option<B> SelectMany<B>(Func<T, Option<B>> f);
+
+        /// <summary>
+        /// a method for LINQ
+        /// </summary>
+        /// <typeparam name="B"></typeparam>
+        /// <typeparam name="C"></typeparam>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <returns></returns>
         public abstract Option<C> SelectMany<B, C>(Func<T, Option<B>> f, Func<T, B, C> g);
 
         /// <summary>
-        /// <para>値を取り出します。</para>
-        /// <para>値がない場合例外 NullReferenceException が発生します。</para>
+        /// <para>Return value of Some</para>
+        /// <para>Otherwise throw NullReferenceException.</para>
         /// </summary>
-        /// <exception cref="System.NullReferenceException">値がない場合</exception>
-        /// <returns>格納されている値</returns>
+        /// <exception cref="System.NullReferenceException">if this option is empty</exception>
+        /// <returns>value of Some</returns>
         public abstract T Get();
 
         /// <summary>
         /// <para>格納された値を取り出します。</para>
-        /// <para>格納された値がない場合は、引数で渡した値が返ります。</para>
+        /// <para>Otherwise return givven value</para>
         /// </summary>
         /// <param name="value">値がなかった場合のデフォルト値</param>
         /// <returns>格納されている値</returns>
