@@ -49,6 +49,11 @@ namespace Miharu
             return this.value;
         }
 
+        public override T GetOrElse(Func<Exception, T> f)
+        {
+            return this.value;
+        }
+
         public override Exception GetException()
         {
             throw new NullReferenceException();

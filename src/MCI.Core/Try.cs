@@ -40,6 +40,7 @@ namespace Miharu
         public abstract A GetOrElse(A def);
 
         public abstract A GetOrElse(Func<A> f);
+        public abstract A GetOrElse(Func<Exception, A> f);
         public abstract Exception GetException();
 
 

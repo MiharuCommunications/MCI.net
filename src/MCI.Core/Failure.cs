@@ -52,6 +52,11 @@ namespace Miharu
             return f();
         }
 
+        public override T GetOrElse(Func<Exception, T> f)
+        {
+            return f(this.exception);
+        }
+
         public override Exception GetException()
         {
             return this.exception;
