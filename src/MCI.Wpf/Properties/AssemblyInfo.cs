@@ -33,10 +33,10 @@ using System.Windows.Markup;
 // すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.9.6.0")]
-[assembly: AssemblyInformationalVersion("0.9.6.0")]
-[assembly: AssemblyFileVersion("0.9.6.0")]
+[assembly: AssemblyVersion("0.9.7.0")]
+[assembly: AssemblyInformationalVersion("0.9.7.0")]
+[assembly: AssemblyFileVersion("0.9.7.0")]
 
 
 // WPF 用の名前空間の登録
-[assembly: XmlnsDefinition("http://schemas.miharu.co.jp/cslibs/2017/wpf", "Miharu.Wpf.Behaviors")]
+[assembly: XmlnsDefinition("http://schemas.miharu.co.jp/mci.net/2017/wpf", "Miharu.Wpf.Behaviors")]

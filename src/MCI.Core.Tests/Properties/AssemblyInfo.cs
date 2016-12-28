@@ -26,9 +26,9 @@ using Xunit;
 
 
 
-[assembly: AssemblyVersion("0.9.6.0")]
-[assembly: AssemblyInformationalVersion("0.9.6.0")]
-[assembly: AssemblyFileVersion("0.9.6.0")]
+[assembly: AssemblyVersion("0.9.7.0")]
+[assembly: AssemblyInformationalVersion("0.9.7.0")]
+[assembly: AssemblyFileVersion("0.9.7.0")]
 
 
 // 何個まで同時にテストを実行できるか

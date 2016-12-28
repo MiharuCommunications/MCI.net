@@ -23,6 +23,14 @@
 
 
         public string Target { get; private set; }
+
+        public string ErrorMessage
+        {
+            get
+            {
+                return "ディスクに十分な空き領域がありません";
+            }
+        }
     }
 
     public interface IFileNotFoundError : IFileIOError { }
@@ -36,6 +44,14 @@
         }
 
         public string Target { get; private set; }
+
+        public string ErrorMessage
+        {
+            get
+            {
+                return "ファイルが見つかりません Path = " + this.Target;
+            }
+        }
     }
 
 
@@ -49,6 +65,14 @@
         }
 
         public string Target { get; private set; }
+
+        public string ErrorMessage
+        {
+            get
+            {
+                return "ディレクトリが見つかりません Path = " + this.Target;
+            }
+        }
     }
 
 
@@ -63,6 +87,14 @@
         }
 
         public string Target { get; private set; }
+
+        public string ErrorMessage
+        {
+            get
+            {
+                return "ファイルが空です Path = " + this.Target;
+            }
+        }
     }
 
     public interface IFileIsBrokenError : IFileIOError
@@ -77,5 +109,13 @@
         }
 
         public string Target { get; private set; }
+
+        public string ErrorMessage
+        {
+            get
+            {
+                return "ファイルが破損しています Path = " + this.Target;
+            }
+        }
     }
 }

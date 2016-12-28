@@ -55,6 +55,7 @@
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DateTimeHelper.cs" />
     <Compile Include="DayOfWeekExtensions.cs" />
+    <Compile Include="Debugs\ILogger.cs" />
     <Compile Include="Debugs\LoggerHelper.cs" />
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="DisposableCollection.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="EitherExtensions.cs" />
     <Compile Include="Errors\IError.cs" />
     <Compile Include="Errors\FileIOError.cs" />
+    <Compile Include="Errors\IFormatErrors.cs" />
     <Compile Include="Failure.cs" />
     <Compile Include="Future.cs" />
     <Compile Include="Future.Factories.cs" />

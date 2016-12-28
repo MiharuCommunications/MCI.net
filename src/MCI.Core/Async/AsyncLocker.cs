@@ -80,7 +80,7 @@ namespace Miharu.Async
                                 }
                             }
                         }
-                    }).Wait();
+                    });
                 }
             }
 

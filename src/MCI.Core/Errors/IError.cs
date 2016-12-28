@@ -11,6 +11,26 @@
     /// </summary>
     public interface IError
     {
+        string ErrorMessage { get; }
+    }
+
+    public interface INoError : IError
+    {
+    }
+
+    public class NoError : INoError
+    {
+        public NoError()
+        {
+        }
+
+        public string ErrorMessage
+        {
+            get
+            {
+                return "エラーはありません";
+            }
+        }
     }
 
 
@@ -27,6 +47,14 @@
         }
 
         public int RetryCount { get; private set; }
+
+        public string ErrorMessage
+        {
+            get
+            {
+                return "リトライ回数が上限値に達しました RetryCount = " + this.RetryCount.ToString();
+            }
+        }
     }
 
 
@@ -43,45 +71,38 @@
         {
             this.Timeout = timeout;
         }
+
+        public string ErrorMessage
+        {
+            get
+            {
+                return "処理がタイムアウトしました Timeout = " + this.Timeout.TotalMilliseconds.ToString() + " [ms]";
+            }
+        }
     }
 
     public interface IUnkownError : IError
     {
         Exception InnerException { get; }
-        string Message { get; }
     }
 
     public class UnkownError : IUnkownError
     {
         public Exception InnerException { get; private set; }
 
-        public string Message { get; private set; }
-
         public UnkownError(Exception exception)
         {
             this.InnerException = exception;
-            this.Message = "原因不明のエラーです。";
+            this.ErrorMessage = "原因不明のエラーです。";
         }
 
         public UnkownError(Exception exception, string message)
         {
             this.InnerException = exception;
-            this.Message = message;
+            this.ErrorMessage = message;
         }
+
+        public string ErrorMessage { get; private set; }
     }
 
-    public interface IFormatError : IError
-    {
-        string Message { get; }
-    }
-
-    public class FormatError : IFormatError
-    {
-        public string Message { get; private set; }
-
-        public FormatError(string message)
-        {
-            this.Message = message;
-        }
-    }
 }

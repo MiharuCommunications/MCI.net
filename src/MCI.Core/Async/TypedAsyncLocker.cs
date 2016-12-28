@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Miharu.Async
 {
-    public class TypedAsyncLocker<T> : IDisposable
+    public class TypedAsyncLocker : IDisposable
     {
         private object sync = new object();
 
@@ -22,7 +22,7 @@ namespace Miharu.Async
         {
         }
 
-        public Task<Try<T>> WithLock(Func<Task<Try<T>>> action)
+        public Task<Try<T>> WithLock<T>(Func<Task<Try<T>>> action)
         {
             var result = Try<T>.Fail(new TimeoutException());
             var task = new Task<Try<T>>(() => result);
@@ -72,7 +72,7 @@ namespace Miharu.Async
                                 }
                             }
                         }
-                    }).Wait();
+                    });
                 }
             }
 
