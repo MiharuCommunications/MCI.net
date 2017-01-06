@@ -35,20 +35,20 @@ namespace Miharu.Async
             }
         }
 
-        public void Increment()
+        public int Increment()
         {
             lock (this.syncRoot)
             {
-                this.counter++;
+                return ++this.counter;
             }
         }
 
 
-        public void Decrement()
+        public int Decrement()
         {
             lock (this.syncRoot)
             {
-                this.counter--;
+                return --this.counter;
             }
         }
     }
