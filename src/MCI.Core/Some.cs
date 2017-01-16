@@ -99,6 +99,20 @@ namespace Miharu
             f(this.value);
         }
 
+        public override Either<T, R> ToLeft<R>(Func<R> f)
+        {
+            return new Left<T, R>(this.value);
+        }
+
+        public override Either<L, T> ToRight<L>(Func<L> f)
+        {
+            return new Right<L, T>(this.value);
+        }
+
+        public override Either<L, T> ToEither<L>(Func<L> f)
+        {
+            return new Right<L, T>(this.value);
+        }
 
         public override Try<T> ToTry()
         {

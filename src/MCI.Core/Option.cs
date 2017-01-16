@@ -41,7 +41,7 @@ namespace Miharu
         public abstract Option<B> Select<B>(Func<T, B> f);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <typeparam name="B"></typeparam>
         /// <param name="f"></param>
@@ -81,6 +81,12 @@ namespace Miharu
 
         public abstract Option<T> Where(Func<T, bool> f);
         public abstract void ForEach(Action<T> f);
+
+        public abstract Either<T, R> ToLeft<R>(Func<R> f);
+
+        public abstract Either<L, T> ToRight<L>(Func<L> f);
+
+        public abstract Either<L, T> ToEither<L>(Func<L> f);
 
         public abstract Try<T> ToTry();
         public abstract Try<T> ToTry(Exception ex);
