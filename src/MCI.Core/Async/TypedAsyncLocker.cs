@@ -63,8 +63,7 @@ namespace Miharu.Async
                                     return;
                                 }
 
-                                this.tasks.Dequeue();
-
+                                target = this.tasks.Dequeue();
                             }
 
                             try
