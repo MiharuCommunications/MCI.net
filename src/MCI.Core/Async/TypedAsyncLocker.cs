@@ -53,15 +53,7 @@ namespace Miharu.Async
                     {
                         while (true)
                         {
-                            var target = this.tasks.Dequeue();
-
-                            try
-                            {
-                                await target();
-                            }
-                            catch
-                            {
-                            }
+                            var target = (Func<Task>)null;
 
                             lock (this.sync)
                             {
@@ -70,6 +62,17 @@ namespace Miharu.Async
                                     this.isExecuting = false;
                                     return;
                                 }
+
+                                this.tasks.Dequeue();
+
+                            }
+
+                            try
+                            {
+                                await target();
+                            }
+                            catch
+                            {
                             }
                         }
                     });
