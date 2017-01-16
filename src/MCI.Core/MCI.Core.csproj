@@ -58,7 +58,9 @@
     <Compile Include="Debugs\ILogger.cs" />
     <Compile Include="Debugs\LoggerHelper.cs" />
     <Compile Include="DictionaryExtensions.cs" />
+    <Compile Include="Disposable.cs" />
     <Compile Include="DisposableCollection.cs" />
+    <Compile Include="DisposableHelper.cs" />
     <Compile Include="Either.cs" />
     <Compile Include="EitherExtensions.cs" />
     <Compile Include="Errors\IError.cs" />
