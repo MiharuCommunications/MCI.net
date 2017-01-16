@@ -88,6 +88,11 @@ namespace Miharu
             return new Failure<C>(this.exception);
         }
 
+        public override Either<Exception, T> ToEither()
+        {
+            return new Left<Exception, T>(this.exception);
+        }
+
         public override Option<T> ToOption()
         {
             return Option<T>.Fail();

@@ -117,10 +117,16 @@ namespace Miharu
             return f(x).SelectMany(y => new Success<C>(g(x, y)));
         }
 
+        public override Either<Exception, T> ToEither()
+        {
+            return new Right<Exception, T>(this.value);
+        }
+
         public override Option<T> ToOption()
         {
             return Option<T>.Return(this.value);
         }
+
 
 
         public override Try<T> OrElse(Try<T> def)
