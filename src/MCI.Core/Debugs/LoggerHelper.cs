@@ -6,6 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    [Obsolete("Please use utilities on Miharu.Logging.  Deprecated since 0.9.9.")]
     public static class LoggerHelper
     {
         public static readonly string DateTimeFormat = "yy/MM/dd HH:mm:ss";

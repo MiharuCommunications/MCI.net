@@ -57,6 +57,9 @@
     <Compile Include="DayOfWeekExtensions.cs" />
     <Compile Include="Debugs\ILogger.cs" />
     <Compile Include="Debugs\LoggerHelper.cs" />
+    <Compile Include="Logging\LoggerHelper.cs" />
+    <Compile Include="Logging\LogLevel.cs" />
+    <Compile Include="Logging\LogLevelExtensions.cs" />
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="Disposable.cs" />
     <Compile Include="DisposableCollection.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="IEnumerableExtensions.cs" />
     <Compile Include="Left.cs" />
     <Compile Include="ListExtensions.cs" />
+    <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Maths\Sequences.cs" />
     <Compile Include="Monads\EitherProjection.cs" />
     <Compile Include="Monads\IO.cs" />

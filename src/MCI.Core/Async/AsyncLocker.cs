@@ -14,16 +14,20 @@ namespace Miharu.Async
     /// </summary>
     public class AsyncLocker : IDisposable
     {
-        private bool isExecuting = false;
+        private bool isExecuting;
 
-        private bool disposed = false;
+        private bool disposed;
 
-        private Queue<Func<Task>> tasks = new Queue<Func<Task>>();
+        private Queue<Func<Task>> tasks;
 
-        private object locker = new object();
+        private object sync;
 
         public AsyncLocker()
         {
+            this.disposed = false;
+            this.tasks = new Queue<Func<Task>>();
+            this.isExecuting = false;
+            this.sync = new object();
         }
 
 
@@ -33,7 +37,7 @@ namespace Miharu.Async
             var task = new Task<Try>(() => result);
 
 
-            lock (this.locker)
+            lock (this.sync)
             {
                 // キューに入れる
                 this.tasks.Enqueue(async () =>
@@ -63,7 +67,7 @@ namespace Miharu.Async
                         {
                             var target = (Func<Task>)null;
 
-                            lock (this.locker)
+                            lock (this.sync)
                             {
                                 if (this.tasks.Count == 0)
                                 {
@@ -102,7 +106,7 @@ namespace Miharu.Async
             if (disposing)
             {
                 // Dispose 処理
-                lock (this.locker)
+                lock (this.sync)
                 {
                     this.tasks.Clear();
                 }

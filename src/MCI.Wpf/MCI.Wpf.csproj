@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviors\FileDroppableTextBoxBehavior.cs" />
-    <Compile Include="Behaviors\NumericTextBoxBehavior.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="KeyExtensions.cs" />
     <Compile Include="NotifyObject.cs" />
