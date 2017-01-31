@@ -12,6 +12,16 @@ namespace Miharu
 
     public static class IEnumerableExtensions
     {
+        [Obsolete("Please use foreach statement.  Deprecated since 0.9.5.")]
+        public static void ForEach<A>(this IEnumerable<A> collection, Action<A> f)
+        {
+            foreach (var item in collection)
+            {
+                f(item);
+            }
+        }
+
+
         public static int IndexOf<A>(this IEnumerable<A> collection, Func<A, bool> f)
         {
             var i = -1;

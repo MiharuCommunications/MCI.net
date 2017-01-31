@@ -36,7 +36,6 @@
   <ItemGroup>
     <Compile Include="ArrayExtensions.cs" />
     <Compile Include="Async\AsyncLocker.cs" />
-    <Compile Include="Async\AsyncLockerTaskItem.cs" />
     <Compile Include="Async\AsyncWaiter.cs" />
     <Compile Include="Async\PeriodicTask.cs" />
     <Compile Include="Async\ReaderWriterLocker.cs" />
@@ -46,6 +45,7 @@
     <Compile Include="Async\Schedulers\PeriodicScheduledAction.cs" />
     <Compile Include="Async\Schedulers\PeriodicScheduler.cs" />
     <Compile Include="Async\ThreadSafeCounter.cs" />
+    <Compile Include="Async\TypedAsyncLocker.cs" />
     <Compile Include="Callback.cs" />
     <Compile Include="Collections\DailyCollection.cs" />
     <Compile Include="Collections\DateHash.cs" />
@@ -55,11 +55,20 @@
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DateTimeHelper.cs" />
     <Compile Include="DayOfWeekExtensions.cs" />
+    <Compile Include="Debugs\ILogger.cs" />
     <Compile Include="Debugs\LoggerHelper.cs" />
+    <Compile Include="Logging\LoggerHelper.cs" />
+    <Compile Include="Logging\LogLevel.cs" />
+    <Compile Include="Logging\LogLevelExtensions.cs" />
     <Compile Include="DictionaryExtensions.cs" />
+    <Compile Include="Disposable.cs" />
     <Compile Include="DisposableCollection.cs" />
+    <Compile Include="DisposableHelper.cs" />
     <Compile Include="Either.cs" />
     <Compile Include="EitherExtensions.cs" />
+    <Compile Include="Errors\IError.cs" />
+    <Compile Include="Errors\FileIOError.cs" />
+    <Compile Include="Errors\IFormatErrors.cs" />
     <Compile Include="Failure.cs" />
     <Compile Include="Future.cs" />
     <Compile Include="Future.Factories.cs" />
@@ -71,6 +80,7 @@
     <Compile Include="IEnumerableExtensions.cs" />
     <Compile Include="Left.cs" />
     <Compile Include="ListExtensions.cs" />
+    <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Maths\Sequences.cs" />
     <Compile Include="Monads\EitherProjection.cs" />
     <Compile Include="Monads\IO.cs" />
@@ -99,6 +109,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MCI.Core.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DI\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

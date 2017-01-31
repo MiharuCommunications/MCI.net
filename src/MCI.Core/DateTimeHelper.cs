@@ -12,12 +12,12 @@ namespace Miharu
     using System.Threading.Tasks;
 
     /// <summary>
-    /// DateTime を利用した処理のヘルパーメソッド
+    /// Helper methods for DateTime
     /// </summary>
     public static class DateTimeHelper
     {
         /// <summary>
-        /// その年の日を列挙します
+        /// Enumerate dates of given year
         /// </summary>
         /// <param name="year">列挙対象となる年</param>
         /// <returns></returns>
@@ -35,7 +35,7 @@ namespace Miharu
         }
 
         /// <summary>
-        /// その月にある日を列挙します
+        /// Enumerate dates of given month
         /// </summary>
         /// <param name="year"></param>
         /// <param name="month"></param>

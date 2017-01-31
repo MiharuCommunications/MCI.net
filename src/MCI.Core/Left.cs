@@ -71,5 +71,35 @@ namespace Miharu
         {
             return;
         }
+
+        public override bool Exists(Func<R, bool> p)
+        {
+            return false;
+        }
+
+        public override R Get()
+        {
+            throw new InvalidOperationException("This Either is Left");
+        }
+
+        public override R GetOrElse(R value)
+        {
+            return value;
+        }
+
+        public override Either<L, R> OrElse(Func<Either<L, R>> f)
+        {
+            return f();
+        }
+
+        public override R GetOrElse(Func<R> f)
+        {
+            return f();
+        }
+
+        public override Either<L, R> Recover(Func<L, R> f)
+        {
+            return new Right<L, R>(f(this.Value));
+        }
     }
 }

@@ -9,38 +9,19 @@ namespace Miharu.Core.Tests.Monads
 {
     public class EitherTests
     {
-        private Either<string, int> left = new Left<string, int>("");
-
-        private Either<string, int> right = new Right<string, int>(0);
-
-        [Fact]
-        public void IsTests()
-        {
-            Assert.True(this.left.IsLeft);
-            Assert.False(this.left.IsRight);
-
-            Assert.False(this.right.IsLeft);
-            Assert.True(this.right.IsRight);
-        }
-
-
-        [Fact]
-        public void MonadTests()
-        {
-
-
-
-        }
-
-
         [Fact]
         public void RightTests()
         {
-            Either<string, int> e = new Right<string, int>(0);
+            var expected = 0;
+            Either<string, int> e = new Right<string, int>(expected);
 
             Assert.True(e.IsRight);
             Assert.False(e.IsLeft);
 
+            Assert.Equal(expected, e.Get());
+
+            Assert.True(e.Exists(i => i == expected));
+            Assert.False(e.Exists(i => i != expected));
 
             var s = e.Swap();
 
@@ -52,11 +33,18 @@ namespace Miharu.Core.Tests.Monads
         [Fact]
         public void LeftTests()
         {
-            Either<string, int> e = new Left<string, int>("0");
+            var expected = "0";
+            Either<string, int> e = new Left<string, int>(expected);
 
             Assert.False(e.IsRight);
             Assert.True(e.IsLeft);
 
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                e.Get();
+            });
+
+            Assert.False(e.Exists(i => i == 0));
 
 
             var s = e.Swap();

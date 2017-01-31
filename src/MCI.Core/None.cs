@@ -84,6 +84,21 @@ namespace Miharu
             return;
         }
 
+        public override Either<T, R> ToLeft<R>(Func<R> f)
+        {
+            return new Right<T, R>(f());
+        }
+
+        public override Either<L, T> ToRight<L>(Func<L> f)
+        {
+            return new Left<L, T>(f());
+        }
+
+        public override Either<L, T> ToEither<L>(Func<L> f)
+        {
+            return new Left<L, T>(f());
+        }
+
         public override Try<T> ToTry()
         {
             try
@@ -99,6 +114,16 @@ namespace Miharu
         public override Try<T> ToTry(Exception ex)
         {
             return new Failure<T>(ex);
+        }
+
+        public override int Count(Func<T, bool> p)
+        {
+            return 0;
+        }
+
+        public override bool Exists(Func<T, bool> p)
+        {
+            return false;
         }
     }
 }

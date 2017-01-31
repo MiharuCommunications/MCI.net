@@ -23,9 +23,14 @@
         ]
         public void EnumerateDatesInYearCountTest(int count, int year)
         {
-            var result = DateTimeHelper.EnumerateDatesInYear(year).Count();
+            var results = DateTimeHelper.EnumerateDatesInYear(year).ToArray();
 
-            Assert.Equal(count, result);
+            Assert.Equal(count, results.Length);
+
+            foreach(var actual in results)
+            {
+                Assert.Equal(year, actual.Year);
+            }
         }
 
         [Theory,
@@ -45,9 +50,15 @@
         ]
         public void EnumerateDatesInMonthCountTest(int count, int year, int month)
         {
-            var result = DateTimeHelper.EnumerateDatesInMonth(year, month).Count();
+            var results = DateTimeHelper.EnumerateDatesInMonth(year, month).ToArray();
 
-            Assert.Equal(count, result);
+            Assert.Equal(count, results.Length);
+
+            foreach(var actual in results)
+            {
+                Assert.Equal(year, actual.Year);
+                Assert.Equal(month, actual.Month);
+            }
         }
     }
 }

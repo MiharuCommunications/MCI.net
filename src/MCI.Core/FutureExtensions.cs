@@ -22,37 +22,5 @@ namespace Miharu
         {
             return new FutureAwaiter(future);
         }
-
-        /*
-         * 欲しい機能
-         *
-         *
-         *
-         *
-         *
-         *
-         *
-         *
-         *
-        **/
-
-        public static Future ForEachInOrderToFailure<A>(this IEnumerable<A> collection, Func<A, Future> f)
-        {
-
-
-            throw new NotImplementedException();
-        }
-
-
-        public static Future ForEach<A>(this IEnumerable<A> collection, Func<A, Future> f)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public static Future ForEachToFailure<A>(this IEnumerable<A> collection, Func<A, Future> f)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

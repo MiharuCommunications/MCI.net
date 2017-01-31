@@ -52,6 +52,11 @@ namespace Miharu
             return f();
         }
 
+        public override T GetOrElse(Func<Exception, T> f)
+        {
+            return f(this.exception);
+        }
+
         public override Exception GetException()
         {
             return this.exception;
@@ -81,6 +86,11 @@ namespace Miharu
         public override Try<C> SelectMany<B, C>(Func<T, Try<B>> f, Func<T, B, C> g)
         {
             return new Failure<C>(this.exception);
+        }
+
+        public override Either<Exception, T> ToEither()
+        {
+            return new Left<Exception, T>(this.exception);
         }
 
         public override Option<T> ToOption()

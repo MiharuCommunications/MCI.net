@@ -139,8 +139,6 @@
             const int N = 100000;
             var buffer = new RingBuffer<int>(N / 100);
             var rand = new Random();
-            var j = 0;
-            var i = 0;
 
         }
     }

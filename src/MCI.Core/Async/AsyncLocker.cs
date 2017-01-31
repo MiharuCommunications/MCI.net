@@ -14,32 +14,47 @@ namespace Miharu.Async
     /// </summary>
     public class AsyncLocker : IDisposable
     {
-        private bool isExecuting = false;
+        private bool isExecuting;
 
-        private bool disposed = false;
+        private bool disposed;
 
-        private Queue<AsyncLockerTaskItem> tasks;
+        private Queue<Func<Task>> tasks;
 
-        private object locker = new object();
+        private object sync;
 
         public AsyncLocker()
         {
             this.disposed = false;
+            this.tasks = new Queue<Func<Task>>();
             this.isExecuting = false;
-            this.tasks = new Queue<AsyncLockerTaskItem>();
-            this.locker = new object();
+            this.sync = new object();
         }
 
 
-        public Task WithLock(Func<Task> action)
+        public Task<Try> WithLock(Func<Task<Try>> action)
         {
-            var task = new Task(() => { });
+            var result = Try.Fail(new TimeoutException());
+            var task = new Task<Try>(() => result);
 
 
-            lock (this.locker)
+            lock (this.sync)
             {
                 // キューに入れる
-                this.tasks.Enqueue(new AsyncLockerTaskItem(action, task));
+                this.tasks.Enqueue(async () =>
+                {
+                    try
+                    {
+                        result = await action();
+                    }
+                    catch(Exception ex)
+                    {
+                        result = Try.Fail(ex);
+                    }
+                    finally
+                    {
+                        task.RunSynchronously();
+                    }
+                });
 
                 if (!this.isExecuting)
                 {
@@ -50,26 +65,28 @@ namespace Miharu.Async
                     {
                         while (true)
                         {
-                            var item = this.tasks.Dequeue();
+                            var target = (Func<Task>)null;
 
-                            try
-                            {
-                                await item.ExecuteAsync();
-                            }
-                            catch
-                            {
-                            }
-
-                            lock (this.locker)
+                            lock (this.sync)
                             {
                                 if (this.tasks.Count == 0)
                                 {
                                     this.isExecuting = false;
                                     return;
                                 }
+
+                                target = this.tasks.Dequeue();
+                            }
+
+                            try
+                            {
+                                await target();
+                            }
+                            catch
+                            {
                             }
                         }
-                    }).Wait();
+                    });
                 }
             }
 
@@ -89,7 +106,7 @@ namespace Miharu.Async
             if (disposing)
             {
                 // Dispose 処理
-                lock (this.locker)
+                lock (this.sync)
                 {
                     this.tasks.Clear();
                 }
