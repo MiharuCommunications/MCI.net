@@ -41,7 +41,8 @@ namespace Miharu
         public abstract Option<B> Select<B>(Func<T, B> f);
 
         /// <summary>
-        ///
+        /// <para>Return the result of applying f to this Option's value if this Option is nonempty.</para>
+        /// <para>Otherwise return None.</para>
         /// </summary>
         /// <typeparam name="B"></typeparam>
         /// <param name="f"></param>
@@ -67,12 +68,14 @@ namespace Miharu
         public abstract T Get();
 
         /// <summary>
-        /// <para>格納された値を取り出します。</para>
+        /// <para>Return this Option's value if this Option is nonempty.</para>
         /// <para>Otherwise return givven value</para>
         /// </summary>
         /// <param name="value">値がなかった場合のデフォルト値</param>
         /// <returns>格納されている値</returns>
         public abstract T GetOrElse(T value);
+
+
         public abstract T GetOrElse(Func<T> f);
 
         public abstract Option<T> OrElse(Func<Option<T>> f);
@@ -90,6 +93,10 @@ namespace Miharu
 
         public abstract Try<T> ToTry();
         public abstract Try<T> ToTry(Exception ex);
+
+        public abstract bool Exists(Func<T, bool> p);
+
+        public abstract int Count(Func<T, bool> p);
 
         /// <summary>
         /// 値を Option モナドに格納して返します。

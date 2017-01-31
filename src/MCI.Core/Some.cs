@@ -123,5 +123,22 @@ namespace Miharu
         {
             return new Success<T>(this.value);
         }
+
+        public override int Count(Func<T, bool> p)
+        {
+            if (p(this.value))
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public override bool Exists(Func<T, bool> p)
+        {
+            return p(this.value);
+        }
     }
 }

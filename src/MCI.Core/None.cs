@@ -115,5 +115,15 @@ namespace Miharu
         {
             return new Failure<T>(ex);
         }
+
+        public override int Count(Func<T, bool> p)
+        {
+            return 0;
+        }
+
+        public override bool Exists(Func<T, bool> p)
+        {
+            return false;
+        }
     }
 }

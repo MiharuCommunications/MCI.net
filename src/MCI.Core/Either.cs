@@ -16,14 +16,33 @@ namespace Miharu
             this.Right = new RightProjection<L, R>(this);
         }
 
+        /// <summary>
+        /// Get <code>true</code> if this is a <code>Left</code>, <code>false</code> otherwise.
+        /// </summary>
         public abstract bool IsLeft { get; }
 
+        /// <summary>
+        /// Get true if this is a Right, false otherwise.
+        /// </summary>
         public abstract bool IsRight { get; }
 
+        /// <summary>
+        /// Projects this Either as a Left.
+        /// </summary>
         public LeftProjection<L, R> Left { get; private set; }
 
+        /// <summary>
+        /// Projects this Either as a Right.
+        /// </summary>
         public RightProjection<L, R> Right { get; private set; }
 
+        /// <summary>
+        /// Applies <code>fl</code> if this is a Left or fr if this is a Right.
+        /// </summary>
+        /// <typeparam name="A"></typeparam>
+        /// <param name="fl"></param>
+        /// <param name="fr"></param>
+        /// <returns></returns>
         public abstract A Fold<A>(Func<L, A> fl, Func<R, A> fr);
 
         public abstract Either<R, L> Swap();
