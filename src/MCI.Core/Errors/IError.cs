@@ -14,24 +14,7 @@
         string ErrorMessage { get; }
     }
 
-    public interface INoError : IError
-    {
-    }
 
-    public class NoError : INoError
-    {
-        public NoError()
-        {
-        }
-
-        public string ErrorMessage
-        {
-            get
-            {
-                return "エラーはありません";
-            }
-        }
-    }
 
 
     public interface IMaximumRetryError : IError
@@ -80,29 +63,4 @@
             }
         }
     }
-
-    public interface IUnkownError : IError
-    {
-        Exception InnerException { get; }
-    }
-
-    public class UnkownError : IUnkownError
-    {
-        public Exception InnerException { get; private set; }
-
-        public UnkownError(Exception exception)
-        {
-            this.InnerException = exception;
-            this.ErrorMessage = "原因不明のエラーです。";
-        }
-
-        public UnkownError(Exception exception, string message)
-        {
-            this.InnerException = exception;
-            this.ErrorMessage = message;
-        }
-
-        public string ErrorMessage { get; private set; }
-    }
-
 }
