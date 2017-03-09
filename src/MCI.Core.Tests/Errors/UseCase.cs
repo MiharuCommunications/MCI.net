@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Miharu.Errors;
+using Miharu.Errors.IO;
 
 namespace Miharu.Core.Tests.Errors
 {
