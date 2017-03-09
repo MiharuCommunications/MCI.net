@@ -71,6 +71,11 @@ test:
   assemblies:
     - '**\*.Tests.dll'
 
+before_build:
+- ps: >-
+    nuget restore src/MCI.net.sln
+
+
 test_script:
 - ps: >-
     $opencover = (Resolve-Path "src/packages/OpenCover.*/tools/OpenCover.Console.exe").ToString()
