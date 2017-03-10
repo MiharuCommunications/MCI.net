@@ -101,5 +101,10 @@ namespace Miharu
         {
             return new Right<L, R>(f(this.Value));
         }
+
+        public override Either<L, R> RecoverWith(Func<L, Either<L, R>> f)
+        {
+            return f(this.Value);
+        }
     }
 }

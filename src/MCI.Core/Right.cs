@@ -103,5 +103,10 @@ namespace Miharu
         {
             return this;
         }
+
+        public override Either<L, R> RecoverWith(Func<L, Either<L, R>> f)
+        {
+            return this;
+        }
     }
 }

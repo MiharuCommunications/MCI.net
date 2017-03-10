@@ -69,5 +69,7 @@ namespace Miharu
 
         public abstract Either<L, R> Recover(Func<L, R> f);
 
+        public abstract Either<L, R> RecoverWith(Func<L, Either<L, R>> f);
+
     }
 }
