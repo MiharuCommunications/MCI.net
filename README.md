@@ -32,6 +32,24 @@ PM> Install-Package MCI.Core
 
 ## Contribute
 
+### Set UP
+
+```
+make install
+```
+
+### Build
+
+```
+make build
+```
+
+### Cover
+
+```
+make cover
+```
+
 ## License
 
 Code copyright 1955 - 2016 Miharu Communications Inc.  
