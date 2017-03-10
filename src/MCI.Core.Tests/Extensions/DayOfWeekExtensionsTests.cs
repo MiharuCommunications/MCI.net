@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xunit;
-
-namespace Miharu.Core.Tests.Extensions
+﻿namespace Miharu.Core.Tests.Extensions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using Xunit;
+
     public class DayOfWeekExtensionsTests
     {
         public static IEnumerable<object[]> GetNextTestSource()
@@ -32,6 +32,28 @@ namespace Miharu.Core.Tests.Extensions
         public void PreviousTest(DayOfWeek source, DayOfWeek expected)
         {
             Assert.Equal(expected, source.Previous());
+        }
+
+        [Fact]
+        public void NextOutOfRangeTest()
+        {
+            var d = (DayOfWeek)100;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                d.Next();
+            });
+        }
+
+        [Fact]
+        public void PreviousOutOfRangeTest()
+        {
+            var d = (DayOfWeek)100;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                d.Previous();
+            });
         }
     }
 }
