@@ -88,7 +88,7 @@ test_script:
 
     $targetargs = """MCI.Core.Tests.dll"" -noshadow -appveyor"
 
-    $filter = " -[Miharu*]* +[MCI.Core.Tests*]*"
+    $filter = " +[MCI.Core*]* -[MCI.Core.Tests*]*"
 
 
     & $opencover -register:user -target:$runner "-targetargs:$targetargs" -targetdir:$targetdir "-filter:$filter" -returntargetcode -hideskipped:All -output:result.xml
