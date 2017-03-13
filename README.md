@@ -4,6 +4,9 @@
 [![Build Status](https://travis-ci.org/MiharuCommunications/MCI.net.svg?branch=develop)](https://travis-ci.org/MiharuCommunications/MCI.net)
 [![Coverage Status](https://coveralls.io/repos/github/MiharuCommunications/MCI.net/badge.svg?branch=develop)](https://coveralls.io/github/MiharuCommunications/MCI.net?branch=develop)
 
+[![codecov](https://codecov.io/gh/MiharuCommunications/MCI.net/branch/develop/graph/badge.svg)](https://codecov.io/gh/MiharuCommunications/MCI.net)
+
+
 ## Table of Contents
 
 * [Background](#background)
