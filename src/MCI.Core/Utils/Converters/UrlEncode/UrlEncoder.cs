@@ -1,11 +1,11 @@
-﻿namespace Miharu.Converters.UrlEncode
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace Miharu.Utils.Converters.UrlEncode
+{
     /// <summary>
     /// <seealso cref="https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%BC%E3%82%BB%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0"/>
     /// <seealso cref="https://tools.ietf.org/html/rfc3986#section-2.1"/>

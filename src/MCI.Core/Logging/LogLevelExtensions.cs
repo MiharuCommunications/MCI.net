@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Miharu.Logging
+﻿namespace Miharu.Logging
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public static class LogLevelExtensions
     {
         public static string ToStringForLog(this LogLevel level)
@@ -13,28 +13,28 @@ namespace Miharu.Logging
             switch (level)
             {
                 case LogLevel.Fatal:
-                    return "[fatal]  ";
+                    return "[fatal]";
 
                 case LogLevel.Error:
-                    return "[error]  ";
+                    return "[error]";
 
                 case LogLevel.Warn:
-                    return "[warn]   ";
+                    return "[warn]";
 
                 case LogLevel.FixMe:
-                    return "[fixme]  ";
+                    return "[fixme]";
 
                 case LogLevel.Info:
-                    return "[info]   ";
+                    return "[info]";
 
                 case LogLevel.Debug:
-                    return "[debug]  ";
+                    return "[debug]";
 
                 case LogLevel.Trace:
-                    return "[trace]  ";
+                    return "[trace]";
 
                 default:
-                    return "[unkown] ";
+                    return "[unkown]";
             }
         }
     }

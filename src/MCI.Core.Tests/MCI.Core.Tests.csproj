@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -91,6 +92,7 @@
     <Compile Include="Utils\Buffers\Ring\RingBufferPropertyTests.cs" />
     <Compile Include="Utils\Buffers\Ring\RingBufferShiftTests.cs" />
     <Compile Include="Utils\ByteExtensionsTests.cs" />
+    <Compile Include="Utils\Converters\UrlEncode\UrlEncoderTests.cs" />
     <Compile Include="Utils\RingBufferTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -9,33 +9,39 @@
 
     public static class LoggerHelper
     {
-        public static string ToLog(DateTime now, LogLevel level, string message)
+        public static string ToLog(DateTime now, LogLevel level, int threadId, string message)
         {
             var date = now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK");
             var prefix = level.ToStringForLog();
 
-            return prefix + date + " " + message + Environment.NewLine;
+            return date + "\t" + prefix + "\t" + threadId.ToString() + "\t" + message + Environment.NewLine;
         }
 
-        public static string ToLog(DateTime now, LogLevel level, string message, Exception error)
+        public static string ToLog(DateTime now, LogLevel level, int threadId, string message, Exception error)
         {
             var date = now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK");
             var prefix = level.ToStringForLog();
 
-            return prefix + date + " " + message + Environment.NewLine
+            return date + "\t" + prefix + "\t" + threadId.ToString() + "\t" + message + Environment.NewLine
                 + error.GetType().Name + Environment.NewLine
                 + error.Message + Environment.NewLine
                 + error.StackTrace + Environment.NewLine;
         }
 
-        public static string ToLog(DateTime now, LogLevel level, string message, IError error)
+        public static string ToLog(DateTime now, LogLevel level, int threadId, string message, IError error)
         {
             var date = now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK");
             var prefix = level.ToStringForLog();
 
-            return prefix + date + " " + message + Environment.NewLine
+            return date + "\t" + prefix + "\t" + threadId.ToString() + "\t" + message + Environment.NewLine
                 + error.GetType().Name + Environment.NewLine
                 + error.ErrorMessage + Environment.NewLine;
+        }
+
+
+        public static bool IsEnabled(this LogLevel border, LogLevel target)
+        {
+            return (int)border >= (int)target;
         }
     }
 }

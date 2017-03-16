@@ -11,4 +11,4 @@ $filter = " +[MCI.Core*]* -[MCI.Core.Tests*]*"
 
 $report = (Resolve-Path "src/packages/ReportGenerator.*/tools/ReportGenerator.exe").ToString()
 
-& $report result.xml html
+& $report "-reports:result.xml" -targetdir:report
