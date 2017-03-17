@@ -1,92 +1,142 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Miharu.Core.Tests.Monads
+﻿namespace Miharu.Core.Tests.Monads
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Xunit;
+
     public class EitherTests
     {
-        [Fact]
-        public void RightTests()
+        private int rValue;
+
+        private string lValue;
+
+        private Either<string, int> r;
+
+        private Either<string, int> l;
+
+        public EitherTests()
         {
-            var expected = 0;
-            Either<string, int> e = new Right<string, int>(expected);
+            this.rValue = 0;
+            this.lValue = "0";
 
-            Assert.True(e.IsRight);
-            Assert.False(e.IsLeft);
-
-            Assert.Equal(expected, e.Get());
-
-            Assert.True(e.Exists(i => i == expected));
-            Assert.False(e.Exists(i => i != expected));
-
-            var s = e.Swap();
-
-            Assert.False(s.IsRight);
-            Assert.True(s.IsLeft);
+            this.r = new Right<string, int>(this.rValue);
+            this.l = new Left<string, int>(this.lValue);
         }
 
+        [Fact]
+        public void IsTest()
+        {
+            Assert.True(this.r.IsRight);
+            Assert.False(this.r.IsLeft);
+
+            Assert.False(this.l.IsRight);
+            Assert.True(this.l.IsLeft);
+        }
 
         [Fact]
-        public void LeftTests()
+        public void GetTest()
         {
-            var expected = "0";
-            Either<string, int> e = new Left<string, int>(expected);
-
-            Assert.False(e.IsRight);
-            Assert.True(e.IsLeft);
+            Assert.Equal(this.rValue, this.r.Get());
 
             Assert.Throws<InvalidOperationException>(() =>
             {
-                e.Get();
+                this.l.Get();
             });
-
-            Assert.False(e.Exists(i => i == 0));
-
-
-            var s = e.Swap();
-
-            Assert.True(s.IsRight);
-            Assert.False(s.IsLeft);
         }
-
-
-
-
-
-
-
-
 
         [Fact]
-        public void LINQTest()
+        public void GetOrElseTest()
         {
-            /*
-            var result = from e1 in GetInt("1").Right
-                         from e2 in GetInt("2").Right
-                         select e1 + e2;
+            Assert.Equal(this.rValue, this.r.GetOrElse(10));
+            Assert.Equal(10, this.l.GetOrElse(10));
 
-            Assert.True(result.IsDefined);
-            Assert.True(result.Get() == 3);
-            */
+            Assert.Equal(this.rValue, this.r.GetOrElse(() =>
+            {
+                throw new InvalidOperationException();
+            }));
+
+            Assert.Equal(10, this.l.GetOrElse(() =>
+            {
+                return 10;
+            }));
+        }
+
+        [Fact]
+        public void OrElseTest()
+        {
+            Assert.Equal(this.rValue, this.r.OrElse(() =>
+            {
+                throw new InvalidOperationException();
+            }).Get());
+
+            Assert.Equal(this.rValue, this.l.OrElse(() =>
+            {
+                return this.r;
+            }).Get());
+        }
+
+        [Fact]
+        public void SwapTest()
+        {
+            Assert.True(this.r.Swap().IsLeft);
+            Assert.True(this.l.Swap().IsRight);
+        }
+
+        [Fact]
+        public void RecoverTest()
+        {
+            Assert.Equal(this.rValue, this.r.Recover(l =>
+            {
+                throw new InvalidOperationException();
+            }).Get());
+
+            Assert.Equal(10, this.l.Recover(l =>
+            {
+                return 10;
+            }).Get());
+        }
+
+        [Fact]
+        public void RecoverWithTest()
+        {
+            Assert.Equal(this.rValue, this.r.RecoverWith(l =>
+            {
+                throw new InvalidOperationException();
+            }).Get());
+
+            Assert.Equal(10, this.l.RecoverWith(l =>
+            {
+                return new Right<string, int>(10);
+            }).Get());
+        }
+
+        [Fact]
+        public void ExistsTest()
+        {
+            Assert.True(this.r.Exists(i => i == this.rValue));
+            Assert.False(this.r.Exists(i => i != this.rValue));
+
+            Assert.False(this.l.Exists(i => true));
         }
 
 
-
-
-        public static Either<string, int> GetInt(string str)
+        public void ForEachTest()
         {
-            try
+            Assert.Throws<InvalidOperationException>(() =>
             {
-                return new Right<string, int>(int.Parse(str));
-            }
-            catch
+                this.r.ForEach(i =>
+                {
+                    throw new InvalidOperationException();
+                });
+            });
+
+            this.l.ForEach(i =>
             {
-                return new Left<string, int>("Fail");
-            }
+                throw new InvalidOperationException();
+            });
         }
     }
 }
