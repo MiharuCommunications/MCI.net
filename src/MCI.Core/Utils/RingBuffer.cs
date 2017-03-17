@@ -17,6 +17,8 @@ namespace Miharu.Utils
 
     public class RingBuffer<T> : IEnumerable<T>
     {
+        private object sync;
+
         /// <summary>
         /// バッファーの実体
         /// </summary>
@@ -49,6 +51,8 @@ namespace Miharu.Utils
         /// <param name="size"></param>
         public RingBuffer(int size)
         {
+            this.sync = new object();
+
             var len = RingBuffer.GetCapacity(size + 1);
 
             this.buffer = new T[len];
@@ -67,6 +71,8 @@ namespace Miharu.Utils
         /// <param name="source"></param>
         public RingBuffer(int size, T[] source)
         {
+            this.sync = new object();
+
             var len = RingBuffer.GetCapacity(size + 1);
 
             this.buffer = new T[len];
@@ -105,9 +111,12 @@ namespace Miharu.Utils
         {
             get
             {
-                var len = this.buffer.Length;
+                lock (this.sync)
+                {
+                    var len = this.buffer.Length;
 
-                return (this.bottom - this.top + len) % len;
+                    return (this.bottom - this.top + len) % len;
+                }
             }
         }
 
@@ -118,163 +127,196 @@ namespace Miharu.Utils
         {
             get
             {
-                return this.Count == this.Capacity;
+                lock (this.sync)
+                {
+                    return this.Count == this.Capacity;
+                }
             }
         }
 
 
         public Either<IError, Unit> InsertFirst(T item)
         {
-            if (this.IsFull)
+            lock (this.sync)
             {
-                return new Left<IError, Unit>(new BufferOverflowError(this.Capacity));
+                if (this.IsFull)
+                {
+                    return new Left<IError, Unit>(new BufferOverflowError(this.Capacity));
+                }
+
+                this.top = (this.top - 1) & this.mask;
+                this.buffer[this.top] = item;
+
+                return new Right<IError, Unit>(Unit.Instance);
             }
-
-            this.top = (this.top - 1) & this.mask;
-            this.buffer[this.top] = item;
-
-            return new Right<IError, Unit>(Unit.Instance);
         }
 
         public Either<IError, Unit> RemoveFirst()
         {
-            this.top = (this.top + 1) & this.mask;
+            lock (this.sync)
+            {
+                this.top = (this.top + 1) & this.mask;
 
-            return new Right<IError, Unit>(Unit.Instance);
+                return new Right<IError, Unit>(Unit.Instance);
+            }
         }
 
         public Either<IError, Unit> RemoveFirst(int length)
         {
-            var count = this.Count;
-
-            if (length == 0)
+            lock (this.sync)
             {
+                var count = this.Count;
+
+                if (length == 0)
+                {
+                    return new Right<IError, Unit>(Unit.Instance);
+                }
+
+                if (count < length)
+                {
+                    return new Left<IError, Unit>(new ArgumentOutOfRangeError("length"));
+                }
+
+                if (count == length)
+                {
+                    this.Clear();
+
+                    return new Right<IError, Unit>(Unit.Instance);
+                }
+
+                // 通常の削除
+                if (length <= this.buffer.Length - this.top)
+                {
+                    this.top += length;
+                }
+                else
+                {
+                    this.top = length - (this.buffer.Length - this.top);
+                }
+
                 return new Right<IError, Unit>(Unit.Instance);
             }
-
-            if (count < length)
-            {
-                return new Left<IError, Unit>(new ArgumentOutOfRangeError("length"));
-            }
-
-            if (count == length)
-            {
-                this.Clear();
-
-                return new Right<IError, Unit>(Unit.Instance);
-            }
-
-            // 通常の削除
-            if (length <= this.buffer.Length - this.top)
-            {
-                this.top += length;
-            }
-            else
-            {
-                this.top = length - (this.buffer.Length - this.top);
-            }
-
-            return new Right<IError, Unit>(Unit.Instance);
         }
 
 
         public Either<IError, Unit> InsertLast(T item)
         {
-            if (this.IsFull)
+            lock (this.sync)
             {
-                return new Left<IError, Unit>(new BufferOverflowError(this.Capacity));
+                if (this.IsFull)
+                {
+                    return new Left<IError, Unit>(new BufferOverflowError(this.Capacity));
+                }
+
+                this.buffer[this.bottom] = item;
+                this.bottom = (this.bottom + 1) & this.mask;
+
+                return new Right<IError, Unit>(Unit.Instance);
             }
-
-            this.buffer[this.bottom] = item;
-            this.bottom = (this.bottom + 1) & this.mask;
-
-            return new Right<IError, Unit>(Unit.Instance);
         }
 
         public Either<IError, Unit> InsertLast(T[] items)
         {
-            // TODO : もう少しちゃんとしたい
-            for (var i = 0; i < items.Length; i++)
+            lock (this.sync)
             {
-                var result = this.InsertLast(items[i]);
-
-                if (result.IsLeft)
+                // TODO : もう少しちゃんとしたい
+                for (var i = 0; i < items.Length; i++)
                 {
-                    return result;
-                }
-            }
+                    var result = this.InsertLast(items[i]);
 
-            return new Right<IError, Unit>(Unit.Instance);
+                    if (result.IsLeft)
+                    {
+                        return result;
+                    }
+                }
+
+                return new Right<IError, Unit>(Unit.Instance);
+            }
         }
 
 
         public Either<IError, Unit> RemoveLast()
         {
-            if (this.Count < 1)
+            lock (this.sync)
             {
-                return new Left<IError, Unit>(new UnkownError(new NotImplementedException()));
+                if (this.Count < 1)
+                {
+                    return new Left<IError, Unit>(new UnkownError(new NotImplementedException()));
+                }
+
+                this.bottom = (this.bottom - 1) & this.mask;
+
+                return new Right<IError, Unit>(Unit.Instance);
             }
-
-            this.bottom = (this.bottom - 1) & this.mask;
-
-            return new Right<IError, Unit>(Unit.Instance);
         }
 
         public Either<IError, Unit> RemoveLast(int length)
         {
-            var count = this.Count;
-
-            if (length == 0)
+            lock (this.sync)
             {
+                var count = this.Count;
+
+                if (length == 0)
+                {
+                    return new Right<IError, Unit>(Unit.Instance);
+                }
+
+                if (count < length)
+                {
+                    return new Left<IError, Unit>(new ArgumentOutOfRangeError("length"));
+                }
+
+                if (count == length)
+                {
+                    this.Clear();
+
+                    return new Right<IError, Unit>(Unit.Instance);
+                }
+
+                // 通常の削除
+                if (length <= this.bottom)
+                {
+                    this.bottom = this.bottom - length;
+                }
+                else
+                {
+                    this.bottom = this.buffer.Length - (length - this.bottom);
+                }
+
                 return new Right<IError, Unit>(Unit.Instance);
             }
-
-            if (count < length)
-            {
-                return new Left<IError, Unit>(new ArgumentOutOfRangeError("length"));
-            }
-
-            if (count == length)
-            {
-                this.Clear();
-
-                return new Right<IError, Unit>(Unit.Instance);
-            }
-
-            // 通常の削除
-            if (length <= this.bottom)
-            {
-                this.bottom = this.bottom - length;
-            }
-            else
-            {
-                this.bottom = this.buffer.Length - (length - this.bottom);
-            }
-
-            return new Right<IError, Unit>(Unit.Instance);
         }
 
 
 
         public void Clear()
         {
-            this.top = 0;
-            this.bottom = 0;
+            lock (this.sync)
+            {
+                this.top = 0;
+                this.bottom = 0;
+            }
         }
 
 
 
         public IEnumerator<T> GetEnumerator()
         {
-            for (var i = 0; i < this.Count; i++)
+            lock (this.sync)
             {
-                yield return this[i];
+                for (var i = 0; i < this.Count; i++)
+                {
+                    yield return this[i];
+                }
             }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            lock (this.sync)
+            {
+                return this.GetEnumerator();
+            }
         }
     }
 
