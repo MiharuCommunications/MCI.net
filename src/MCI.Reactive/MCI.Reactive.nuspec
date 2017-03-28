@@ -12,13 +12,13 @@
     <tags>Miharu</tags>
 
 
-    <version>0.9.9.0</version>
+    <version>0.9.10.0</version>
     <projectUrl>https://github.com/MiharuCommunications/MCI.net</projectUrl>
     <owners>Miharu Communications Inc.</owners>
     <copyright>Copyright © Miharu Communications Inc. 2016</copyright>
 
     <dependencies>
-        <dependency id="MCI.Core" version="0.9.9.0" />
+        <dependency id="MCI.Core" version="0.9.10.0" />
         <dependency id="Rx-Main" version="2.2.5" />
     </dependencies>
   </metadata>

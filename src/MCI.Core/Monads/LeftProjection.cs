@@ -122,5 +122,40 @@ namespace Miharu.Monads
                 return new Right<L3, R>(((Right<L, R>)this.e).Value);
             }
         }
+
+        public override int Count(Func<L, bool> p)
+        {
+            if (this.e.IsLeft)
+            {
+                var value = ((Left<L, R>)this.e).Value;
+
+                if (p(value))
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public override bool Exists(Func<L, bool> p)
+        {
+            if (this.e.IsLeft)
+            {
+                var value = ((Left<L, R>)this.e).Value;
+
+                return p(value);
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

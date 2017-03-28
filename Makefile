@@ -1,4 +1,4 @@
-.PHONY: install build cover
+.PHONY: install build cover nuget
 
 
 install:
@@ -9,3 +9,8 @@ build:
 
 cover:
 	powershell -NoProfile -ExecutionPolicy Unrestricted ./cover.ps1
+
+
+nuget:
+	@src/.nuget/nuget.exe pack src/MCI.Core/MCI.Core.csproj -Prop Configuration=Release -Symbol -OutputDirectory src/nupkg
+	@src/.nuget/nuget.exe pack src/MCI.Reactive/MCI.Reactive.csproj -Prop Configuration=Release -Symbol -OutputDirectory src/nupkg

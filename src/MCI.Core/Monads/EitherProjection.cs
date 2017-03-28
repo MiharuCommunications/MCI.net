@@ -27,5 +27,9 @@ namespace Miharu.Monads
         public abstract T GetOrElse(Func<T> f);
 
         public abstract Option<T> ToOption();
+
+        public abstract bool Exists(Func<T, bool> p);
+
+        public abstract int Count(Func<T, bool> p);
     }
 }
