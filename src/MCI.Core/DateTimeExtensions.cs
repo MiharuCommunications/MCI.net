@@ -87,7 +87,6 @@ namespace Miharu
 
         public static IEnumerable<IEnumerable<T>> GroupedWithTimeSpan<T>(this IEnumerable<T> source, Func<T, DateTime> f, DateTime start, TimeSpan span)
         {
-            var from = start;
             var to = start + span;
             var currents = new LinkedList<T>();
 
@@ -106,7 +105,7 @@ namespace Miharu
                         currents = new LinkedList<T>();
                     }
 
-                    from = to;
+                    var from = to;
                     to = from + span;
                 }
 

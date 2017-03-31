@@ -8,49 +8,49 @@ namespace Miharu
 {
     public class Callback<T1> : IDisposable
     {
-        private bool disposed;
-        private List<Action<T1>> callbacks;
+        private bool _disposed;
+        private readonly List<Action<T1>> _callbacks;
 
         public Callback()
         {
-            this.disposed = false;
-            this.callbacks = new List<Action<T1>>();
+            this._disposed = false;
+            this._callbacks = new List<Action<T1>>();
         }
 
 
         public void Add(Action<T1> callback)
         {
-            if (this.disposed)
+            if (this._disposed)
             {
                 ThrowHelper.ThrowObjectDisposedException("Callback");
             }
 
-            this.callbacks.Add(callback);
+            this._callbacks.Add(callback);
         }
 
         public void Remove(Action<T1> callback)
         {
-            if (this.disposed)
+            if (this._disposed)
             {
                 ThrowHelper.ThrowObjectDisposedException("Callback");
             }
 
-            this.callbacks.Remove(callback);
+            this._callbacks.Remove(callback);
         }
 
         public void Clear()
         {
-            if (this.disposed)
+            if (this._disposed)
             {
                 ThrowHelper.ThrowObjectDisposedException("Callback");
             }
 
-            this.callbacks.Clear();
+            this._callbacks.Clear();
         }
 
         public void Fire(T1 arg1)
         {
-            foreach (var callback in this.callbacks)
+            foreach (var callback in this._callbacks)
             {
                 callback(arg1);
             }
@@ -59,7 +59,7 @@ namespace Miharu
 
         protected virtual void Dispose(bool disposing)
         {
-            if (this.disposed)
+            if (this._disposed)
             {
                 return;
             }
@@ -67,10 +67,10 @@ namespace Miharu
             if (disposing)
             {
                 // Dispose 処理
-                this.callbacks.Clear();
+                this._callbacks.Clear();
             }
 
-            this.disposed = true;
+            this._disposed = true;
         }
 
         public void Dispose()

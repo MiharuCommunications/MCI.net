@@ -7,17 +7,13 @@ namespace Miharu.Async
 {
 
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    using Miharu.Async;
 
     public class ReaderWriterLocker : IDisposable
     {
-        private bool disposed;
-        private readonly ReaderWriterLockSlim locker;
+        private bool _disposed;
+        private readonly ReaderWriterLockSlim _locker;
 
 #if DEBUG
         private ThreadSafeCounter readLockCount;
@@ -27,18 +23,18 @@ namespace Miharu.Async
 
         public ReaderWriterLocker()
         {
-            this.disposed = false;
-            this.locker = new ReaderWriterLockSlim();
+            _disposed = false;
+            _locker = new ReaderWriterLockSlim();
 #if DEBUG
-            this.readLockCount = new ThreadSafeCounter();
-            this.writeLockCount = new ThreadSafeCounter();
+            readLockCount = new ThreadSafeCounter();
+            writeLockCount = new ThreadSafeCounter();
 #endif
         }
 
         public Try Write(Func<Try> f)
         {
             var result = TryHelper.ReturnNotImplementedException();
-            this.locker.EnterWriteLock();
+            _locker.EnterWriteLock();
             try
             {
                 result = f();
@@ -50,7 +46,7 @@ namespace Miharu.Async
             }
             finally
             {
-                this.locker.ExitWriteLock();
+                _locker.ExitWriteLock();
             }
 
             return result;
@@ -64,22 +60,22 @@ namespace Miharu.Async
 
             Task.Factory.StartNew(() =>
             {
-                if (!this.locker.IsWriteLockHeld)
+                if (!_locker.IsWriteLockHeld)
                 {
 #if DEBUG
-                    this.writeLockCount.Increment();
+                    writeLockCount.Increment();
 #endif
-                    if (this.disposed)
+                    if (_disposed)
                     {
                         return;
                     }
 
-                    this.locker.EnterWriteLock();
+                    _locker.EnterWriteLock();
 #if DEBUG
-                    this.writeLockCount.Decrement();
-                    if (maxCounter < this.writeLockCount.Counter)
+                    writeLockCount.Decrement();
+                    if (maxCounter < writeLockCount.Counter)
                     {
-//                        Debuggers.AddError("ReaderWriterLocker.WriteAsync の Counter が増えています: Counter =" + this.writeLockCount.Counter.ToString());
+//                        Debuggers.AddError("ReaderWriterLocker.WriteAsync の Counter が増えています: Counter =" + writeLockCount.Counter.ToString());
                     }
 #endif
 
@@ -93,7 +89,7 @@ namespace Miharu.Async
                     }
                     finally
                     {
-                        this.locker.ExitWriteLock();
+                        _locker.ExitWriteLock();
                     }
                 }
                 else
@@ -112,7 +108,7 @@ namespace Miharu.Async
         {
             var result = TryHelper.ReturnNotImplementedException<T>();
 
-            this.locker.EnterReadLock();
+            _locker.EnterReadLock();
             try
             {
                 result = f();
@@ -123,7 +119,7 @@ namespace Miharu.Async
             }
             finally
             {
-                this.locker.ExitReadLock();
+                _locker.ExitReadLock();
             }
             return result;
         }
@@ -136,22 +132,22 @@ namespace Miharu.Async
 
             Task.Factory.StartNew(() =>
             {
-                if (!this.locker.IsWriteLockHeld)
+                if (!_locker.IsWriteLockHeld)
                 {
 #if DEBUG
-                    this.readLockCount.Increment();
+                    readLockCount.Increment();
 #endif
-                    if (this.disposed)
+                    if (_disposed)
                     {
                         return;
                     }
 
-                    this.locker.EnterWriteLock();
+                    _locker.EnterWriteLock();
 #if DEBUG
-                    this.readLockCount.Decrement();
-                    if (maxCounter < this.readLockCount.Counter)
+                    readLockCount.Decrement();
+                    if (maxCounter < readLockCount.Counter)
                     {
-//                        Debuggers.AddError("ReaderWriterLocker.ReadAsync の Counter が増えています: Counter =" + this.readLockCount.Counter.ToString());
+//                        Debuggers.AddError("ReaderWriterLocker.ReadAsync の Counter が増えています: Counter =" + readLockCount.Counter.ToString());
                     }
 #endif
 
@@ -165,7 +161,7 @@ namespace Miharu.Async
                     }
                     finally
                     {
-                        this.locker.ExitWriteLock();
+                        _locker.ExitWriteLock();
                     }
                 }
                 else
@@ -190,17 +186,17 @@ namespace Miharu.Async
 
         protected virtual void Dispose(bool disposing)
         {
-            if (this.disposed)
+            if (_disposed)
             {
                 return;
             }
 
             if (disposing)
             {
-                this.locker.Dispose();
+                _locker.Dispose();
             }
 
-            this.disposed = true;
+            _disposed = true;
         }
     }
 }

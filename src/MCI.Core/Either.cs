@@ -10,7 +10,7 @@ namespace Miharu
 
     public abstract class Either<L, R>
     {
-        internal protected Either()
+        protected internal Either()
         {
             this.Left = new LeftProjection<L, R>(this);
             this.Right = new RightProjection<L, R>(this);

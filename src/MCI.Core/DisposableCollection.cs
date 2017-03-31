@@ -13,48 +13,48 @@ namespace Miharu
 
     public sealed class DisposableCollection : IDisposable
     {
-        private bool disposed;
-        private object lockObject;
-        private List<IDisposable> collection;
+        private bool _disposed;
+        private readonly object _lockObject;
+        private readonly List<IDisposable> _collection;
 
 
         public DisposableCollection()
         {
-            this.disposed = false;
-            this.lockObject = new object();
+            this._disposed = false;
+            this._lockObject = new object();
 
-            this.collection = new List<IDisposable>();
+            this._collection = new List<IDisposable>();
         }
 
 
         public void Add(IDisposable disposable)
         {
-            lock (this.lockObject)
+            lock (this._lockObject)
             {
-                if (this.disposed)
+                if (this._disposed)
                 {
                     ThrowHelper.ThrowObjectDisposedException("DisposableCollection");
                 }
 
-                this.collection.Add(disposable);
+                this._collection.Add(disposable);
             }
         }
 
 
         private void Dispose(bool disposing)
         {
-            lock (this.lockObject)
+            lock (this._lockObject)
             {
-                if (this.disposed)
+                if (this._disposed)
                 {
                     return;
                 }
 
-                this.disposed = true;
+                this._disposed = true;
 
                 if (disposing)
                 {
-                    foreach (var disposable in this.collection)
+                    foreach (var disposable in this._collection)
                     {
                         disposable.Dispose();
                     }

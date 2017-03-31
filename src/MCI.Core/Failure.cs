@@ -6,18 +6,15 @@
 namespace Miharu
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public sealed class Failure<T> : Try<T>
     {
-        private readonly Exception exception;
+        private readonly Exception _exception;
 
 
         internal Failure(Exception exception)
         {
-            this.exception = exception;
+            _exception = exception;
         }
 
 
@@ -39,7 +36,7 @@ namespace Miharu
 
         public override T Get()
         {
-            throw this.exception;
+            throw _exception;
         }
 
         public override T GetOrElse(T def)
@@ -54,43 +51,43 @@ namespace Miharu
 
         public override T GetOrElse(Func<Exception, T> f)
         {
-            return f(this.exception);
+            return f(_exception);
         }
 
         public override Exception GetException()
         {
-            return this.exception;
+            return _exception;
         }
 
 
         public override Try<TResult> Select<TResult>(Func<T, TResult> f)
         {
-            return new Failure<TResult>(this.exception);
+            return new Failure<TResult>(_exception);
         }
 
         public override Try Select(Action<T> f)
         {
-            return new Failure(this.exception);
+            return new Failure(_exception);
         }
 
         public override Try<TResult> SelectMany<TResult>(Func<T, Try<TResult>> f)
         {
-            return new Failure<TResult>(this.exception);
+            return new Failure<TResult>(_exception);
         }
 
         public override Try SelectMany(Func<T, Try> f)
         {
-            return new Failure(this.exception);
+            return new Failure(_exception);
         }
 
-        public override Try<C> SelectMany<B, C>(Func<T, Try<B>> f, Func<T, B, C> g)
+        public override Try<TC> SelectMany<TB, TC>(Func<T, Try<TB>> f, Func<T, TB, TC> g)
         {
-            return new Failure<C>(this.exception);
+            return new Failure<TC>(_exception);
         }
 
         public override Either<Exception, T> ToEither()
         {
-            return new Left<Exception, T>(this.exception);
+            return new Left<Exception, T>(_exception);
         }
 
         public override Option<T> ToOption()
@@ -108,7 +105,7 @@ namespace Miharu
         {
             try
             {
-                return new Success<T>(f(this.exception));
+                return new Success<T>(f(_exception));
             }
             catch (Exception ex)
             {
@@ -120,7 +117,7 @@ namespace Miharu
         {
             try
             {
-                return f(this.exception);
+                return f(_exception);
             }
             catch (Exception ex)
             {
@@ -130,49 +127,50 @@ namespace Miharu
 
 
 
-        public override Try<T> Throw<E>()
+        public override Try<T> Throw<TException>()
         {
-            if (this.exception is E)
+            if (_exception is TException)
             {
-                throw this.exception;
+                throw _exception;
             }
 
             return this;
         }
 
 
-        public override Try<T> Throw<E>(Action<E> when)
+        public override Try<T> Throw<TException>(Action<TException> when)
         {
-            if (this.exception is E)
+            var e = _exception as TException;
+
+            if (e == null)
             {
-                when((E)this.exception);
-                throw this.exception;
+                return this;
             }
 
-            return this;
+            when(e);
+            throw e;
         }
 
 
         public override Option<Exception> ToException()
         {
-            return Option<Exception>.Return(this.exception);
+            return Option<Exception>.Return(_exception);
         }
 
 
         public override Try<T> Where(Func<T, bool> f)
         {
-            return new Failure<T>(this.exception);
+            return new Failure<T>(_exception);
         }
 
         public override void ForEach(Action<T> f)
         {
-            return;
         }
 
 
         public override Try Collapse()
         {
-            return new Failure(this.exception);
+            return new Failure(_exception);
         }
     }
 
@@ -180,12 +178,12 @@ namespace Miharu
 
     public sealed class Failure : Try
     {
-        private readonly Exception exception;
+        private readonly Exception _exception;
 
 
         internal Failure(Exception exception)
         {
-            this.exception = exception;
+            _exception = exception;
         }
 
 
@@ -219,7 +217,6 @@ namespace Miharu
 
         public override void ForEach(Action f)
         {
-            return;
         }
 
 
@@ -227,7 +224,8 @@ namespace Miharu
         {
             try
             {
-                f(this.exception);
+                f(_exception);
+
                 return new Success();
             }
             catch (Exception ex)
@@ -240,7 +238,7 @@ namespace Miharu
         {
             try
             {
-                return f(this.exception);
+                return f(_exception);
             }
             catch (Exception ex)
             {
@@ -249,37 +247,39 @@ namespace Miharu
         }
 
 
-        public override Try Throw<E>()
+        public override Try Throw<TException>()
         {
-            if (this.exception is E)
+            if (_exception is TException)
             {
-                throw this.exception;
+                throw _exception;
             }
 
             return this;
         }
 
 
-        public override Try Throw<E>(Action<E> when)
+        public override Try Throw<TException>(Action<TException> when)
         {
-            if (this.exception is E)
+            var e = _exception as TException;
+
+            if (e == null)
             {
-                when((E)this.exception);
-                throw this.exception;
+                return this;
             }
 
-            return this;
+            when(e);
+            throw e;
         }
 
 
         public override Option<Exception> ToException()
         {
-            return Option<Exception>.Return(this.exception);
+            return Option<Exception>.Return(_exception);
         }
 
         public override Exception GetException()
         {
-            return this.exception;
+            return _exception;
         }
     }
 }

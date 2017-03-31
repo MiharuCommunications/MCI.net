@@ -6,32 +6,31 @@
 namespace Miharu
 {
     using System;
-    using Miharu.Monads;
 
     public static class EitherExtensions
     {
-        public static A Merge<A>(this Either<A, A> either)
+        public static T Merge<T>(this Either<T, T> either)
         {
             if (either.IsRight)
             {
-                return ((Right<A, A>)either).Value;
+                return either.Right.Get();
             }
             else
             {
-                return ((Left<A, A>)either).Value;
+                return either.Left.Get();
             }
         }
 
-        public static Try<R> ToTry<L, R>(this Either<L, R> either)
-            where L : Exception
+        public static Try<TR> ToTry<TL, TR>(this Either<TL, TR> either)
+            where TL : Exception
         {
             if (either.IsRight)
             {
-                return Try<R>.Success(either.Get());
+                return Try<TR>.Success(either.Get());
             }
             else
             {
-                return Try<R>.Fail(either.Left.Get());
+                return Try<TR>.Fail(either.Left.Get());
             }
         }
     }

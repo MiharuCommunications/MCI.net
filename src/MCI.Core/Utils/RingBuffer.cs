@@ -17,27 +17,27 @@ namespace Miharu.Utils
 
     public class RingBuffer<T> : IEnumerable<T>
     {
-        private object sync;
+        private readonly object _sync;
 
         /// <summary>
         /// バッファーの実体
         /// </summary>
-        private T[] buffer;
+        private readonly T[] _buffer;
 
         /// <summary>
         /// バッファー利用領域の開始インデックス
         /// </summary>
-        private int top;
+        private int _top;
 
         /// <summary>
         /// バッファー利用領域の終了インデックス
         /// </summary>
-        private int bottom;
+        private int _bottom;
 
         /// <summary>
         /// 高速処理用のマスク
         /// </summary>
-        private int mask;
+        private readonly int _mask;
 
         /// <summary>
         /// get capacity of this ring buffer
@@ -51,17 +51,17 @@ namespace Miharu.Utils
         /// <param name="size"></param>
         public RingBuffer(int size)
         {
-            this.sync = new object();
+            _sync = new object();
 
             var len = RingBuffer.GetCapacity(size + 1);
 
-            this.buffer = new T[len];
+            _buffer = new T[len];
 
-            this.top = 0;
-            this.bottom = 0;
+            _top = 0;
+            _bottom = 0;
 
-            this.mask = len - 1;
-            this.Capacity = len - 1;
+            _mask = len - 1;
+            Capacity = len - 1;
         }
 
         /// <summary>
@@ -71,18 +71,18 @@ namespace Miharu.Utils
         /// <param name="source"></param>
         public RingBuffer(int size, T[] source)
         {
-            this.sync = new object();
+            _sync = new object();
 
             var len = RingBuffer.GetCapacity(size + 1);
 
-            this.buffer = new T[len];
-            Array.Copy(source, this.buffer, source.Length);
+            _buffer = new T[len];
+            Array.Copy(source, _buffer, source.Length);
 
-            this.top = 0;
-            this.bottom = source.Length;
+            _top = 0;
+            _bottom = source.Length;
 
-            this.mask = len - 1;
-            this.Capacity = len - 1;
+            _mask = len - 1;
+            Capacity = len - 1;
         }
 
         /// <summary>
@@ -94,13 +94,13 @@ namespace Miharu.Utils
         {
             get
             {
-                return this.buffer[(index + this.top) & this.mask];
+                return _buffer[(index + _top) & _mask];
             }
 
             set
             {
                 // value の範囲を検証すべき
-                this.buffer[(index + this.top) & this.mask] = value;
+                _buffer[(index + _top) & _mask] = value;
             }
         }
 
@@ -111,11 +111,11 @@ namespace Miharu.Utils
         {
             get
             {
-                lock (this.sync)
+                lock (_sync)
                 {
-                    var len = this.buffer.Length;
+                    var len = _buffer.Length;
 
-                    return (this.bottom - this.top + len) % len;
+                    return (_bottom - _top + len) % len;
                 }
             }
         }
@@ -127,9 +127,9 @@ namespace Miharu.Utils
         {
             get
             {
-                lock (this.sync)
+                lock (_sync)
                 {
-                    return this.Count == this.Capacity;
+                    return Count == Capacity;
                 }
             }
         }
@@ -137,15 +137,15 @@ namespace Miharu.Utils
 
         public Either<IError, Unit> InsertFirst(T item)
         {
-            lock (this.sync)
+            lock (_sync)
             {
-                if (this.IsFull)
+                if (IsFull)
                 {
-                    return new Left<IError, Unit>(new BufferOverflowError(this.Capacity));
+                    return new Left<IError, Unit>(new BufferOverflowError(Capacity));
                 }
 
-                this.top = (this.top - 1) & this.mask;
-                this.buffer[this.top] = item;
+                _top = (_top - 1) & _mask;
+                _buffer[_top] = item;
 
                 return new Right<IError, Unit>(Unit.Instance);
             }
@@ -153,9 +153,9 @@ namespace Miharu.Utils
 
         public Either<IError, Unit> RemoveFirst()
         {
-            lock (this.sync)
+            lock (_sync)
             {
-                this.top = (this.top + 1) & this.mask;
+                _top = (_top + 1) & _mask;
 
                 return new Right<IError, Unit>(Unit.Instance);
             }
@@ -163,9 +163,9 @@ namespace Miharu.Utils
 
         public Either<IError, Unit> RemoveFirst(int length)
         {
-            lock (this.sync)
+            lock (_sync)
             {
-                var count = this.Count;
+                var count = Count;
 
                 if (length == 0)
                 {
@@ -179,19 +179,19 @@ namespace Miharu.Utils
 
                 if (count == length)
                 {
-                    this.Clear();
+                    Clear();
 
                     return new Right<IError, Unit>(Unit.Instance);
                 }
 
                 // 通常の削除
-                if (length <= this.buffer.Length - this.top)
+                if (length <= _buffer.Length - _top)
                 {
-                    this.top += length;
+                    _top += length;
                 }
                 else
                 {
-                    this.top = length - (this.buffer.Length - this.top);
+                    _top = length - (_buffer.Length - _top);
                 }
 
                 return new Right<IError, Unit>(Unit.Instance);
@@ -201,15 +201,15 @@ namespace Miharu.Utils
 
         public Either<IError, Unit> InsertLast(T item)
         {
-            lock (this.sync)
+            lock (_sync)
             {
-                if (this.IsFull)
+                if (IsFull)
                 {
-                    return new Left<IError, Unit>(new BufferOverflowError(this.Capacity));
+                    return new Left<IError, Unit>(new BufferOverflowError(Capacity));
                 }
 
-                this.buffer[this.bottom] = item;
-                this.bottom = (this.bottom + 1) & this.mask;
+                _buffer[_bottom] = item;
+                _bottom = (_bottom + 1) & _mask;
 
                 return new Right<IError, Unit>(Unit.Instance);
             }
@@ -217,12 +217,12 @@ namespace Miharu.Utils
 
         public Either<IError, Unit> InsertLast(T[] items)
         {
-            lock (this.sync)
+            lock (_sync)
             {
                 // TODO : もう少しちゃんとしたい
                 for (var i = 0; i < items.Length; i++)
                 {
-                    var result = this.InsertLast(items[i]);
+                    var result = InsertLast(items[i]);
 
                     if (result.IsLeft)
                     {
@@ -237,14 +237,14 @@ namespace Miharu.Utils
 
         public Either<IError, Unit> RemoveLast()
         {
-            lock (this.sync)
+            lock (_sync)
             {
-                if (this.Count < 1)
+                if (Count < 1)
                 {
                     return new Left<IError, Unit>(new UnkownError(new NotImplementedException()));
                 }
 
-                this.bottom = (this.bottom - 1) & this.mask;
+                _bottom = (_bottom - 1) & _mask;
 
                 return new Right<IError, Unit>(Unit.Instance);
             }
@@ -252,9 +252,9 @@ namespace Miharu.Utils
 
         public Either<IError, Unit> RemoveLast(int length)
         {
-            lock (this.sync)
+            lock (_sync)
             {
-                var count = this.Count;
+                var count = Count;
 
                 if (length == 0)
                 {
@@ -268,19 +268,19 @@ namespace Miharu.Utils
 
                 if (count == length)
                 {
-                    this.Clear();
+                    Clear();
 
                     return new Right<IError, Unit>(Unit.Instance);
                 }
 
                 // 通常の削除
-                if (length <= this.bottom)
+                if (length <= _bottom)
                 {
-                    this.bottom = this.bottom - length;
+                    _bottom = _bottom - length;
                 }
                 else
                 {
-                    this.bottom = this.buffer.Length - (length - this.bottom);
+                    _bottom = _buffer.Length - (length - _bottom);
                 }
 
                 return new Right<IError, Unit>(Unit.Instance);
@@ -291,10 +291,10 @@ namespace Miharu.Utils
 
         public void Clear()
         {
-            lock (this.sync)
+            lock (_sync)
             {
-                this.top = 0;
-                this.bottom = 0;
+                _top = 0;
+                _bottom = 0;
             }
         }
 
@@ -302,9 +302,9 @@ namespace Miharu.Utils
 
         public IEnumerator<T> GetEnumerator()
         {
-            lock (this.sync)
+            lock (_sync)
             {
-                for (var i = 0; i < this.Count; i++)
+                for (var i = 0; i < Count; i++)
                 {
                     yield return this[i];
                 }
@@ -313,9 +313,9 @@ namespace Miharu.Utils
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            lock (this.sync)
+            lock (_sync)
             {
-                return this.GetEnumerator();
+                return GetEnumerator();
             }
         }
     }

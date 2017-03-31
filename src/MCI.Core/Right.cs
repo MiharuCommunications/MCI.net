@@ -6,16 +6,14 @@
 namespace Miharu
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
-    public sealed class Right<L, R> : Either<L, R>
+    public sealed class Right<TL, TR> : Either<TL, TR>
     {
-        public Right(R value)
-            : base()
+        public readonly TR Value;
+
+        public Right(TR value)
         {
-            this.Value = value;
+            Value = value;
         }
 
         public override bool IsLeft
@@ -35,76 +33,75 @@ namespace Miharu
         }
 
 
-        public readonly R Value;
 
-        public override A Fold<A>(Func<L, A> fl, Func<R, A> fr)
+        public override TA Fold<TA>(Func<TL, TA> fl, Func<TR, TA> fr)
         {
-            return fr(this.Value);
+            return fr(Value);
         }
 
-        public override Either<R, L> Swap()
+        public override Either<TR, TL> Swap()
         {
-            return new Left<R, L>(this.Value);
+            return new Left<TR, TL>(Value);
         }
 
-        public override Either<L, R2> Select<R2>(Func<R, R2> f)
+        public override Either<TL, TR2> Select<TR2>(Func<TR, TR2> f)
         {
-            return new Right<L, R2>(f(this.Value));
+            return new Right<TL, TR2>(f(Value));
         }
 
-        public override Either<L, R2> SelectMany<R2>(Func<R, Either<L, R2>> f)
+        public override Either<TL, TR2> SelectMany<TR2>(Func<TR, Either<TL, TR2>> f)
         {
-            return f(this.Value);
+            return f(Value);
         }
 
-        public override Either<L, R3> SelectMany<R2, R3>(Func<R, Either<L, R2>> f, Func<R, R2, R3> g)
+        public override Either<TL, TR3> SelectMany<TR2, TR3>(Func<TR, Either<TL, TR2>> f, Func<TR, TR2, TR3> g)
         {
-            var x = this.Value;
+            var x = Value;
 
-            return f(x).SelectMany(y => new Right<L, R3>(g(x, y)));
+            return f(x).SelectMany(y => new Right<TL, TR3>(g(x, y)));
         }
 
-        public override Option<R> ToOption()
+        public override Option<TR> ToOption()
         {
-            return Option<R>.Return(this.Value);
+            return Option<TR>.Return(Value);
         }
 
-        public override void ForEach(Action<R> f)
+        public override void ForEach(Action<TR> f)
         {
-            f(this.Value);
+            f(Value);
         }
 
-        public override bool Exists(Func<R, bool> p)
+        public override bool Exists(Func<TR, bool> p)
         {
-            return p(this.Value);
+            return p(Value);
         }
 
-        public override R Get()
+        public override TR Get()
         {
-            return this.Value;
+            return Value;
         }
 
-        public override R GetOrElse(Func<R> f)
+        public override TR GetOrElse(Func<TR> f)
         {
-            return this.Value;
+            return Value;
         }
 
-        public override R GetOrElse(R value)
+        public override TR GetOrElse(TR value)
         {
-            return this.Value;
+            return Value;
         }
 
-        public override Either<L, R> OrElse(Func<Either<L, R>> f)
-        {
-            return this;
-        }
-
-        public override Either<L, R> Recover(Func<L, R> f)
+        public override Either<TL, TR> OrElse(Func<Either<TL, TR>> f)
         {
             return this;
         }
 
-        public override Either<L, R> RecoverWith(Func<L, Either<L, R>> f)
+        public override Either<TL, TR> Recover(Func<TL, TR> f)
+        {
+            return this;
+        }
+
+        public override Either<TL, TR> RecoverWith(Func<TL, Either<TL, TR>> f)
         {
             return this;
         }

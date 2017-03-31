@@ -6,24 +6,21 @@
 namespace Miharu.Monads
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
-    public sealed class LeftProjection<L, R> : EitherProjection<L>
+    public sealed class LeftProjection<TL, TR> : EitherProjection<TL>
     {
-        private Either<L, R> e;
+        private readonly Either<TL, TR> _e;
 
-        internal LeftProjection(Either<L, R> e)
+        internal LeftProjection(Either<TL, TR> e)
         {
-            this.e = e;
+            _e = e;
         }
 
         public override bool IsDefined
         {
             get
             {
-                return this.e.IsLeft;
+                return _e.IsLeft;
             }
         }
 
@@ -31,15 +28,15 @@ namespace Miharu.Monads
         {
             get
             {
-                return this.e.IsRight;
+                return _e.IsRight;
             }
         }
 
-        public override L Get()
+        public override TL Get()
         {
-            if (this.e.IsLeft)
+            if (_e.IsLeft)
             {
-                return ((Left<L, R>)this.e).Value;
+                return ((Left<TL, TR>)_e).Value;
             }
             else
             {
@@ -47,11 +44,11 @@ namespace Miharu.Monads
             }
         }
 
-        public override L GetOrElse(L value)
+        public override TL GetOrElse(TL value)
         {
-            if (this.e.IsLeft)
+            if (_e.IsLeft)
             {
-                return ((Left<L, R>)this.e).Value;
+                return ((Left<TL, TR>)_e).Value;
             }
             else
             {
@@ -59,11 +56,11 @@ namespace Miharu.Monads
             }
         }
 
-        public override L GetOrElse(Func<L> f)
+        public override TL GetOrElse(Func<TL> f)
         {
-            if (this.e.IsLeft)
+            if (_e.IsLeft)
             {
-                return ((Left<L, R>)this.e).Value;
+                return ((Left<TL, TR>)_e).Value;
             }
             else
             {
@@ -72,62 +69,62 @@ namespace Miharu.Monads
         }
 
 
-        public override Option<L> ToOption()
+        public override Option<TL> ToOption()
         {
-            if (this.e.IsLeft)
+            if (_e.IsLeft)
             {
-                return new Some<L>(((Left<L, R>)this.e).Value);
+                return new Some<TL>(((Left<TL, TR>)_e).Value);
             }
             else
             {
-                return new None<L>();
+                return new None<TL>();
             }
         }
 
 
-        public Either<L2, R> Select<L2>(Func<L, L2> f)
+        public Either<TL2, TR> Select<TL2>(Func<TL, TL2> f)
         {
-            if (this.e.IsLeft)
+            if (_e.IsLeft)
             {
-                return new Left<L2, R>(f(((Left<L, R>)this.e).Value));
+                return new Left<TL2, TR>(f(((Left<TL, TR>)_e).Value));
             }
             else
             {
-                return new Right<L2, R>(((Right<L, R>)this.e).Value);
+                return new Right<TL2, TR>(((Right<TL, TR>)_e).Value);
             }
         }
 
-        public Either<L2, R> SelectMany<L2>(Func<L, Either<L2, R>> f)
+        public Either<TL2, TR> SelectMany<TL2>(Func<TL, Either<TL2, TR>> f)
         {
-            if (this.e.IsLeft)
+            if (_e.IsLeft)
             {
-                return f(((Left<L, R>)this.e).Value);
+                return f(((Left<TL, TR>)_e).Value);
             }
             else
             {
-                return new Right<L2, R>(((Right<L, R>)this.e).Value);
+                return new Right<TL2, TR>(((Right<TL, TR>)_e).Value);
             }
         }
 
-        public Either<L3, R> SelectMany<L2, L3>(Func<L, Either<L2, R>> f, Func<L, L2, L3> g)
+        public Either<TL3, TR> SelectMany<TL2, TL3>(Func<TL, Either<TL2, TR>> f, Func<TL, TL2, TL3> g)
         {
-            if (this.e.IsLeft)
+            if (_e.IsLeft)
             {
-                var x = ((Left<L, R>)this.e).Value;
+                var x = ((Left<TL, TR>)_e).Value;
 
-                return f(x).Left.SelectMany(y => new Left<L3, R>(g(x, y)));
+                return f(x).Left.SelectMany(y => new Left<TL3, TR>(g(x, y)));
             }
             else
             {
-                return new Right<L3, R>(((Right<L, R>)this.e).Value);
+                return new Right<TL3, TR>(((Right<TL, TR>)_e).Value);
             }
         }
 
-        public override int Count(Func<L, bool> p)
+        public override int Count(Func<TL, bool> p)
         {
-            if (this.e.IsLeft)
+            if (_e.IsLeft)
             {
-                var value = ((Left<L, R>)this.e).Value;
+                var value = ((Left<TL, TR>)_e).Value;
 
                 if (p(value))
                 {
@@ -144,11 +141,11 @@ namespace Miharu.Monads
             }
         }
 
-        public override bool Exists(Func<L, bool> p)
+        public override bool Exists(Func<TL, bool> p)
         {
-            if (this.e.IsLeft)
+            if (_e.IsLeft)
             {
-                var value = ((Left<L, R>)this.e).Value;
+                var value = ((Left<TL, TR>)_e).Value;
 
                 return p(value);
             }

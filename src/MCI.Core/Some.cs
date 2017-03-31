@@ -9,12 +9,12 @@ namespace Miharu
 
     public sealed class Some<T> : Option<T>
     {
-        private readonly T value;
+        private readonly T _value;
 
 
         internal Some(T value)
         {
-            this.value = value;
+            this._value = value;
         }
 
 
@@ -39,18 +39,18 @@ namespace Miharu
 
         public override T Get()
         {
-            return this.value;
+            return this._value;
         }
 
         public override T GetOrElse(T value)
         {
-            return this.value;
+            return this._value;
         }
 
 
         public override T GetOrElse(Func<T> f)
         {
-            return this.value;
+            return this._value;
         }
 
         public override Option<T> OrElse(Func<Option<T>> f)
@@ -65,17 +65,17 @@ namespace Miharu
 
         public override Option<B> Select<B>(Func<T, B> f)
         {
-            return new Some<B>(f(this.value));
+            return new Some<B>(f(this._value));
         }
 
         public override Option<B> SelectMany<B>(Func<T, Option<B>> f)
         {
-            return f(this.value);
+            return f(this._value);
         }
 
         public override Option<C> SelectMany<B, C>(Func<T, Option<B>> f, Func<T, B, C> g)
         {
-            var x = this.value;
+            var x = this._value;
 
             return f(x).SelectMany(y => new Some<C>(g(x, y)));
         }
@@ -83,9 +83,9 @@ namespace Miharu
 
         public override Option<T> Where(Func<T, bool> f)
         {
-            if (f(this.value))
+            if (f(this._value))
             {
-                return new Some<T>(this.value);
+                return new Some<T>(this._value);
             }
             else
             {
@@ -96,37 +96,37 @@ namespace Miharu
 
         public override void ForEach(Action<T> f)
         {
-            f(this.value);
+            f(this._value);
         }
 
         public override Either<T, R> ToLeft<R>(Func<R> f)
         {
-            return new Left<T, R>(this.value);
+            return new Left<T, R>(this._value);
         }
 
         public override Either<L, T> ToRight<L>(Func<L> f)
         {
-            return new Right<L, T>(this.value);
+            return new Right<L, T>(this._value);
         }
 
         public override Either<L, T> ToEither<L>(Func<L> f)
         {
-            return new Right<L, T>(this.value);
+            return new Right<L, T>(this._value);
         }
 
         public override Try<T> ToTry()
         {
-            return Try<T>.Success(this.value);
+            return Try<T>.Success(this._value);
         }
 
         public override Try<T> ToTry(Exception ex)
         {
-            return new Success<T>(this.value);
+            return new Success<T>(this._value);
         }
 
         public override int Count(Func<T, bool> p)
         {
-            if (p(this.value))
+            if (p(this._value))
             {
                 return 1;
             }
@@ -138,7 +138,7 @@ namespace Miharu
 
         public override bool Exists(Func<T, bool> p)
         {
-            return p(this.value);
+            return p(this._value);
         }
     }
 }

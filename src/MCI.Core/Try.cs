@@ -6,11 +6,8 @@
 namespace Miharu
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
-    public abstract class Try<A>
+    public abstract class Try<T>
     {
         protected internal Try()
         {
@@ -27,20 +24,20 @@ namespace Miharu
         public abstract bool IsSuccess { get; }
 
         [Obsolete("スタックトレースが消失するため非推奨")]
-        public static Try<A> Execute(Func<A> f)
+        public static Try<T> Execute(Func<T> f)
         {
             try
             {
-                return new Success<A>(f());
+                return new Success<T>(f());
             }
             catch (Exception ex)
             {
-                return new Failure<A>(ex);
+                return new Failure<T>(ex);
             }
         }
 
         [Obsolete("スタックトレースが消失するため非推奨")]
-        public static Try<A> FlatExecute(Func<Try<A>> f)
+        public static Try<T> FlatExecute(Func<Try<T>> f)
         {
             try
             {
@@ -48,68 +45,68 @@ namespace Miharu
             }
             catch (Exception ex)
             {
-                return new Failure<A>(ex);
+                return new Failure<T>(ex);
             }
         }
 
-        public static Try<A> Success(A value)
+        public static Try<T> Success(T value)
         {
-            return new Success<A>(value);
+            return new Success<T>(value);
         }
 
-        public static Try<A> Fail(Exception ex)
+        public static Try<T> Fail(Exception ex)
         {
-            return new Failure<A>(ex);
+            return new Failure<T>(ex);
         }
 
         /// <summary>
         /// Returns the value from this <c>Success</c> or throws the exception if this is a <c>Failure</c>.
         /// </summary>
         /// <returns></returns>
-        public abstract A Get();
+        public abstract T Get();
 
         /// <summary>
         /// Returns this <c>Try</c> if it's a <c>Success</c> or the given <c>def</c> argument if this is a <c>Failure</c>.
         /// </summary>
         /// <param name="def"></param>
         /// <returns></returns>
-        public abstract A GetOrElse(A def);
+        public abstract T GetOrElse(T def);
 
-        public abstract A GetOrElse(Func<A> f);
+        public abstract T GetOrElse(Func<T> f);
 
-        public abstract A GetOrElse(Func<Exception, A> f);
+        public abstract T GetOrElse(Func<Exception, T> f);
 
         public abstract Exception GetException();
 
-        public abstract Try<B> Select<B>(Func<A, B> f);
+        public abstract Try<TB> Select<TB>(Func<T, TB> f);
 
-        public abstract Try Select(Action<A> f);
+        public abstract Try Select(Action<T> f);
 
-        public abstract Try<B> SelectMany<B>(Func<A, Try<B>> f);
+        public abstract Try<TB> SelectMany<TB>(Func<T, Try<TB>> f);
 
-        public abstract Try SelectMany(Func<A, Try> f);
+        public abstract Try SelectMany(Func<T, Try> f);
 
-        public abstract Try<C> SelectMany<B, C>(Func<A, Try<B>> f, Func<A, B, C> g);
+        public abstract Try<TC> SelectMany<TB, TC>(Func<T, Try<TB>> f, Func<T, TB, TC> g);
 
-        public abstract Try<A> Recover(Func<Exception, A> f);
+        public abstract Try<T> Recover(Func<Exception, T> f);
 
-        public abstract Try<A> RecoverWith(Func<Exception, Try<A>> f);
+        public abstract Try<T> RecoverWith(Func<Exception, Try<T>> f);
 
-        public abstract Try<A> OrElse(Try<A> def);
+        public abstract Try<T> OrElse(Try<T> def);
 
-        public abstract Option<A> ToOption();
+        public abstract Option<T> ToOption();
 
-        public abstract Either<Exception, A> ToEither();
+        public abstract Either<Exception, T> ToEither();
 
         public abstract Option<Exception> ToException();
 
-        public abstract Try<A> Throw<E>() where E : Exception;
+        public abstract Try<T> Throw<TException>() where TException : Exception;
 
-        public abstract Try<A> Throw<E>(Action<E> when) where E : Exception;
+        public abstract Try<T> Throw<TException>(Action<TException> when) where TException : Exception;
 
-        public abstract Try<A> Where(Func<A, bool> f);
+        public abstract Try<T> Where(Func<T, bool> f);
 
-        public abstract void ForEach(Action<A> f);
+        public abstract void ForEach(Action<T> f);
 
         public abstract Try Collapse();
     }
@@ -173,9 +170,9 @@ namespace Miharu
 
         public abstract Try RecoverWith(Func<Exception, Try> f);
 
-        public abstract Try Throw<E>() where E : Exception;
+        public abstract Try Throw<TException>() where TException : Exception;
 
-        public abstract Try Throw<E>(Action<E> when) where E : Exception;
+        public abstract Try Throw<TException>(Action<TException> when) where TException : Exception;
 
         public abstract Option<Exception> ToException();
     }

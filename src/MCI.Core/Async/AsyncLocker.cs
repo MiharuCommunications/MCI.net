@@ -14,20 +14,20 @@ namespace Miharu.Async
     /// </summary>
     public class AsyncLocker : IDisposable
     {
-        private bool isExecuting;
+        private bool _isExecuting;
 
-        private bool disposed;
+        private bool _disposed;
 
-        private Queue<Func<Task>> tasks;
+        private readonly Queue<Func<Task>> _tasks;
 
-        private object sync;
+        private readonly object _sync;
 
         public AsyncLocker()
         {
-            this.disposed = false;
-            this.tasks = new Queue<Func<Task>>();
-            this.isExecuting = false;
-            this.sync = new object();
+            _disposed = false;
+            _tasks = new Queue<Func<Task>>();
+            _isExecuting = false;
+            _sync = new object();
         }
 
 
@@ -37,10 +37,10 @@ namespace Miharu.Async
             var task = new Task<Try>(() => result);
 
 
-            lock (this.sync)
+            lock (_sync)
             {
                 // キューに入れる
-                this.tasks.Enqueue(async () =>
+                _tasks.Enqueue(async () =>
                 {
                     try
                     {
@@ -56,26 +56,26 @@ namespace Miharu.Async
                     }
                 });
 
-                if (!this.isExecuting)
+                if (!_isExecuting)
                 {
-                    this.isExecuting = true;
+                    _isExecuting = true;
 
                     // キューが処理中でなければ、実行する
                     Task.Factory.StartNew(async () =>
                     {
                         while (true)
                         {
-                            var target = (Func<Task>)null;
+                            Func<Task> target;
 
-                            lock (this.sync)
+                            lock (_sync)
                             {
-                                if (this.tasks.Count == 0)
+                                if (_tasks.Count == 0)
                                 {
-                                    this.isExecuting = false;
+                                    _isExecuting = false;
                                     return;
                                 }
 
-                                target = this.tasks.Dequeue();
+                                target = _tasks.Dequeue();
                             }
 
                             try
@@ -84,6 +84,7 @@ namespace Miharu.Async
                             }
                             catch
                             {
+                                // ignored
                             }
                         }
                     });
@@ -98,7 +99,7 @@ namespace Miharu.Async
 
         protected virtual void Dispose(bool disposing)
         {
-            if (this.disposed)
+            if (_disposed)
             {
                 return;
             }
@@ -106,18 +107,18 @@ namespace Miharu.Async
             if (disposing)
             {
                 // Dispose 処理
-                lock (this.sync)
+                lock (_sync)
                 {
-                    this.tasks.Clear();
+                    _tasks.Clear();
                 }
             }
 
-            this.disposed = true;
+            _disposed = true;
         }
 
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
     }

@@ -8,38 +8,39 @@
 
     public class Disposable : IDisposable
     {
-        private bool disposed;
+        private bool _disposed;
 
-        private Action callback;
+        private Action _callback;
 
         public Disposable(Action callback)
         {
-            this.disposed = false;
-            this.callback = callback;
+            this._disposed = false;
+            this._callback = callback;
         }
 
 
         private void Dispose(bool disposing)
         {
-            if (this.disposed)
+            if (this._disposed)
             {
                 return;
             }
 
-            this.disposed = true;
+            this._disposed = true;
 
             if (disposing)
             {
                 try
                 {
-                    this.callback();
+                    this._callback();
                 }
                 catch
                 {
+                    // ignored
                 }
                 finally
                 {
-                    this.callback = null;
+                    this._callback = null;
                 }
             }
         }

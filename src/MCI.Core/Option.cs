@@ -17,7 +17,7 @@ namespace Miharu
         /// <summary>
         /// can't use from other assemblies
         /// </summary>
-        internal protected Option()
+        protected internal Option()
         {
         }
 

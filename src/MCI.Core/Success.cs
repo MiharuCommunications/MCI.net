@@ -9,12 +9,12 @@ namespace Miharu
 
     public sealed class Success<T> : Try<T>
     {
-        private readonly T value;
+        private readonly T _value;
 
 
         internal Success(T value)
         {
-            this.value = value;
+            _value = value;
         }
 
 
@@ -36,22 +36,22 @@ namespace Miharu
 
         public override T Get()
         {
-            return this.value;
+            return _value;
         }
 
         public override T GetOrElse(T def)
         {
-            return this.value;
+            return _value;
         }
 
         public override T GetOrElse(Func<T> f)
         {
-            return this.value;
+            return _value;
         }
 
         public override T GetOrElse(Func<Exception, T> f)
         {
-            return this.value;
+            return _value;
         }
 
         public override Exception GetException()
@@ -65,7 +65,7 @@ namespace Miharu
         {
             try
             {
-                return new Success<TResult>(f(this.value));
+                return new Success<TResult>(f(_value));
             }
             catch (Exception ex)
             {
@@ -77,7 +77,7 @@ namespace Miharu
         {
             try
             {
-                f(this.value);
+                f(_value);
                 return new Success();
             }
             catch (Exception ex)
@@ -90,7 +90,7 @@ namespace Miharu
         {
             try
             {
-                return f(this.value);
+                return f(_value);
             }
             catch (Exception ex)
             {
@@ -102,7 +102,7 @@ namespace Miharu
         {
             try
             {
-                return f(this.value);
+                return f(_value);
             }
             catch (Exception ex)
             {
@@ -110,21 +110,21 @@ namespace Miharu
             }
         }
 
-        public override Try<C> SelectMany<B, C>(Func<T, Try<B>> f, Func<T, B, C> g)
+        public override Try<TC> SelectMany<TB, TC>(Func<T, Try<TB>> f, Func<T, TB, TC> g)
         {
-            var x = this.value;
+            var x = _value;
 
-            return f(x).SelectMany(y => new Success<C>(g(x, y)));
+            return f(x).SelectMany(y => new Success<TC>(g(x, y)));
         }
 
         public override Either<Exception, T> ToEither()
         {
-            return new Right<Exception, T>(this.value);
+            return new Right<Exception, T>(_value);
         }
 
         public override Option<T> ToOption()
         {
-            return Option<T>.Return(this.value);
+            return Option<T>.Return(_value);
         }
 
 
@@ -146,13 +146,13 @@ namespace Miharu
 
 
 
-        public override Try<T> Throw<E>()
+        public override Try<T> Throw<TException>()
         {
             return this;
         }
 
 
-        public override Try<T> Throw<E>(Action<E> when)
+        public override Try<T> Throw<TException>(Action<TException> when)
         {
             return this;
         }
@@ -168,9 +168,9 @@ namespace Miharu
         {
             try
             {
-                if (f(this.value))
+                if (f(_value))
                 {
-                    return new Success<T>(this.value);
+                    return new Success<T>(_value);
                 }
                 else
                 {
@@ -185,7 +185,7 @@ namespace Miharu
 
         public override void ForEach(Action<T> f)
         {
-            f(this.value);
+            f(_value);
         }
 
 
@@ -261,13 +261,13 @@ namespace Miharu
         }
 
 
-        public override Try Throw<E>()
+        public override Try Throw<TException>()
         {
             return this;
         }
 
 
-        public override Try Throw<E>(Action<E> when)
+        public override Try Throw<TException>(Action<TException> when)
         {
             return this;
         }
