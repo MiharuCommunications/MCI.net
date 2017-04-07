@@ -57,6 +57,7 @@
     <Compile Include="DayOfWeekExtensions.cs" />
     <Compile Include="Debugs\ILogger.cs" />
     <Compile Include="Debugs\LoggerHelper.cs" />
+    <Compile Include="EitherTaskHelper.cs" />
     <Compile Include="Errors\ArgumentOutOfRangeError.cs" />
     <Compile Include="Errors\BufferOverflowError.cs" />
     <Compile Include="Errors\IO\DirectoryNotFoundError.cs" />
