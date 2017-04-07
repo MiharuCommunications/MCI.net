@@ -241,7 +241,7 @@ namespace Miharu.Utils
             {
                 if (Count < 1)
                 {
-                    return new Left<IError, Unit>(new UnkownError(new NotImplementedException()));
+                    return new Left<IError, Unit>(new UnknownError(new NotImplementedException()));
                 }
 
                 _bottom = (_bottom - 1) & _mask;

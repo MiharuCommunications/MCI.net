@@ -67,7 +67,7 @@
     <Compile Include="Errors\IO\NotEnoughDiskSpaceError.cs" />
     <Compile Include="Errors\NoError.cs" />
     <Compile Include="Errors\NotImplementedError.cs" />
-    <Compile Include="Errors\UnkownError.cs" />
+    <Compile Include="Errors\UnknownError.cs" />
     <Compile Include="Logging\LoggerHelper.cs" />
     <Compile Include="Logging\LogLevel.cs" />
     <Compile Include="Logging\LogLevelExtensions.cs" />

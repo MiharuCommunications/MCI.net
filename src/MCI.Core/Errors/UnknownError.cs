@@ -11,17 +11,17 @@ namespace Miharu.Errors
         Exception InnerException { get; }
     }
 
-    public class UnkownError : IUnkownError
+    public class UnknownError : IUnkownError
     {
         public Exception InnerException { get; private set; }
 
-        public UnkownError(Exception exception)
+        public UnknownError(Exception exception)
         {
             this.InnerException = exception;
             this.ErrorMessage = "原因不明のエラーです。";
         }
 
-        public UnkownError(Exception exception, string message)
+        public UnknownError(Exception exception, string message)
         {
             this.InnerException = exception;
             this.ErrorMessage = message;
