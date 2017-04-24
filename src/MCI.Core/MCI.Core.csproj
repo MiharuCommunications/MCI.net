@@ -60,15 +60,19 @@
     <Compile Include="EitherTaskHelper.cs" />
     <Compile Include="Errors\ArgumentOutOfRangeError.cs" />
     <Compile Include="Errors\BufferOverflowError.cs" />
+    <Compile Include="Errors\Error.cs" />
+    <Compile Include="Errors\InvalidFormatError.cs" />
     <Compile Include="Errors\IO\DirectoryNotFoundError.cs" />
     <Compile Include="Errors\IO\FileIsBrokenError.cs" />
     <Compile Include="Errors\IO\FileIsEmptyError.cs" />
     <Compile Include="Errors\IO\FileNotFoundError.cs" />
-    <Compile Include="Errors\IO\IFileIOError.cs" />
+    <Compile Include="Errors\IO\FileIOError.cs" />
     <Compile Include="Errors\IO\NotEnoughDiskSpaceError.cs" />
     <Compile Include="Errors\NoError.cs" />
     <Compile Include="Errors\NotImplementedError.cs" />
-    <Compile Include="Errors\UnknownError.cs" />
+    <Compile Include="Errors\ReachMaximumRetryError.cs" />
+    <Compile Include="Errors\TimeoutError.cs" />
+    <Compile Include="Errors\UnresolvedError.cs" />
     <Compile Include="Logging\LoggerHelper.cs" />
     <Compile Include="Logging\LogLevel.cs" />
     <Compile Include="Logging\LogLevelExtensions.cs" />
@@ -78,8 +82,6 @@
     <Compile Include="DisposableHelper.cs" />
     <Compile Include="Either.cs" />
     <Compile Include="EitherExtensions.cs" />
-    <Compile Include="Errors\IError.cs" />
-    <Compile Include="Errors\IFormatErrors.cs" />
     <Compile Include="Failure.cs" />
     <Compile Include="Future.cs" />
     <Compile Include="Future.Factories.cs" />
@@ -125,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DI\" />
+    <Folder Include="Errors\Async\" />
     <Folder Include="Utils\Converters\Csv\" />
     <Folder Include="Utils\Converters\Json\" />
   </ItemGroup>

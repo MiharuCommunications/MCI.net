@@ -6,23 +6,11 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public interface INotImplementedError : IError
-    {
-
-    }
-
-    public class NotImplementedError : INotImplementedError
+    public class NotImplementedError : Error
     {
         public NotImplementedError()
         {
-        }
-
-        public string ErrorMessage
-        {
-            get
-            {
-                return "この機能はまだ実装されていません。";
-            }
+            this.ErrorMessage = "この機能はまだ実装されていません。";
         }
     }
 }

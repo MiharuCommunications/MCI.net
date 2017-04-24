@@ -6,24 +6,12 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public interface IFileNotFoundError : IFileIOError { }
-
-
-    public class FileNotFoundError : IFileNotFoundError
+    public class FileNotFoundError : FileIOError
     {
         public FileNotFoundError(string target)
+            : base(target)
         {
-            this.Target = target;
-        }
-
-        public string Target { get; private set; }
-
-        public string ErrorMessage
-        {
-            get
-            {
-                return "ファイルが見つかりません Path = " + this.Target;
-            }
+            this.ErrorMessage = "ファイルが見つかりません Path = " + target;
         }
     }
 }

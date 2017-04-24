@@ -21,7 +21,7 @@ namespace Miharu.Core.Tests.Errors
             {
                 var error = e.Left.Get();
 
-                if (error is IFileIOError)
+                if (error is FileIOError)
                 {
 
                 }
@@ -33,16 +33,16 @@ namespace Miharu.Core.Tests.Errors
 
         }
 
-        public Either<IError, int> GetInt(string text)
+        public Either<Error, int> GetInt(string text)
         {
             try
             {
                 var i = int.Parse(text);
-                return new Right<IError, int>(i);
+                return new Right<Error, int>(i);
             }
             catch (Exception)
             {
-                return new Left<IError, int>(null);
+                return new Left<Error, int>(null);
             }
         }
     }

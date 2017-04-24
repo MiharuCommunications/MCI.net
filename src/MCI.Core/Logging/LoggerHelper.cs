@@ -28,7 +28,7 @@
                 + error.StackTrace + Environment.NewLine;
         }
 
-        public static string ToLog(DateTime now, LogLevel level, int threadId, string message, IError error)
+        public static string ToLog(DateTime now, LogLevel level, int threadId, string message, Error error)
         {
             var date = now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK");
             var prefix = level.ToStringForLog();

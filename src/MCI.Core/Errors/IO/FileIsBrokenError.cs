@@ -6,25 +6,12 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public interface IFileIsBrokenError : IFileIOError
-    {
-    }
-
-    public class FileIsBrokenError : IFileIsBrokenError
+    public class FileIsBrokenError : FileIOError
     {
         public FileIsBrokenError(string target)
+            :base(target)
         {
-            this.Target = target;
-        }
-
-        public string Target { get; private set; }
-
-        public string ErrorMessage
-        {
-            get
-            {
-                return "ファイルが破損しています Path = " + this.Target;
-            }
+            this.ErrorMessage = "ファイルが破損しています Path = " + target;
         }
     }
 }

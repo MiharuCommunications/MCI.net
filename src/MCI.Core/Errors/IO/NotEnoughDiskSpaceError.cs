@@ -6,24 +6,12 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public interface INotEnoughDiskSpaceError : IFileIOError { }
-
-    public class NotEnoughDiskSpaceError : INotEnoughDiskSpaceError
+    public class NotEnoughDiskSpaceError : FileIOError
     {
         public NotEnoughDiskSpaceError(string target)
+            : base(target)
         {
-            this.Target = target;
-        }
-
-
-        public string Target { get; private set; }
-
-        public string ErrorMessage
-        {
-            get
-            {
-                return "ディスクに十分な空き領域がありません";
-            }
+            this.ErrorMessage = "ディスクに十分な空き領域がありません。Path = " + target;
         }
     }
 }

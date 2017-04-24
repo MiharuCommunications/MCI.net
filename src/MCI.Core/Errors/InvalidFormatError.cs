@@ -6,11 +6,11 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class NoError : Error
+    public class InvalidFormatError : Error
     {
-        public NoError()
+        public InvalidFormatError(string message)
         {
-            this.ErrorMessage = "エラーはありません。";
+            this.ErrorMessage = message;
         }
     }
 }

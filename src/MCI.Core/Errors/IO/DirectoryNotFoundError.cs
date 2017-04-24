@@ -6,25 +6,12 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public interface IDirectoryNotFoundError : IFileIOError
-    {
-    }
-
-    public class DirectoryNotFoundError : IDirectoryNotFoundError
+    public class DirectoryNotFoundError : FileIOError
     {
         public DirectoryNotFoundError(string target)
+            : base(target)
         {
-            this.Target = target;
-        }
-
-        public string Target { get; private set; }
-
-        public string ErrorMessage
-        {
-            get
-            {
-                return "ディレクトリが見つかりません Path = " + this.Target;
-            }
+            this.ErrorMessage = "ディレクトリが見つかりません Path = " + target;
         }
     }
 }

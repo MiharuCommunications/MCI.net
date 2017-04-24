@@ -6,12 +6,13 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class FileIsEmptyError : FileIOError
+    public class FileIOError : Error
     {
-        public FileIsEmptyError(string target)
-            : base(target)
+        public string Target { get; private set; }
+
+        protected FileIOError(string target)
         {
-            this.ErrorMessage = "ファイルが空です Path = " + target;
+            this.Target = target;
         }
     }
 }

@@ -9,11 +9,11 @@
 
     public static class EitherTaskHelper
     {
-        public static Task<Either<IError, T>> FromTask<T>(Task<T> source, TimeSpan timeout)
+        public static Task<Either<Error, T>> FromTask<T>(Task<T> source, TimeSpan timeout)
         {
             var sync = new object();
-            Either<IError, T> result = new Left<IError, T>(new NotImplementedError());
-            var dest = new Task<Either<IError, T>>(() => result);
+            Either<Error, T> result = new Left<Error, T>(new NotImplementedError());
+            var dest = new Task<Either<Error, T>>(() => result);
 
             source.ContinueWith(s =>
             {
@@ -24,7 +24,7 @@
                         return;
                     }
 
-                    result = new Right<IError, T>(s.Result);
+                    result = new Right<Error, T>(s.Result);
                     dest.RunSynchronously();
                 }
             });
@@ -38,7 +38,7 @@
                         return;
                     }
 
-                    result = new Left<IError, T>(new TimeoutError(timeout));
+                    result = new Left<Error, T>(new TimeoutError(timeout));
                     dest.RunSynchronously();
                 }
             });
@@ -47,11 +47,11 @@
         }
 
 
-        public static Task<Either<IError, TEventArgs>> FromEvent<THandler, TEventArgs>(Func<Action<TEventArgs>, THandler> taker, Action<THandler> bind, Action<THandler> unbind, TimeSpan timeout)
+        public static Task<Either<Error, TEventArgs>> FromEvent<THandler, TEventArgs>(Func<Action<TEventArgs>, THandler> taker, Action<THandler> bind, Action<THandler> unbind, TimeSpan timeout)
         {
             var sync = new object();
-            Either<IError, TEventArgs> result = new Left<IError, TEventArgs>(new NotImplementedError());
-            var task = new Task<Either<IError, TEventArgs>>(() => result);
+            Either<Error, TEventArgs> result = new Left<Error, TEventArgs>(new NotImplementedError());
+            var task = new Task<Either<Error, TEventArgs>>(() => result);
 
             THandler handler = default(THandler);
             handler = taker(args =>
@@ -64,7 +64,7 @@
                     }
 
                     unbind(handler);
-                    result = new Right<IError, TEventArgs>(args);
+                    result = new Right<Error, TEventArgs>(args);
                     task.RunSynchronously();
                 }
             });
@@ -81,7 +81,7 @@
                     }
 
                     unbind(handler);
-                    result = new Left<IError, TEventArgs>(new TimeoutError(timeout));
+                    result = new Left<Error, TEventArgs>(new TimeoutError(timeout));
                     task.RunSynchronously();
                 }
             });

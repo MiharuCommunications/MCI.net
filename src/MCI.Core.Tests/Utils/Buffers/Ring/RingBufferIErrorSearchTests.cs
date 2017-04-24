@@ -27,7 +27,7 @@
                 if (buffer.Capacity < i)
                 {
                     Assert.True(result.IsLeft);
-                    Assert.True(result.Left.Get() is IBufferOverflowError);
+                    Assert.True(result.Left.Get() is BufferOverflowError);
                 }
                 else
                 {
