@@ -17,20 +17,35 @@ namespace Miharu
             return self.Year == other.Year;
         }
 
+
         public static bool IsSameMonth(this DateTime self, DateTime other)
         {
             return self.Year == other.Year && self.Month == other.Month;
         }
+
 
         public static bool IsSameDate(this DateTime self, DateTime other)
         {
             return self.Year == other.Year && self.Month == other.Month && self.Day == other.Day;
         }
 
+
         public static bool IsSameSecond(this DateTime self, DateTime other)
         {
             return self.Year == other.Year && self.Month == other.Month && self.Day == other.Day && self.Hour == other.Hour && self.Minute == other.Minute && self.Second == other.Second;
         }
+
+
+        public static DateTime GetTomorrow(this DateTime current)
+        {
+            return current.AddDays(1.0);
+        }
+
+        public static DateTime GetYesterday(this DateTime current)
+        {
+            return current.AddDays(-1.0);
+        }
+
 
         public static IEnumerable<DateTime> To(this DateTime from, DateTime to)
         {
