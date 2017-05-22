@@ -79,6 +79,7 @@
     <Compile Include="Extensions\IEnumerableExtensionsTests\IEnumerableExtensionsTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="Helpers\DateTimeHelperTests.cs" />
+    <Compile Include="Helpers\TaskHelperTests\TaskHelperAwaitAllTests.cs" />
     <Compile Include="Maths\SequencesTests.cs" />
     <Compile Include="Monads\EitherProjectionTests.cs" />
     <Compile Include="Monads\EitherTests.cs" />
