@@ -61,6 +61,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Async\AsyncLocker2Tests\AsyncLocker2StressTests.cs" />
+    <Compile Include="Async\AsyncLocker2Tests\AsyncLocker2TimeoutTests.cs" />
     <Compile Include="Async\AsyncLockerTests\AsyncLockerExceptionTests.cs" />
     <Compile Include="Async\AsyncLockerTests\AsyncLockerOrderTests.cs" />
     <Compile Include="Async\AsyncLockerTests\AsyncLockerStressTests.cs" />

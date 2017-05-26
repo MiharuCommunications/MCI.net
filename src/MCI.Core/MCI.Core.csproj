@@ -36,7 +36,10 @@
   <ItemGroup>
     <Compile Include="ArrayExtensions.cs" />
     <Compile Include="Async\AsyncLocker.cs" />
+    <Compile Include="Async\AsyncLocker2.cs" />
+    <Compile Include="Async\AsyncLocker2QueueItem.cs" />
     <Compile Include="Async\AsyncWaiter.cs" />
+    <Compile Include="Async\IAsyncLocker2QueueItem.cs" />
     <Compile Include="Async\PeriodicTask.cs" />
     <Compile Include="Async\ReaderWriterLocker.cs" />
     <Compile Include="Async\Schedulers\EveryDayAction.cs" />
@@ -59,6 +62,7 @@
     <Compile Include="Debugs\LoggerHelper.cs" />
     <Compile Include="EitherTaskHelper.cs" />
     <Compile Include="Errors\ArgumentOutOfRangeError.cs" />
+    <Compile Include="Errors\Async\TaskHasCanceledError.cs" />
     <Compile Include="Errors\BufferOverflowError.cs" />
     <Compile Include="Errors\Error.cs" />
     <Compile Include="Errors\InvalidFormatError.cs" />
@@ -128,7 +132,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DI\" />
-    <Folder Include="Errors\Async\" />
     <Folder Include="Utils\Converters\Csv\" />
     <Folder Include="Utils\Converters\Json\" />
   </ItemGroup>
