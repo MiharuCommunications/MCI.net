@@ -10,9 +10,9 @@
     using Miharu.Errors;
     using Xunit;
 
-    public class AsyncLocker2TimeoutTests
+    public class AsyncLockerTimeoutTests
     {
-        public async Task Delay(AsyncLocker2 locker, TimeSpan delay)
+        public async Task Delay(AsyncLocker locker, TimeSpan delay)
         {
             var result = await locker.LockAsync<int>(async () =>
             {
@@ -22,7 +22,7 @@
             });
         }
 
-        public async Task Action(AsyncLocker2 locker)
+        public async Task Action(AsyncLocker locker)
         {
             var result = await locker.LockAsync<int>(async () =>
             {
@@ -41,7 +41,7 @@
             var timeout = TimeSpan.FromSeconds(5);
             var delay = TimeSpan.FromSeconds(10);
 
-            var locker = new AsyncLocker2(timeout, 100);
+            var locker = new AsyncLocker(timeout, 100);
 
             Task.WaitAll(
                 Delay(locker, timeout),

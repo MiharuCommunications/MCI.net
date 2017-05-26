@@ -10,7 +10,7 @@
     using Miharu.Async;
     using Miharu.Errors;
 
-    public class AsyncLocker2StressTests
+    public class AsyncLockerStressTests
     {
         [Theory,
         InlineData(5, 100),
@@ -21,7 +21,7 @@
         InlineData(1000, 100)]
         public void ParallelTest(int parallel, int times)
         {
-            var locker = new AsyncLocker2(TimeSpan.FromMinutes(10.0), parallel * times);
+            var locker = new AsyncLocker(TimeSpan.FromMinutes(10.0), parallel * times);
             var results = new List<int>(parallel * times);
 
             var i = -1;
@@ -35,7 +35,7 @@
                         await Task.Delay(0);
 
                         i++;
-                        
+
                         results.Add(i);
 
                         return new Right<Error, int>(i);

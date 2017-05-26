@@ -6,7 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    internal interface IAsyncLocker2QueueItem
+    internal interface IAsyncLockerQueueItem
     {
         Task ExecuteAsync();
 

@@ -8,7 +8,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    internal class AsyncLocker2QueueItem<T> : IAsyncLocker2QueueItem
+    internal class AsyncLockerQueueItem<T> : IAsyncLockerQueueItem
     {
         private object _sync;
 
@@ -20,7 +20,7 @@
 
         private Func<Task<Either<Error, T>>> _f;
 
-        public AsyncLocker2QueueItem(Func<Task<Either<Error, T>>> f)
+        public AsyncLockerQueueItem(Func<Task<Either<Error, T>>> f)
         {
             _sync = new object();
             _hasFinished = false;

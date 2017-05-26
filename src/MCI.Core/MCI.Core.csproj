@@ -35,10 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ArrayExtensions.cs" />
-    <Compile Include="Async\AsyncLocker2.cs" />
-    <Compile Include="Async\AsyncLocker2QueueItem.cs" />
+    <Compile Include="Async\AsyncLocker.cs" />
+    <Compile Include="Async\AsyncLockerQueueItem.cs" />
     <Compile Include="Async\AsyncWaiter.cs" />
-    <Compile Include="Async\IAsyncLocker2QueueItem.cs" />
+    <Compile Include="Async\IAsyncLockerQueueItem.cs" />
     <Compile Include="Async\PeriodicTask.cs" />
     <Compile Include="Async\ReaderWriterLocker.cs" />
     <Compile Include="Async\Schedulers\EveryDayAction.cs" />

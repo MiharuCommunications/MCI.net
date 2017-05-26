@@ -8,7 +8,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class AsyncLocker2 : IDisposable
+    public class AsyncLocker : IDisposable
     {
         private object _sync;
 
@@ -18,16 +18,16 @@
 
         private bool _isExecuting;
 
-        private Queue<IAsyncLocker2QueueItem> _tasks;
+        private Queue<IAsyncLockerQueueItem> _tasks;
 
-        public AsyncLocker2(TimeSpan timeout, int capacity)
+        public AsyncLocker(TimeSpan timeout, int capacity)
         {
             _sync = new object();
             _disposed = false;
 
             _timeout = timeout;
             _isExecuting = false;
-            _tasks = new Queue<IAsyncLocker2QueueItem>(capacity);
+            _tasks = new Queue<IAsyncLockerQueueItem>(capacity);
         }
 
 
@@ -36,7 +36,7 @@
             Either<Error, T> result = new Left<Error, T>(new TaskHasCanceledError());
             var task = new Task<Either<Error, T>>(() => result);
 
-            var item = new AsyncLocker2QueueItem<T>(f);
+            var item = new AsyncLockerQueueItem<T>(f);
 
             lock (_sync)
             {
@@ -50,7 +50,7 @@
                     {
                         while (true)
                         {
-                            IAsyncLocker2QueueItem i;
+                            IAsyncLockerQueueItem i;
 
                             if (_disposed)
                             {
@@ -107,7 +107,7 @@
             GC.SuppressFinalize(this);
         }
 
-        ~AsyncLocker2()
+        ~AsyncLocker()
         {
             this.Dispose();
         }
