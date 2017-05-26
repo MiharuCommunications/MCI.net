@@ -1,11 +1,14 @@
-﻿namespace Miharu.Async
+﻿//-----------------------------------------------------------------------
+// <copyright file="AsyncLocker.cs" company="Miharu Communications Inc.">
+//     © 2017 Miharu Communications Inc.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace Miharu.Async
 {
     using Miharu.Errors;
     using Miharu.Errors.Async;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     public class AsyncLocker : IDisposable
@@ -50,12 +53,12 @@
                     {
                         while (true)
                         {
-                            IAsyncLockerQueueItem i;
-
                             if (_disposed)
                             {
                                 return;
                             }
+
+                            IAsyncLockerQueueItem i;
 
                             lock (_sync)
                             {

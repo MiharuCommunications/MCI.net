@@ -1,11 +1,13 @@
-﻿namespace Miharu.Async
+﻿//-----------------------------------------------------------------------
+// <copyright file="AsyncLockerQueueItem.cs" company="Miharu Communications Inc.">
+//     © 2017 Miharu Communications Inc.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace Miharu.Async
 {
     using Miharu.Errors;
     using Miharu.Errors.Async;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     internal class AsyncLockerQueueItem<T> : IAsyncLockerQueueItem

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xunit;
-
-namespace Miharu.Core.Tests.Monads
+﻿namespace Miharu.Core.Tests.Monads
 {
+    using System;
+    using Xunit;
+
     public class EitherProjectionTests
     {
         private Either<string, int> left = new Left<string, int>("");
@@ -53,24 +48,31 @@ namespace Miharu.Core.Tests.Monads
         public void GetOrElseTest()
         {
             Assert.Equal("", this.left.Left.GetOrElse("fail"));
+
             Assert.Equal(1, this.left.Right.GetOrElse(1));
 
+
             Assert.Equal("success", this.right.Left.GetOrElse("success"));
+
             Assert.Equal(0, this.right.Right.GetOrElse(1));
+
 
             Assert.Equal("", this.left.Left.GetOrElse(() =>
             {
                 throw new NotImplementedException();
             }));
+
             Assert.Equal(1, this.left.Right.GetOrElse(() =>
             {
                 return 1;
             }));
 
+
             Assert.Equal("success", this.right.Left.GetOrElse(() =>
             {
                 return "success";
             }));
+
             Assert.Equal(0, this.right.Right.GetOrElse(() =>
             {
                 throw new NotImplementedException();
@@ -82,15 +84,18 @@ namespace Miharu.Core.Tests.Monads
         public void ToOptionTests()
         {
             Assert.Equal("", this.left.Left.ToOption().Get());
+
             Assert.Throws<NullReferenceException>(() =>
             {
                 this.left.Right.ToOption().Get();
             });
 
+
             Assert.Throws<NullReferenceException>(() =>
             {
                 this.right.Left.ToOption().Get();
             });
+
             Assert.Equal(0, this.right.Right.ToOption().Get());
         }
 
@@ -99,17 +104,18 @@ namespace Miharu.Core.Tests.Monads
         public void SelectTests()
         {
             Assert.Equal("success", this.left.Left.Select(s => "success").Left.Get());
-            Assert.Equal("", this.left.Right.Select(i =>
+
+            Assert.Equal("", this.left.Right.Select<int>(i =>
             {
                 throw new NotImplementedException();
-                return 100;
             }).Left.Get());
 
-            Assert.Equal(0, this.right.Left.Select(s =>
+
+            Assert.Equal(0, this.right.Left.Select<string>(s =>
             {
                 throw new NotImplementedException();
-                return "fail";
             }).Right.Get());
+
             Assert.Equal(100, this.right.Right.Select(i => 100).Right.Get());
         }
 
@@ -117,17 +123,18 @@ namespace Miharu.Core.Tests.Monads
         public void SelectManyTests()
         {
             Assert.Equal("success", this.left.Left.SelectMany(s => new Left<string, int>("success")).Left.Get());
-            Assert.Equal("", this.left.Right.SelectMany(s =>
+
+            Assert.Equal("", this.left.Right.SelectMany<int>(s =>
             {
                 throw new NotImplementedException();
-                return new Left<string, int>("fail");
             }).Left.Get());
 
-            Assert.Equal(0, this.right.Left.SelectMany(i =>
+
+            Assert.Equal(0, this.right.Left.SelectMany<string>(i =>
             {
                 throw new NotImplementedException();
-                return new Right<string, int>(100);
             }).Right.Get());
+
             Assert.Equal(100, this.right.Right.SelectMany(i => new Right<string, int>(100)).Right.Get());
         }
     }
