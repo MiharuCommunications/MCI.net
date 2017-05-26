@@ -63,9 +63,6 @@
   <ItemGroup>
     <Compile Include="Async\AsyncLocker2Tests\AsyncLocker2StressTests.cs" />
     <Compile Include="Async\AsyncLocker2Tests\AsyncLocker2TimeoutTests.cs" />
-    <Compile Include="Async\AsyncLockerTests\AsyncLockerExceptionTests.cs" />
-    <Compile Include="Async\AsyncLockerTests\AsyncLockerOrderTests.cs" />
-    <Compile Include="Async\AsyncLockerTests\AsyncLockerStressTests.cs" />
     <Compile Include="Async\PeriodicTaskTests.cs" />
     <Compile Include="Async\Schedulers\EveryDayActionTests.cs" />
     <Compile Include="Async\Schedulers\EveryMinuteActionTests.cs" />

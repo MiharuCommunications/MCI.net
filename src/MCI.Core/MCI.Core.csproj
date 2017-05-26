@@ -35,7 +35,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ArrayExtensions.cs" />
-    <Compile Include="Async\AsyncLocker.cs" />
     <Compile Include="Async\AsyncLocker2.cs" />
     <Compile Include="Async\AsyncLocker2QueueItem.cs" />
     <Compile Include="Async\AsyncWaiter.cs" />
@@ -48,7 +47,6 @@
     <Compile Include="Async\Schedulers\PeriodicScheduledAction.cs" />
     <Compile Include="Async\Schedulers\PeriodicScheduler.cs" />
     <Compile Include="Async\ThreadSafeCounter.cs" />
-    <Compile Include="Async\TypedAsyncLocker.cs" />
     <Compile Include="Callback.cs" />
     <Compile Include="Collections\DailyCollection.cs" />
     <Compile Include="Collections\DateHash.cs" />
