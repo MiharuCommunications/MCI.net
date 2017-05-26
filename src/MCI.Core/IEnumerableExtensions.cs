@@ -240,7 +240,7 @@ namespace Miharu
         {
             if ((object)collection == null)
             {
-                ThrowHelper.ThrowArgumentNullException("collection");
+                throw new ArgumentNullException("collection");
             }
 
             if (collection.Count() < 1)
@@ -264,7 +264,7 @@ namespace Miharu
         {
             if ((object)collection == null)
             {
-                ThrowHelper.ThrowArgumentNullException("collection");
+                throw new ArgumentNullException("collection");
             }
 
             if (collection.Count() < 1)
@@ -288,7 +288,7 @@ namespace Miharu
         {
             if ((object)collection == null)
             {
-                ThrowHelper.ThrowArgumentNullException("collection");
+                throw new ArgumentNullException("collection");
             }
 
             if (collection.Count() < 1)
@@ -312,7 +312,7 @@ namespace Miharu
         {
             if ((object)collection == null)
             {
-                ThrowHelper.ThrowArgumentNullException("collection");
+                throw new ArgumentNullException("collection");
             }
 
             if (collection.Count() < 1)

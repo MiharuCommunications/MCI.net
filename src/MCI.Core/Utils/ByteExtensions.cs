@@ -17,7 +17,7 @@
         {
             if ((object)source == null)
             {
-                ThrowHelper.ThrowArgumentNullException("source");
+                throw new ArgumentNullException("source");
             }
 
             if (source == string.Empty)
@@ -112,7 +112,7 @@
         {
             if ((object)bytes == null)
             {
-                ThrowHelper.ThrowArgumentNullException("bytes");
+                throw new ArgumentNullException("bytes");
             }
 
             var builder = new StringBuilder(bytes.Length * 2);

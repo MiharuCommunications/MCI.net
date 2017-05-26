@@ -28,7 +28,7 @@ namespace Miharu
         {
             if ((object)source == null)
             {
-                ThrowHelper.ThrowArgumentNullException("source");
+                throw new ArgumentNullException("source");
             }
 
             if (count < 1)
@@ -68,7 +68,7 @@ namespace Miharu
         {
             if ((object)strs == null)
             {
-                ThrowHelper.ThrowArgumentNullException("strs");
+                throw new ArgumentNullException("strs");
             }
 
             var builder = new StringBuilder();
@@ -92,12 +92,12 @@ namespace Miharu
         {
             if ((object)strs == null)
             {
-                ThrowHelper.ThrowArgumentNullException("strs");
+                throw new ArgumentNullException("strs");
             }
 
             if ((object)separator == null)
             {
-                ThrowHelper.ThrowArgumentNullException("separator");
+                throw new ArgumentNullException("separator");
             }
 
             var i = -1;
@@ -122,12 +122,12 @@ namespace Miharu
         {
             if ((object)strs == null)
             {
-                ThrowHelper.ThrowArgumentNullException("strs");
+                throw new ArgumentNullException("strs");
             }
 
             if ((object)separator == null)
             {
-                ThrowHelper.ThrowArgumentNullException("separator");
+                throw new ArgumentNullException("separator");
             }
 
             var i = -1;
@@ -152,12 +152,12 @@ namespace Miharu
         {
             if ((object)chars == null)
             {
-                ThrowHelper.ThrowArgumentNullException("chars");
+                throw new ArgumentNullException("chars");
             }
 
             if ((object)separator == null)
             {
-                ThrowHelper.ThrowArgumentNullException("separator");
+                throw new ArgumentNullException("separator");
             }
 
             var count = chars.Count();
@@ -183,7 +183,7 @@ namespace Miharu
         {
             if ((object)chars == null)
             {
-                ThrowHelper.ThrowArgumentNullException("chars");
+                throw new ArgumentNullException("chars");
             }
 
             return new string(chars.ToArray());
@@ -193,12 +193,12 @@ namespace Miharu
         {
             if ((object)chars == null)
             {
-                ThrowHelper.ThrowArgumentNullException("chars");
+                throw new ArgumentNullException("chars");
             }
 
             if ((object)separator == null)
             {
-                ThrowHelper.ThrowArgumentNullException("separator");
+                throw new ArgumentNullException("separator");
             }
 
             var i = -1;
@@ -230,7 +230,7 @@ namespace Miharu
         {
             if ((object)text == null)
             {
-                ThrowHelper.ThrowArgumentNullException("text");
+                throw new ArgumentNullException("text");
             }
 
             return text.Split('\n', '\r');
@@ -240,12 +240,12 @@ namespace Miharu
         {
             if ((object)source == null)
             {
-                ThrowHelper.ThrowArgumentNullException("source");
+                throw new ArgumentNullException("source");
             }
 
             if ((object)separator == null)
             {
-                ThrowHelper.ThrowArgumentNullException("separator");
+                throw new ArgumentNullException("separator");
             }
 
             var i = -1;
