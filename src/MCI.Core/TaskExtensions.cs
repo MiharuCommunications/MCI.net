@@ -1,14 +1,11 @@
 ﻿namespace Miharu
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     public static class TaskExtensions
     {
-        public static Task<Try<A>> WithTimeOut<A>(this Task<Try<A>> task, TimeSpan timeout)
+        public static Task<Try<A>> WithTimeout<A>(this Task<Try<A>> task, TimeSpan timeout)
         {
             var result = Try<A>.Fail(new NotImplementedException());
             var resultTask = new Task<Try<A>>(() => result);
@@ -47,7 +44,7 @@
 
 
 
-        public static Task<Try<A>> WithTimeOut<A>(this Task<A> task, TimeSpan timeout)
+        public static Task<Try<A>> WithTimeout<A>(this Task<A> task, TimeSpan timeout)
         {
             var result = Try<A>.Fail(new NotImplementedException());
             var resultTask = new Task<Try<A>>(() => result);
@@ -82,9 +79,5 @@
 
             return resultTask;
         }
-
-
-
-
     }
 }
