@@ -9,6 +9,7 @@
     using System.Text;
     using System.Threading;
 
+    [Obsolete("未実装")]
     public class SynchronizedMonitorableCollection<T> : IList<T>, ICollection, INotifyCollectionChanged
     {
         private ReaderWriterLockSlim locker;
