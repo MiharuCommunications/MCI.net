@@ -92,7 +92,7 @@ namespace Miharu.Async
                 if (!task.IsCompleted)
                 {
                     this.Finish -= callback;
-                    task.RunSynchronously();
+                    task.Start();
                 }
             };
 

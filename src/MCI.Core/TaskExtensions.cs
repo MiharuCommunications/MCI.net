@@ -20,7 +20,7 @@
                     }
 
                     result = t.Result;
-                    resultTask.RunSynchronously();
+                    resultTask.Start();
                 }
             });
 
@@ -34,7 +34,7 @@
                     }
 
                     result = Try<A>.Fail(new TimeoutException());
-                    resultTask.RunSynchronously();
+                    resultTask.Start();
                 }
             });
 
@@ -59,7 +59,7 @@
                     }
 
                     result = Try<A>.Success(t.Result);
-                    resultTask.RunSynchronously();
+                    resultTask.Start();
                 }
             });
 
@@ -73,7 +73,7 @@
                     }
 
                     result = Try<A>.Fail(new TimeoutException());
-                    resultTask.RunSynchronously();
+                    resultTask.Start();
                 }
             });
 

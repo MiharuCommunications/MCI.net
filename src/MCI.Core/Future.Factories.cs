@@ -6,10 +6,6 @@
 namespace Miharu
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     using System.Threading.Tasks;
 
     public partial class Future
@@ -71,7 +67,7 @@ namespace Miharu
                     if (!dest.IsCompleted)
                     {
                         reseult = Try<A>.Success(s.Result);
-                        dest.RunSynchronously();
+                        dest.Start();
                     }
                 }
 
@@ -84,7 +80,7 @@ namespace Miharu
                     if (!dest.IsCompleted)
                     {
                         reseult = Try<A>.Fail(new TimeoutException());
-                        dest.RunSynchronously();
+                        dest.Start();
                     }
                 }
 
@@ -109,7 +105,7 @@ namespace Miharu
                     {
                         unbind(handler);
                         result = Try<TEventArgs>.Success(args);
-                        task.RunSynchronously();
+                        task.Start();
                     }
                 }
             });
@@ -124,7 +120,7 @@ namespace Miharu
                     {
                         unbind(handler);
                         result = Try<TEventArgs>.Fail(new TimeoutException());
-                        task.RunSynchronously();
+                        task.Start();
                     }
                 }
             });

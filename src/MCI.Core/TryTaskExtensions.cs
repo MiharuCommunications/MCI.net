@@ -34,13 +34,13 @@ namespace Miharu
                     f(t.Result.Get()).ContinueWith(tb =>
                     {
                         result = tb.Result;
-                        resultTask.RunSynchronously();
+                        resultTask.Start();
                     });
                 }
                 else
                 {
                     result = Try<B>.Fail(t.Result.GetException());
-                    resultTask.RunSynchronously();
+                    resultTask.Start();
                 }
             });
 
@@ -69,13 +69,13 @@ namespace Miharu
                             result = Try<C>.Fail(tb.Result.GetException());
                         }
 
-                        resultTask.RunSynchronously();
+                        resultTask.Start();
                     });
                 }
                 else
                 {
                     result = Try<C>.Fail(t.Result.GetException());
-                    resultTask.RunSynchronously();
+                    resultTask.Start();
                 }
             });
 
@@ -91,7 +91,7 @@ namespace Miharu
             source.ContinueWith(t =>
             {
                 result = t.Result.Where(f);
-                resultTask.RunSynchronously();
+                resultTask.Start();
             });
 
             return resultTask;

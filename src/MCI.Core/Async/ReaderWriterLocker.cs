@@ -97,7 +97,7 @@ namespace Miharu.Async
                     result = f();
                 }
 
-                task.RunSynchronously();
+                task.Start();
             });
 
 
@@ -169,7 +169,7 @@ namespace Miharu.Async
                     result = f();
                 }
 
-                task.RunSynchronously();
+                task.Start();
             });
 
 

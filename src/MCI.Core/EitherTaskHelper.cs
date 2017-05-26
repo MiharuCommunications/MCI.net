@@ -25,7 +25,7 @@
                     }
 
                     result = new Right<Error, T>(s.Result);
-                    dest.RunSynchronously();
+                    dest.Start();
                 }
             });
 
@@ -39,7 +39,7 @@
                     }
 
                     result = new Left<Error, T>(new TimeoutError(timeout));
-                    dest.RunSynchronously();
+                    dest.Start();
                 }
             });
 
@@ -65,7 +65,7 @@
 
                     unbind(handler);
                     result = new Right<Error, TEventArgs>(args);
-                    task.RunSynchronously();
+                    task.Start();
                 }
             });
 
@@ -82,7 +82,7 @@
 
                     unbind(handler);
                     result = new Left<Error, TEventArgs>(new TimeoutError(timeout));
-                    task.RunSynchronously();
+                    task.Start();
                 }
             });
 

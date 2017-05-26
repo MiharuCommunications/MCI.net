@@ -37,7 +37,7 @@ namespace Miharu
                         if (!task.IsCompleted)
                         {
                             result = Try<IEnumerable<A>>.Fail(ex);
-                            task.RunSynchronously();
+                            task.Start();
                         }
                     }
                 },
@@ -48,7 +48,7 @@ namespace Miharu
                         if (!task.IsCompleted)
                         {
                             result = Try<IEnumerable<A>>.Success(collection);
-                            task.RunSynchronously();
+                            task.Start();
                         }
                     }
                 });
@@ -83,7 +83,7 @@ namespace Miharu
                         if (!task.IsCompleted)
                         {
                             result = Try<IEnumerable<A>>.Fail(ex);
-                            task.RunSynchronously();
+                            task.Start();
                         }
                     }
                 },
@@ -94,7 +94,7 @@ namespace Miharu
                         if (!task.IsCompleted)
                         {
                             result = Try<IEnumerable<A>>.Success(collection);
-                            task.RunSynchronously();
+                            task.Start();
                         }
                     }
                 });
@@ -108,7 +108,7 @@ namespace Miharu
                         killer.Dispose();
 
                         result = TryHelper.ReturnTimeoutException<IEnumerable<A>>("IObservableExtensions.AsTask");
-                        task.RunSynchronously();
+                        task.Start();
                     }
                 }
             });
