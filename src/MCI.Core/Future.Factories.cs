@@ -67,7 +67,7 @@ namespace Miharu
                     if (!dest.IsCompleted)
                     {
                         reseult = Try<A>.Success(s.Result);
-                        dest.Start();
+                        dest.RunSynchronously();
                     }
                 }
 
@@ -80,7 +80,7 @@ namespace Miharu
                     if (!dest.IsCompleted)
                     {
                         reseult = Try<A>.Fail(new TimeoutException());
-                        dest.Start();
+                        dest.RunSynchronously();
                     }
                 }
 
@@ -105,7 +105,7 @@ namespace Miharu
                     {
                         unbind(handler);
                         result = Try<TEventArgs>.Success(args);
-                        task.Start();
+                        task.RunSynchronously();
                     }
                 }
             });
@@ -120,7 +120,7 @@ namespace Miharu
                     {
                         unbind(handler);
                         result = Try<TEventArgs>.Fail(new TimeoutException());
-                        task.Start();
+                        task.RunSynchronously();
                     }
                 }
             });

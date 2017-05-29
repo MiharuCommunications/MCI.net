@@ -24,7 +24,7 @@
                             hasFinished = true;
 
                             result = Tuple.Create(task1.Result, task2.Result);
-                            task.Start();
+                            task.RunSynchronously();
                         }
                     }
                 }
@@ -41,7 +41,7 @@
                             hasFinished = true;
 
                             result = Tuple.Create(task1.Result, task2.Result);
-                            task.Start();
+                            task.RunSynchronously();
                         }
                     }
                 }
@@ -69,7 +69,7 @@
                             hasFinished = true;
 
                             result = new Right<Error, Tuple<T1, T2>>(Tuple.Create(task1.Result, task2.Result));
-                            task.Start();
+                            task.RunSynchronously();
                         }
                     }
                 }
@@ -86,7 +86,7 @@
                             hasFinished = true;
 
                             result = new Right<Error, Tuple<T1, T2>>(Tuple.Create(task1.Result, task2.Result));
-                            task.Start();
+                            task.RunSynchronously();
                         }
                     }
                 }
@@ -101,7 +101,7 @@
                         hasFinished = true;
 
                         result = new Left<Error, Tuple<T1, T2>>(new TimeoutError(timeout));
-                        task.Start();
+                        task.RunSynchronously();
                     }
                 }
             });
