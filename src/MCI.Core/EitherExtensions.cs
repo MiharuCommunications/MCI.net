@@ -5,10 +5,23 @@
 //-----------------------------------------------------------------------
 namespace Miharu
 {
+    using Miharu.Errors;
     using System;
 
     public static class EitherExtensions
     {
+        public static Either<Error, T> Flatten<T>(this Either<Error, Either<Error, T>> source)
+        {
+            if (source.IsLeft)
+            {
+                return new Left<Error, T>(source.Left.Get());
+            }
+            else
+            {
+                return source.Right.Get();
+            }
+        }
+
         public static T Merge<T>(this Either<T, T> either)
         {
             if (either.IsRight)
