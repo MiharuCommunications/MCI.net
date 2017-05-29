@@ -65,9 +65,9 @@ namespace Miharu.Async
                     _result = new Left<Error, T>(new UnresolvedError(ex));
                 }
 
-                _task.Start();
+                _task.RunSynchronously();
 
-                task.Start();
+                task.RunSynchronously();
             });
 
             return task;
@@ -87,7 +87,7 @@ namespace Miharu.Async
 
             _result = new Left<Error, T>(new TimeoutError(timeout));
 
-            _task.Start();
+            _task.RunSynchronously();
         }
     }
 }
