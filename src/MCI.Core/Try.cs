@@ -153,6 +153,11 @@ namespace Miharu
             return new Success();
         }
 
+        public static Try<T> Success<T>(T value)
+        {
+            return new Success<T>(value);
+        }
+
         public static Try Fail(Exception ex)
         {
             return new Failure(ex);

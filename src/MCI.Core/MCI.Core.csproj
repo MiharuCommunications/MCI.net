@@ -39,6 +39,7 @@
     <Compile Include="Async\AsyncLockerQueueItem.cs" />
     <Compile Include="Async\AsyncWaiter.cs" />
     <Compile Include="Async\IAsyncLockerQueueItem.cs" />
+    <Compile Include="Async\OldTypedAsyncLocker.cs" />
     <Compile Include="Async\PeriodicTask.cs" />
     <Compile Include="Async\ReaderWriterLocker.cs" />
     <Compile Include="Async\Schedulers\EveryDayAction.cs" />
