@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Miharu.Async
+﻿namespace Miharu.Async
 {
-    public class OldTypedAsyncLocker : IDisposable
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    internal class OldTypedAsyncLocker : IDisposable
     {
         private object sync;
 
