@@ -1,11 +1,13 @@
-﻿namespace Miharu.Debugs
+﻿//-----------------------------------------------------------------------
+// <copyright file="ILogger.cs" company="Miharu Communications Inc.">
+//     © 2017 Miharu Communications Inc.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace Miharu.Debugs
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
+    [Obsolete("Please use utilities on Miharu.Logging.  Deprecated since 0.9.9.")]
     public interface ILogger
     {
         void AddError(string message);

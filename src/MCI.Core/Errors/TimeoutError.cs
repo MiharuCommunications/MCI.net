@@ -1,10 +1,11 @@
-﻿namespace Miharu.Errors
+﻿//-----------------------------------------------------------------------
+// <copyright file="TimeoutError.cs" company="Miharu Communications Inc.">
+//     © 2017 Miharu Communications Inc.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace Miharu.Errors
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class TimeoutError : Error
     {

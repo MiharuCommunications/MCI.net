@@ -1,11 +1,12 @@
-﻿namespace Miharu.Logging
+﻿//-----------------------------------------------------------------------
+// <copyright file="LoggerHelper.cs" company="Miharu Communications Inc.">
+//     © 2017 Miharu Communications Inc.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace Miharu.Logging
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Miharu.Errors;
+    using System;
 
     public static class LoggerHelper
     {

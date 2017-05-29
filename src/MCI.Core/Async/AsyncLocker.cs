@@ -87,7 +87,7 @@ namespace Miharu.Async
 
         protected virtual void Dispose(bool disposing)
         {
-            if (this._disposed)
+            if (_disposed)
             {
                 return;
             }
@@ -101,18 +101,18 @@ namespace Miharu.Async
                 }
             }
 
-            this._disposed = true;
+            _disposed = true;
         }
 
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 
         ~AsyncLocker()
         {
-            this.Dispose();
+            Dispose();
         }
     }
 }
