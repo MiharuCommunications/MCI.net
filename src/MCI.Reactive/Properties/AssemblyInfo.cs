@@ -19,9 +19,9 @@ using System.Runtime.InteropServices;
 
 
 
-[assembly: AssemblyVersion("0.9.10.0")]
-[assembly: AssemblyInformationalVersion("0.9.10.0")]
-[assembly: AssemblyFileVersion("0.9.10.0")]
+[assembly: AssemblyVersion("0.9.11.0")]
+[assembly: AssemblyInformationalVersion("0.9.11.0")]
+[assembly: AssemblyFileVersion("0.9.11.0")]
 
 
 [assembly: InternalsVisibleTo("MCI.Reactive.Tests")]
