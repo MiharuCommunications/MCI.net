@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Utils.Buffers.Ring
+﻿namespace Miharu.Utils.Buffers.Ring
 {
     using System;
     using System.Collections.Generic;
@@ -10,7 +10,7 @@
 
     public class RingBufferHoldTests
     {
-        public static IEnumerable<object> GetEnumerateSource()
+        public static IEnumerable<object[]> GetEnumerateSource()
         {
             yield return new object[] { new int[] { } };
             yield return new object[] { new int[] { 1 } };
@@ -20,7 +20,7 @@
             yield return new object[] { new int[] { 1, 2, 3, 4, 5 } };
         }
 
-        [Theory, MemberData("GetEnumerateSource")]
+        [Theory, MemberData(nameof(GetEnumerateSource))]
         public void EnumerateTest(int[] source)
         {
             var buffer = new RingBuffer<int>(source.Length);
@@ -33,7 +33,7 @@
             Assert.Equal(source, buffer.ToArray());
         }
 
-        [Theory, MemberData("GetEnumerateSource")]
+        [Theory, MemberData(nameof(GetEnumerateSource))]
         public void HoldWithConstructorTest(int[] source)
         {
             var buffer = new RingBuffer<int>(source.Length, source);

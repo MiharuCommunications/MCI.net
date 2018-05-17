@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Miharu.Core.Tests.Extensions
+namespace Miharu.Extensions
 {
     public class ArrayExtensionsTests
     {
@@ -42,7 +42,7 @@ namespace Miharu.Core.Tests.Extensions
             yield return new object[] { false, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4 } };
         }
 
-        [Theory, MemberData("GetIsSameSource")]
+        [Theory, MemberData(nameof(GetIsSameSource))]
         public void IsSameTest(bool expected, int[] source1, int[] source2)
         {
             Assert.Equal(expected, source1.IsSame(source2));

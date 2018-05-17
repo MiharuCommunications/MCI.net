@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Helpers.TaskHelperTests
+﻿namespace Miharu.Helpers.TaskHelperTests
 {
     using Miharu.Errors;
     using System;

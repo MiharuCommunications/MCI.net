@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Miharu.Async;
 using Xunit;
 
-namespace Miharu.Core.Tests.Async.OldTypedAsyncLockerTests
+namespace Miharu.Async.OldTypedAsyncLockerTests
 {
     public class OldTypedAsyncLockerStressTests
     {

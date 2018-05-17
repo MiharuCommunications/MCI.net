@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Async.AsyncLocker2Tests
+﻿namespace Miharu.Async.AsyncLocker2Tests
 {
     using System;
     using System.Threading.Tasks;

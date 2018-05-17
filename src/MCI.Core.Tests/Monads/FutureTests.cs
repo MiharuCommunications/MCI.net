@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Miharu.Core.Tests.Monads
+namespace Miharu.Monads
 {
     public class FutureTests
     {

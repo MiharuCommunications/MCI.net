@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Extensions
+﻿namespace Miharu.Extensions
 {
     using System;
     using System.Collections.Generic;
@@ -17,7 +17,7 @@
             yield return new object[] { "aabbaabbaa", new string[] { "aa", "aa", "aa" }, "bb" };
         }
 
-        [Theory, MemberData("GetConcatSeparatedWithStringSource")]
+        [Theory, MemberData(nameof(GetConcatSeparatedWithStringSource))]
         public void ConcatTest(string expected, string[] strs, string separator)
         {
             Assert.Equal(expected, strs.Concat(separator));
@@ -33,7 +33,7 @@
         }
 
 
-        [Theory, MemberData("GetDivideSource")]
+        [Theory, MemberData(nameof(GetDivideSource))]
         public void DivideTest(string[] expected, string source, int length)
         {
             Assert.Equal(expected, source.Divide(length));
@@ -46,7 +46,7 @@
             yield return new object[] { "a", new string[] { "a" }, string.Empty };
         }
 
-        [Theory, MemberData("GetIntercalateSource")]
+        [Theory, MemberData(nameof(GetIntercalateSource))]
         public void Intercalate(string expected, string[] source, string separator)
         {
             Assert.Equal(expected, source.Intercalate(separator));

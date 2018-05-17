@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Miharu.Core.Tests.Async.Schedulers
+namespace Miharu.Async.Schedulers
 {
     public class EveryDayActionTests
     {

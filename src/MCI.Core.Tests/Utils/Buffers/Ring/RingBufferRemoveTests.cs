@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Utils.Buffers.Ring
+﻿namespace Miharu.Utils.Buffers.Ring
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +13,7 @@
 
 
 
-        public static IEnumerable<object> GetRemoveLastTestSource()
+        public static IEnumerable<object[]> GetRemoveLastTestSource()
         {
             yield return new object[] { new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 }, 0 };
             yield return new object[] { new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4, 5 }, 1 };
@@ -23,7 +23,7 @@
             yield return new object[] { new int[] { }, new int[] { 1, 2, 3, 4, 5 }, 5 };
         }
 
-        [Theory, MemberData("GetRemoveLastTestSource")]
+        [Theory, MemberData(nameof(GetRemoveLastTestSource))]
         public void RemoveLastTest(int[] expected, int[] source, int length)
         {
             var buffer = new RingBuffer<int>(source.Length * 2, source);
@@ -36,7 +36,7 @@
 
 
 
-        public static IEnumerable<object> GetRemoveFirstTestSource()
+        public static IEnumerable<object[]> GetRemoveFirstTestSource()
         {
             yield return new object[] { new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 }, 0 };
             yield return new object[] { new int[] { 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 }, 1 };
@@ -46,7 +46,7 @@
             yield return new object[] { new int[] { }, new int[] { 1, 2, 3, 4, 5 }, 5 };
         }
 
-        [Theory, MemberData("GetRemoveFirstTestSource")]
+        [Theory, MemberData(nameof(GetRemoveFirstTestSource))]
         public void RemoveFirstTest(int[] expected, int[] source, int length)
         {
             var buffer = new RingBuffer<int>(source.Length * 2, source);

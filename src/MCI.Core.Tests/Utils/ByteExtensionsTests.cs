@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Utils
+﻿namespace Miharu.Utils
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,7 @@
             yield return new object[] { new byte[] { 0xFF, 0xFF }, "FFFF" };
         }
 
-        [Theory, MemberData("GetToByteArraySourceSuccessCases")]
+        [Theory, MemberData(nameof(GetToByteArraySourceSuccessCases))]
         public void ToByteArraySuccessCase(byte[] expected, string source)
         {
             var result = source.ToByteArray();
@@ -58,7 +58,7 @@
         }
 
 
-        [Theory, MemberData("GetToHexStringSourceSuccessCases")]
+        [Theory, MemberData(nameof(GetToHexStringSourceSuccessCases))]
         public void ToHexString(string expected, byte[] source)
         {
             Assert.Equal(expected, source.ToHexString());

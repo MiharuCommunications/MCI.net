@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Utils.Buffers.Ring
+﻿namespace Miharu.Utils.Buffers.Ring
 {
     using System;
     using System.Collections.Generic;
@@ -11,12 +11,12 @@
 
     public class RingBufferInsertTests
     {
-        public static IEnumerable<object> GetInsertFirstTestSource()
+        public static IEnumerable<object[]> GetInsertFirstTestSource()
         {
             yield return new object[] { new int[] { 1, 2, 3, 4 }, 1, new int[] { 2, 3, 4 } };
         }
 
-        [Theory, MemberData("GetInsertFirstTestSource")]
+        [Theory, MemberData(nameof(GetInsertFirstTestSource))]
         public void InsertFirstTest(int[] expected, int item, int[] source)
         {
             var buffer = new RingBuffer<int>(source.Length * 2, source);
@@ -29,12 +29,12 @@
 
 
 
-        public static IEnumerable<object> GetInsertLastTestSource()
+        public static IEnumerable<object[]> GetInsertLastTestSource()
         {
             yield return new object[] { new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3 }, 4 };
         }
 
-        [Theory, MemberData("GetInsertLastTestSource")]
+        [Theory, MemberData(nameof(GetInsertLastTestSource))]
         public void InsertLastTest(int[] expected, int[] source, int item)
         {
             var buffer = new RingBuffer<int>(source.Length * 2, source);
@@ -47,13 +47,13 @@
 
 
 
-        public static IEnumerable<object> GetInsertLastsTestSource()
+        public static IEnumerable<object[]> GetInsertLastsTestSource()
         {
             yield return new object[] { new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3 }, new int[] { 4, 5 } };
             yield return new object[] { new int[] { 1, 2, 3, 4, 5, 6 }, new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 } };
         }
 
-        [Theory, MemberData("GetInsertLastsTestSource")]
+        [Theory, MemberData(nameof(GetInsertLastsTestSource))]
         public void InsertLastsTest(int[] expected, int[] source, int[] inserteds)
         {
             var buffer = new RingBuffer<int>(source.Length * 2, source);

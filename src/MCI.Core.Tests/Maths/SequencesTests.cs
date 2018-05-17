@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Maths
+﻿namespace Miharu.Maths
 {
     using System;
     using System.Collections.Generic;
@@ -36,23 +36,17 @@
 
 
 
-        public static object[] Pow10Source
+        public static IEnumerable<object[]> Pow10Source()
         {
-            get
-            {
-                return new object[]
-                {
-                    new object[] { 1E10M  ,  10 },
-                    new object[] { 1E5M   ,   5 },
-                    new object[] { 1M     ,   0 },
-                    new object[] { 1E-5M  ,  -5 },
-                    new object[] { 1E-10M , -10 },
-                };
-            }
+            yield return new object[] { 1E10M, 10 };
+            yield return new object[] { 1E5M, 5 };
+            yield return new object[] { 1M, 0 };
+            yield return new object[] { 1E-5M, -5 };
+            yield return new object[] { 1E-10M, -10 };
         }
 
 
-        [Theory, MemberData("Pow10Source")]
+        [Theory, MemberData(nameof(Pow10Source))]
         public void Pow10(decimal expected, int index)
         {
             Assert.Equal(expected, Sequences.Pow10(index));

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Miharu.Async.Schedulers;
 using Xunit;
 
-namespace Miharu.Core.Tests.Async.Schedulers
+namespace Miharu.Async.Schedulers
 {
     public class EveryMinuteActionTests
     {

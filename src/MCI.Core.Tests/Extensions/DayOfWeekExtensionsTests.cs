@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Extensions
+﻿namespace Miharu.Extensions
 {
     using System;
     using System.Collections.Generic;
@@ -21,14 +21,14 @@
             yield return new object[] { DayOfWeek.Sunday, DayOfWeek.Saturday };
         }
 
-        [Theory, MemberData("GetNextTestSource")]
+        [Theory, MemberData(nameof(GetNextTestSource))]
         public void NextTest(DayOfWeek expected, DayOfWeek source)
         {
             Assert.Equal(expected, source.Next());
         }
 
 
-        [Theory, MemberData("GetNextTestSource")]
+        [Theory, MemberData(nameof(GetNextTestSource))]
         public void PreviousTest(DayOfWeek source, DayOfWeek expected)
         {
             Assert.Equal(expected, source.Previous());

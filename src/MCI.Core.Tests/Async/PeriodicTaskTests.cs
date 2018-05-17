@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Miharu.Async;
 using Xunit;
 
-namespace Miharu.Core.Tests.Async
+namespace Miharu.Async
 {
     public class PeriodicTaskTests
     {
