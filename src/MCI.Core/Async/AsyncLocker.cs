@@ -1,12 +1,10 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="AsyncLocker.cs" company="Miharu Communications Inc.">
 //     © 2017 Miharu Communications Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace Miharu.Async
 {
-    using Miharu.Errors;
-    using Miharu.Errors.Async;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -34,10 +32,10 @@ namespace Miharu.Async
         }
 
 
-        public Task<Either<Error, T>> LockAsync<T>(Func<Task<Either<Error, T>>> f)
+        public Task<Either<IFailedReason, T>> LockAsync<T>(Func<Task<Either<IFailedReason, T>>> f)
         {
-            Either<Error, T> result = new Left<Error, T>(new TaskHasCanceledError());
-            var task = new Task<Either<Error, T>>(() => result);
+            Either<IFailedReason, T> result = new Left<IFailedReason, T>(new TaskHasCanceledError());
+            var task = new Task<Either<IFailedReason, T>>(() => result);
 
             var item = new AsyncLockerQueueItem<T>(f);
 

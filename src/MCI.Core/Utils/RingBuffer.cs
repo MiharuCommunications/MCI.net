@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="RingBuffer.cs" company="Miharu Communications Inc.">
 //     © 2015 Miharu Communications Inc.
 // </copyright>
@@ -8,7 +8,6 @@ namespace Miharu.Utils
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using Miharu.Errors;
     using Miharu.Maths;
 
     // http://ufcpp.net/study/algorithm/col_circular.html
@@ -135,33 +134,33 @@ namespace Miharu.Utils
         }
 
 
-        public Either<Error, Unit> InsertFirst(T item)
+        public Either<IFailedReason, Unit> InsertFirst(T item)
         {
             lock (_sync)
             {
                 if (IsFull)
                 {
-                    return new Left<Error, Unit>(new BufferOverflowError(Capacity));
+                    return new Left<IFailedReason, Unit>(new BufferOverflowError(Capacity));
                 }
 
                 _top = (_top - 1) & _mask;
                 _buffer[_top] = item;
 
-                return new Right<Error, Unit>(Unit.Instance);
+                return new Right<IFailedReason, Unit>(Unit.Instance);
             }
         }
 
-        public Either<Error, Unit> RemoveFirst()
+        public Either<IFailedReason, Unit> RemoveFirst()
         {
             lock (_sync)
             {
                 _top = (_top + 1) & _mask;
 
-                return new Right<Error, Unit>(Unit.Instance);
+                return new Right<IFailedReason, Unit>(Unit.Instance);
             }
         }
 
-        public Either<Error, Unit> RemoveFirst(int length)
+        public Either<IFailedReason, Unit> RemoveFirst(int length)
         {
             lock (_sync)
             {
@@ -169,19 +168,19 @@ namespace Miharu.Utils
 
                 if (length == 0)
                 {
-                    return new Right<Error, Unit>(Unit.Instance);
+                    return new Right<IFailedReason, Unit>(Unit.Instance);
                 }
 
                 if (count < length)
                 {
-                    return new Left<Error, Unit>(new ArgumentOutOfRangeError("length"));
+                    return new Left<IFailedReason, Unit>(new ArgumentOutOfRangeError("length"));
                 }
 
                 if (count == length)
                 {
                     Clear();
 
-                    return new Right<Error, Unit>(Unit.Instance);
+                    return new Right<IFailedReason, Unit>(Unit.Instance);
                 }
 
                 // 通常の削除
@@ -194,28 +193,28 @@ namespace Miharu.Utils
                     _top = length - (_buffer.Length - _top);
                 }
 
-                return new Right<Error, Unit>(Unit.Instance);
+                return new Right<IFailedReason, Unit>(Unit.Instance);
             }
         }
 
 
-        public Either<Error, Unit> InsertLast(T item)
+        public Either<IFailedReason, Unit> InsertLast(T item)
         {
             lock (_sync)
             {
                 if (IsFull)
                 {
-                    return new Left<Error, Unit>(new BufferOverflowError(Capacity));
+                    return new Left<IFailedReason, Unit>(new BufferOverflowError(Capacity));
                 }
 
                 _buffer[_bottom] = item;
                 _bottom = (_bottom + 1) & _mask;
 
-                return new Right<Error, Unit>(Unit.Instance);
+                return new Right<IFailedReason, Unit>(Unit.Instance);
             }
         }
 
-        public Either<Error, Unit> InsertLast(T[] items)
+        public Either<IFailedReason, Unit> InsertLast(T[] items)
         {
             lock (_sync)
             {
@@ -230,27 +229,27 @@ namespace Miharu.Utils
                     }
                 }
 
-                return new Right<Error, Unit>(Unit.Instance);
+                return new Right<IFailedReason, Unit>(Unit.Instance);
             }
         }
 
 
-        public Either<Error, Unit> RemoveLast()
+        public Either<IFailedReason, Unit> RemoveLast()
         {
             lock (_sync)
             {
                 if (Count < 1)
                 {
-                    return new Left<Error, Unit>(new UnresolvedError(new NotImplementedException()));
+                    return new Left<IFailedReason, Unit>(new UnresolvedError(new NotImplementedException()));
                 }
 
                 _bottom = (_bottom - 1) & _mask;
 
-                return new Right<Error, Unit>(Unit.Instance);
+                return new Right<IFailedReason, Unit>(Unit.Instance);
             }
         }
 
-        public Either<Error, Unit> RemoveLast(int length)
+        public Either<IFailedReason, Unit> RemoveLast(int length)
         {
             lock (_sync)
             {
@@ -258,19 +257,19 @@ namespace Miharu.Utils
 
                 if (length == 0)
                 {
-                    return new Right<Error, Unit>(Unit.Instance);
+                    return new Right<IFailedReason, Unit>(Unit.Instance);
                 }
 
                 if (count < length)
                 {
-                    return new Left<Error, Unit>(new ArgumentOutOfRangeError("length"));
+                    return new Left<IFailedReason, Unit>(new ArgumentOutOfRangeError("length"));
                 }
 
                 if (count == length)
                 {
                     Clear();
 
-                    return new Right<Error, Unit>(Unit.Instance);
+                    return new Right<IFailedReason, Unit>(Unit.Instance);
                 }
 
                 // 通常の削除
@@ -283,7 +282,7 @@ namespace Miharu.Utils
                     _bottom = _buffer.Length - (length - _bottom);
                 }
 
-                return new Right<Error, Unit>(Unit.Instance);
+                return new Right<IFailedReason, Unit>(Unit.Instance);
             }
         }
 

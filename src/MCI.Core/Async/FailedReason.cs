@@ -1,13 +1,13 @@
-﻿namespace Miharu.Errors.Async
+namespace Miharu.Async
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
-    using System.Threading.Tasks;
 
-    public class TaskHasCanceledError : Error
+    public class TaskHasCanceledError : IFailedReason
     {
+        public string ErrorMessage { get; private set; }
+
         public TaskHasCanceledError()
         {
             ErrorMessage = "タスクがキャンセルされました。";

@@ -1,20 +1,19 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="EitherExtensions.cs" company="Miharu Communications Inc.">
 //     © 2015 Miharu Communications Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace Miharu
 {
-    using Miharu.Errors;
     using System;
 
     public static class EitherExtensions
     {
-        public static Either<Error, T> Flatten<T>(this Either<Error, Either<Error, T>> source)
+        public static Either<IFailedReason, T> Flatten<T>(this Either<IFailedReason, Either<IFailedReason, T>> source)
         {
             if (source.IsLeft)
             {
-                return new Left<Error, T>(source.Left.Get());
+                return new Left<IFailedReason, T>(source.Left.Get());
             }
             else
             {

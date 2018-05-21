@@ -28,7 +28,7 @@
             {
                 await Task.Delay(delay);
 
-                return new Right<Error, int>(0);
+                return new Right<IFailedReason, int>(0);
             });
         }
 
@@ -38,7 +38,7 @@
             {
                 await Task.Delay(0);
 
-                return new Right<Error, int>(0);
+                return new Right<IFailedReason, int>(0);
             });
 
             Assert.True(result.IsLeft);

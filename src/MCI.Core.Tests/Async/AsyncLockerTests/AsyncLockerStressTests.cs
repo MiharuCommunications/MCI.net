@@ -35,7 +35,7 @@
 
                         results.Add(i);
 
-                        return new Right<Error, int>(i);
+                        return new Right<IFailedReason, int>(i);
                     });
 
                     Assert.True(result.IsRight);

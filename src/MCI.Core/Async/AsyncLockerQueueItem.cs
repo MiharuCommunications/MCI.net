@@ -1,12 +1,10 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="AsyncLockerQueueItem.cs" company="Miharu Communications Inc.">
 //     © 2017 Miharu Communications Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace Miharu.Async
 {
-    using Miharu.Errors;
-    using Miharu.Errors.Async;
     using System;
     using System.Threading.Tasks;
 
@@ -16,25 +14,25 @@ namespace Miharu.Async
 
         private bool _hasFinished;
 
-        private Either<Error, T> _result;
+        private Either<IFailedReason, T> _result;
 
-        private Task<Either<Error, T>> _task;
+        private Task<Either<IFailedReason, T>> _task;
 
-        private Func<Task<Either<Error, T>>> _f;
+        private Func<Task<Either<IFailedReason, T>>> _f;
 
-        public AsyncLockerQueueItem(Func<Task<Either<Error, T>>> f)
+        public AsyncLockerQueueItem(Func<Task<Either<IFailedReason, T>>> f)
         {
             _sync = new object();
             _hasFinished = false;
 
-            _result = new Left<Error, T>(new TaskHasCanceledError());
-            _task = new Task<Either<Error, T>>(() => _result);
+            _result = new Left<IFailedReason, T>(new TaskHasCanceledError());
+            _task = new Task<Either<IFailedReason, T>>(() => _result);
 
             _f = f;
         }
 
 
-        public Task<Either<Error, T>> GetTask()
+        public Task<Either<IFailedReason, T>> GetTask()
         {
             return _task;
         }
@@ -62,7 +60,7 @@ namespace Miharu.Async
                 }
                 catch (Exception ex)
                 {
-                    _result = new Left<Error, T>(new UnresolvedError(ex));
+                    _result = new Left<IFailedReason, T>(new UnresolvedError(ex));
                 }
 
                 _task.RunSynchronously();
@@ -85,7 +83,7 @@ namespace Miharu.Async
                 _hasFinished = true;
             }
 
-            _result = new Left<Error, T>(new TimeoutError(timeout));
+            _result = new Left<IFailedReason, T>(new TimeoutError(timeout));
 
             _task.RunSynchronously();
         }
