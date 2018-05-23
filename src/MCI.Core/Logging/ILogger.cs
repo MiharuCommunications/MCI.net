@@ -9,33 +9,33 @@ namespace Miharu.Logging
 
     public interface ILogger
     {
-        Either<IFailedReason, Unit> Fatal(string message);
-        Either<IFailedReason, Unit> Fatal(string message, Exception error);
-        Either<IFailedReason, Unit> Fatal(string message, IFailedReason error);
+        void Fatal(string message);
+        void Fatal(string message, Exception error);
+        void Fatal(string message, IFailedReason error);
 
-        Either<IFailedReason, Unit> Error(string message);
-        Either<IFailedReason, Unit> Error(string message, Exception error);
-        Either<IFailedReason, Unit> Error(string message, IFailedReason error);
+        void Error(string message);
+        void Error(string message, Exception error);
+        void Error(string message, IFailedReason error);
 
-        Either<IFailedReason, Unit> Warn(string message);
-        Either<IFailedReason, Unit> Warn(string message, Exception error);
-        Either<IFailedReason, Unit> Warn(string message, IFailedReason error);
+        void Warn(string message);
+        void Warn(string message, Exception error);
+        void Warn(string message, IFailedReason error);
 
-        Either<IFailedReason, Unit> FixMe(string message);
-        Either<IFailedReason, Unit> FixMe(string message, Exception error);
-        Either<IFailedReason, Unit> FixMe(string message, IFailedReason error);
+        void FixMe(string message);
+        void FixMe(string message, Exception error);
+        void FixMe(string message, IFailedReason error);
 
-        Either<IFailedReason, Unit> Info(string message);
-        Either<IFailedReason, Unit> Info(string message, Exception error);
-        Either<IFailedReason, Unit> Info(string message, IFailedReason error);
+        void Info(string message);
+        void Info(string message, Exception error);
+        void Info(string message, IFailedReason error);
 
-        Either<IFailedReason, Unit> Debug(string message);
-        Either<IFailedReason, Unit> Debug(string message, Exception error);
-        Either<IFailedReason, Unit> Debug(string message, IFailedReason error);
+        void Debug(string message);
+        void Debug(string message, Exception error);
+        void Debug(string message, IFailedReason error);
 
-        Either<IFailedReason, Unit> Trace(string message);
-        Either<IFailedReason, Unit> Trace(string message, Exception error);
-        Either<IFailedReason, Unit> Trace(string message, IFailedReason error);
+        void Trace(string message);
+        void Trace(string message, Exception error);
+        void Trace(string message, IFailedReason error);
 
         bool IsFatalEnabled { get; }
         bool IsErrorEnabled { get; }

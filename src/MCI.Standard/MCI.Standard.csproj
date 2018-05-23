@@ -9,4 +9,8 @@
     <ProjectReference Include="..\MCI.Core\MCI.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logging\" />
+  </ItemGroup>
+
 </Project>
