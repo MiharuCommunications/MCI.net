@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="Future.Factories.cs" company="Miharu Communications Inc.">
 //     © 2016 Miharu Communications Inc.
 // </copyright>
@@ -10,18 +10,18 @@ namespace Miharu
 
     public partial class Future
     {
-        public static Future<A> FromResult<A>(Try<A> result)
+        public static Future<A> FromFailedReason<A>(IFailedReason reason)
         {
-            return new Future<A>(Task.FromResult(result));
+            return new Future<A>(Task.FromResult(Either.ToLeft<IFailedReason, A>(reason)));
         }
 
-        public static Future FromResult(Try result)
+        public static Future<A> FromResult<A>(A result)
         {
-            return new Future(Task.FromResult(result));
+            return new Future<A>(Task.FromResult(Either.ToRight<IFailedReason, A>(result)));
         }
 
 
-        public static Future<A> FromTask<A>(Task<Try<A>> source)
+        public static Future<A> FromTask<A>(Task<Either<IFailedReason, A>> source)
         {
             return new Future<A>(source);
         }
@@ -32,22 +32,22 @@ namespace Miharu
         {
             return new Future<A>(Task.Delay(delay).ContinueWith(t =>
             {
-                return Try<A>.Success(value);
+                return (Either<IFailedReason, A>)new Right<IFailedReason, A>(value);
             }));
         }
 
 
         public static Future<A> FromExecute<A>(Func<A> f)
         {
-            var result = Try<A>.Fail(new NotImplementedException());
+            var result = Either.ToLeft<IFailedReason, A>(new NotImplementedError());
 
             try
             {
-                result = Try<A>.Success(f());
+                result = Either.ToRight<IFailedReason, A>(f());
             }
             catch (Exception ex)
             {
-                result = Try<A>.Fail(ex);
+                result = Either.ToLeft<IFailedReason, A>(new UnresolvedError(ex));
             }
 
             return new Future<A>(Task.FromResult(result));
@@ -57,8 +57,8 @@ namespace Miharu
 
         public static Future<A> FromTask<A>(Task<A> source, TimeSpan timeout)
         {
-            var reseult = Try<A>.Fail(new NotImplementedException());
-            var dest = new Task<Try<A>>(() => reseult);
+            Either<IFailedReason, A> reseult = new Left<IFailedReason, A>(new NotImplementedError());
+            var dest = new Task<Either<IFailedReason, A>>(() => reseult);
 
             source.ContinueWith(s =>
             {
@@ -66,7 +66,7 @@ namespace Miharu
                 {
                     if (!dest.IsCompleted)
                     {
-                        reseult = Try<A>.Success(s.Result);
+                        reseult = new Right<IFailedReason, A>(s.Result);
                         dest.RunSynchronously();
                     }
                 }
@@ -79,7 +79,7 @@ namespace Miharu
                 {
                     if (!dest.IsCompleted)
                     {
-                        reseult = Try<A>.Fail(new TimeoutException());
+                        reseult = new Left<IFailedReason, A>(new TimeoutError(timeout));
                         dest.RunSynchronously();
                     }
                 }
@@ -93,8 +93,8 @@ namespace Miharu
 
         public static Future<TEventArgs> FromEvent<THandler, TEventArgs>(Func<Action<TEventArgs>, THandler> taker, Action<THandler> bind, Action<THandler> unbind, TimeSpan timeout)
         {
-            var result = Try<TEventArgs>.Fail(new NotImplementedException());
-            var task = new Task<Try<TEventArgs>>(() => result);
+            var result = Either<IFailedReason, TEventArgs>.ToLeft(new NotImplementedError());
+            var task = new Task<Either<IFailedReason, TEventArgs>>(() => result);
 
             THandler handler = default(THandler);
             handler = taker(args =>
@@ -104,7 +104,7 @@ namespace Miharu
                     if (!task.IsCompleted)
                     {
                         unbind(handler);
-                        result = Try<TEventArgs>.Success(args);
+                        result = Either.ToRight<IFailedReason, TEventArgs>(args);
                         task.RunSynchronously();
                     }
                 }
@@ -119,7 +119,7 @@ namespace Miharu
                     if (!task.IsCompleted)
                     {
                         unbind(handler);
-                        result = Try<TEventArgs>.Fail(new TimeoutException());
+                        result = Either.ToLeft<IFailedReason, TEventArgs>(new TimeoutError(timeout));
                         task.RunSynchronously();
                     }
                 }
