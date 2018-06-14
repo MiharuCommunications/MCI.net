@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using Miharu.Utils.Converters.UrlEncode;
-using Xunit;
-
 namespace Miharu.Utils.Converters.UrlEncode
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Web;
+    using Miharu.Utils.Converters.UrlEncode;
+    using Xunit;
+
     public class UrlEncoderTests
     {
         public static IEnumerable<object[]> EncodeDecodeSources()
@@ -25,7 +25,7 @@ namespace Miharu.Utils.Converters.UrlEncode
             Assert.Equal(source, UrlEncoder.Decode(encoded, code));
         }
 
-        [Theory,
+        [Theory(Skip = "not implemented"),
         InlineData("this is a pen.")]
         public void Compare(string source)
         {
