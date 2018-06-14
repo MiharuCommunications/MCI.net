@@ -116,4 +116,14 @@ namespace Miharu
             this.ErrorMessage = "リトライ回数が上限値に達しました RetryCount = " + count.ToString();
         }
     }
+
+    public class UnkownError : IFailedReason
+    {
+        public string ErrorMessage { get; private set; }
+
+        public UnkownError(string message)
+        {
+            this.ErrorMessage = message;
+        }
+    }
 }

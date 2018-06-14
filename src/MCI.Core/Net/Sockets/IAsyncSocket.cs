@@ -12,6 +12,10 @@ namespace Miharu.Net.Sockets
         ProtocolType Protocol { get; }
         IPEndPoint RemoteEndPoint { get; }
 
+        int SendTimeout { get; }
+        int ReceiveTimeout { get; }
+        int BufferSize { get; }
+
         Task<Either<IFailedReason, Unit>> ConnectAsync();
         Task<Either<IFailedReason, Unit>> DisconnectAsync();
 
