@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCI.Core", "MCI.Core\MCI.Core.csproj", "{613F5B83-3D8D-447F-AA71-EA978D750AC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCI.Core", "MCI.Core\MCI.Core.csproj", "{613F5B83-3D8D-447F-AA71-EA978D750AC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCI.Standard", "MCI.Standard\MCI.Standard.csproj", "{70E19ADC-53ED-42B8-9D15-CE28BDC9A67C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCI.Core.Tests", "MCI.Core.Tests\MCI.Core.Tests.csproj", "{7321545D-D0B3-4551-AB1B-EE7EB9841634}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCI.Core.Tests", "MCI.Core.Tests\MCI.Core.Tests.csproj", "{7321545D-D0B3-4551-AB1B-EE7EB9841634}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{613F5B83-3D8D-447F-AA71-EA978D750AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{613F5B83-3D8D-447F-AA71-EA978D750AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{613F5B83-3D8D-447F-AA71-EA978D750AC8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{70E19ADC-53ED-42B8-9D15-CE28BDC9A67C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{70E19ADC-53ED-42B8-9D15-CE28BDC9A67C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{70E19ADC-53ED-42B8-9D15-CE28BDC9A67C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{70E19ADC-53ED-42B8-9D15-CE28BDC9A67C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7321545D-D0B3-4551-AB1B-EE7EB9841634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7321545D-D0B3-4551-AB1B-EE7EB9841634}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7321545D-D0B3-4551-AB1B-EE7EB9841634}.Release|Any CPU.ActiveCfg = Release|Any CPU

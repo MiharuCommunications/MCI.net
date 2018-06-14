@@ -8,8 +8,6 @@ namespace Miharu.IO.Files
     {
         public string Target { get; private set; }
 
-        public string ErrorMessage { get; protected set; }
-
         protected FileIOError(string target)
         {
             this.Target = target;
@@ -21,7 +19,6 @@ namespace Miharu.IO.Files
         public DirectoryNotFoundError(string target)
             : base(target)
         {
-            this.ErrorMessage = "ディレクトリが見つかりません Path = " + target;
         }
     }
 
@@ -30,7 +27,6 @@ namespace Miharu.IO.Files
         public FileNotFoundError(string target)
             : base(target)
         {
-            this.ErrorMessage = "ファイルが見つかりません Path = " + target;
         }
     }
 
@@ -39,7 +35,6 @@ namespace Miharu.IO.Files
         public NotEnoughDiskSpaceError(string target)
             : base(target)
         {
-            this.ErrorMessage = "ディスクに十分な空き領域がありません。Path = " + target;
         }
     }
 
@@ -48,7 +43,6 @@ namespace Miharu.IO.Files
         public FileIsBrokenError(string target)
             : base(target)
         {
-            this.ErrorMessage = "ファイルが破損しています Path = " + target;
         }
     }
 
@@ -57,7 +51,6 @@ namespace Miharu.IO.Files
         public FileIsEmptyError(string target)
             : base(target)
         {
-            this.ErrorMessage = "ファイルが空です Path = " + target;
         }
     }
 }

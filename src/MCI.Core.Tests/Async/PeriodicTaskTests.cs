@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +10,7 @@ namespace Miharu.Async
 {
     public class PeriodicTaskTests
     {
-        // [Fact]
+        [Fact(Skip = "required too long time.")]
         public async Task Execute()
         {
             var list = new List<int>();
@@ -32,7 +32,7 @@ namespace Miharu.Async
 
 
 
-        // [Fact]
+        [Fact(Skip = "required too long time.")]
         public async Task Interval()
         {
             var interval = TimeSpan.FromSeconds(1.0);
@@ -72,7 +72,7 @@ namespace Miharu.Async
 
 
 
-        // [Fact]
+        [Fact(Skip = "required too long time.")]
         public async Task StopAsync()
         {
             var task = new PeriodicTask(TimeSpan.FromSeconds(2), async () =>
