@@ -16,9 +16,8 @@ before_build:
   - cmd: dotnet restore ./src/MCI.Standard/MCI.Standard.csproj --verbosity m
 build_script:
   # output will be in ./src/bin/debug/netcoreapp1.1/publish
-  - cmd: dotnet publish ./src/MCI.Core/MCI.Core.csproj
-  - cmd: dotnet publish ./src/MCI.Standard/MCI.Standard.csproj
-  - cmd: dotnet publish ./src/MCI.Core.Tests/MCI.Core.Tests.csproj
+  - cmd: dotnet build ./src/MCI.Core/MCI.Core.csproj
+  - cmd: dotnet build ./src/MCI.Standard/MCI.Standard.csproj
 after_build:
   # For once the build has completed
 clone_depth: 1
