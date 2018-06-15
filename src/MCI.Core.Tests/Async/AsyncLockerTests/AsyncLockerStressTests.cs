@@ -1,4 +1,4 @@
-﻿namespace Miharu.Async.AsyncLocker2Tests
+namespace Miharu.Async.AsyncLocker2Tests
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,7 @@
 
     public class AsyncLockerStressTests
     {
-        [Theory,
+        [Theory(Skip = "required too long time."),
         InlineData(5, 100),
         InlineData(5, 1000),
         InlineData(5, 10000),

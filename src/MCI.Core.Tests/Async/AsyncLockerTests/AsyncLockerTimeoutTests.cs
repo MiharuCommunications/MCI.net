@@ -1,4 +1,4 @@
-﻿namespace Miharu.Async.AsyncLocker2Tests
+namespace Miharu.Async.AsyncLocker2Tests
 {
     using System;
     using System.Threading.Tasks;
@@ -8,7 +8,7 @@
 
     public class AsyncLockerTimeoutTests
     {
-        [Fact]
+        [Fact(Skip = "required too long time.")]
         public void Timeout()
         {
             var timeout = TimeSpan.FromSeconds(5);
