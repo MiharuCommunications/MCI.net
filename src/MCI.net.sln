@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCI.Core", "MCI.Core\MCI.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCI.Core.Tests", "MCI.Core.Tests\MCI.Core.Tests.csproj", "{7321545D-D0B3-4551-AB1B-EE7EB9841634}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCI.Standard", "MCI.Standard\MCI.Standard.csproj", "{BAB26945-FB47-4DEF-AA6E-897DAF925B83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCI.Standard.Tests", "MCI.Standard.Tests\MCI.Standard.Tests.csproj", "{858FB407-6CFD-4F1F-AF6A-7ACAA1BEDDE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{7321545D-D0B3-4551-AB1B-EE7EB9841634}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7321545D-D0B3-4551-AB1B-EE7EB9841634}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7321545D-D0B3-4551-AB1B-EE7EB9841634}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAB26945-FB47-4DEF-AA6E-897DAF925B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAB26945-FB47-4DEF-AA6E-897DAF925B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAB26945-FB47-4DEF-AA6E-897DAF925B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAB26945-FB47-4DEF-AA6E-897DAF925B83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{858FB407-6CFD-4F1F-AF6A-7ACAA1BEDDE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{858FB407-6CFD-4F1F-AF6A-7ACAA1BEDDE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{858FB407-6CFD-4F1F-AF6A-7ACAA1BEDDE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{858FB407-6CFD-4F1F-AF6A-7ACAA1BEDDE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
