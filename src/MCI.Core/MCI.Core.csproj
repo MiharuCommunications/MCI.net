@@ -11,7 +11,8 @@
     <Authors>Miharu Communications Inc.</Authors>
     <PackageProjectUrl>https://github.com/MiharuCommunications/MCI.net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MiharuCommunications/MCI.net</RepositoryUrl>
-    <Version>0.10.0.0</Version>
+    <Version>0.10.0-alpha</Version>
+    <PackageLicenseUrl>https://github.com/MiharuCommunications/MCI.net/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
