@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Miharu.Errors;
-using Miharu.Errors.IO;
-
-namespace Miharu.Core.Tests.Errors
+namespace Miharu.Errors
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using Miharu.IO.Files;
+
     public class UseCase
     {
         public void Test()
@@ -33,16 +32,16 @@ namespace Miharu.Core.Tests.Errors
 
         }
 
-        public Either<Error, int> GetInt(string text)
+        public Either<IFailedReason, int> GetInt(string text)
         {
             try
             {
                 var i = int.Parse(text);
-                return new Right<Error, int>(i);
+                return new Right<IFailedReason, int>(i);
             }
             catch (Exception)
             {
-                return new Left<Error, int>(null);
+                return new Left<IFailedReason, int>(null);
             }
         }
     }

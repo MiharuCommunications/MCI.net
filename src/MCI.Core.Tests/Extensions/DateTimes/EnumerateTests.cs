@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xunit;
-
-namespace Miharu.Core.Tests.Extensions.DateTimes
+﻿namespace Miharu.Extensions.DateTimes
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using Xunit;
+
     public class EnumerateTests
     {
         public static IEnumerable<object[]> GetEnumerateDaysSource()
@@ -19,7 +19,7 @@ namespace Miharu.Core.Tests.Extensions.DateTimes
             };
         }
 
-        [Theory, MemberData("GetEnumerateDaysSource")]
+        [Theory, MemberData(nameof(GetEnumerateDaysSource))]
         public void EnumerateDays(DateTime[] expected, DateTime start, DateTime end)
         {
             var result = start.EnumerateDays(end);
@@ -42,7 +42,7 @@ namespace Miharu.Core.Tests.Extensions.DateTimes
             };
         }
 
-        [Theory, MemberData("GetEnumerateMonthsSource")]
+        [Theory, MemberData(nameof(GetEnumerateMonthsSource))]
         public void EnumerateMonths(DateTime[] expected, DateTime start, DateTime end)
         {
             var result = start.EnumerateMonths(end);

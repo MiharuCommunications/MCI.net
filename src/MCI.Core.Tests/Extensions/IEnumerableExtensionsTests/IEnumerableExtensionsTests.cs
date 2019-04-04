@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xunit;
-
-namespace Miharu.Core.Tests.Extensions.IEnumerableExtensionsTests
+﻿namespace Miharu.Extensions.IEnumerableExtensionsTests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using Xunit;
+
     public class IEnumerableExtensionsTests
     {
         [Fact]
@@ -58,14 +58,14 @@ namespace Miharu.Core.Tests.Extensions.IEnumerableExtensionsTests
 
 
 
-        public static readonly object[] TailsTestSource =
+        public static IEnumerable<object[]> TailsTestSource()
         {
-            new object[] { new int[][] { }, new int[] { 1 } },
-            new object[] { new int[][] { new int[] { 2, 3, 4 }, new int[] { 3, 4 }, new int[] { 4 } }, new int[] { 1, 2, 3, 4 } }
-        };
+            yield return new object[] { new int[][] { }, new int[] { 1 } };
+            yield return new object[] { new int[][] { new int[] { 2, 3, 4 }, new int[] { 3, 4 }, new int[] { 4 } }, new int[] { 1, 2, 3, 4 } };
+        }
 
 
-        [Theory, MemberData("TailsTestSource")]
+        [Theory, MemberData(nameof(TailsTestSource))]
         public void TailsTest(int[][] expected, int[] source)
         {
             Assert.Equal(expected, source.Tails().Select(c => c.ToArray()).ToArray());
@@ -112,14 +112,14 @@ namespace Miharu.Core.Tests.Extensions.IEnumerableExtensionsTests
 
 
 
-        public static readonly object[] MargeDecimalSource =
+        public static IEnumerable<object[]> MargeDecimalSource()
         {
-            new object[] { null, new decimal[] { } },
-            new object[] { null, new decimal[] { 1.0M, 2.0M } },
-            new object[] { 1.0M, new decimal[] { 1.0M, 1.0M } },
-        };
+            yield return new object[] { null, new decimal[] { } };
+            yield return new object[] { null, new decimal[] { 1.0M, 2.0M } };
+            yield return new object[] { 1.0M, new decimal[] { 1.0M, 1.0M } };
+        }
 
-        [Theory, MemberData("MargeDecimalSource")]
+        [Theory, MemberData(nameof(MargeDecimalSource))]
         public void MargeDecimalTest(decimal? expected, decimal[] source)
         {
             Assert.Equal(expected, source.Marge());
@@ -127,14 +127,14 @@ namespace Miharu.Core.Tests.Extensions.IEnumerableExtensionsTests
 
 
 
-        public static readonly object[] MargeIntSource =
+        public static IEnumerable<object[]> MargeIntSource()
         {
-            new object[] { null, new int[] { } },
-            new object[] { null, new int[] { 1, 2 } },
-            new object[] { 1, new int[] { 1, 1 } },
-        };
+            yield return new object[] { null, new int[] { } };
+            yield return new object[] { null, new int[] { 1, 2 } };
+            yield return new object[] { 1, new int[] { 1, 1 } };
+        }
 
-        [Theory, MemberData("MargeIntSource")]
+        [Theory, MemberData(nameof(MargeIntSource))]
         public void MargeIntTest(int? expected, int[] source)
         {
             Assert.Equal(expected, source.Marge());

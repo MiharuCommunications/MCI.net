@@ -1,19 +1,18 @@
-﻿namespace Miharu
+namespace Miharu
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using Miharu.Errors;
 
     public static class EitherTaskHelper
     {
-        public static Task<Either<Error, T>> FromTask<T>(Task<T> source, TimeSpan timeout)
+        public static Task<Either<IFailedReason, T>> FromTask<T>(Task<T> source, TimeSpan timeout)
         {
             var sync = new object();
-            Either<Error, T> result = new Left<Error, T>(new NotImplementedError());
-            var dest = new Task<Either<Error, T>>(() => result);
+            Either<IFailedReason, T> result = new Left<IFailedReason, T>(new NotImplementedError());
+            var dest = new Task<Either<IFailedReason, T>>(() => result);
 
             source.ContinueWith(s =>
             {
@@ -24,7 +23,7 @@
                         return;
                     }
 
-                    result = new Right<Error, T>(s.Result);
+                    result = new Right<IFailedReason, T>(s.Result);
                     dest.RunSynchronously();
                 }
             });
@@ -38,7 +37,7 @@
                         return;
                     }
 
-                    result = new Left<Error, T>(new TimeoutError(timeout));
+                    result = new Left<IFailedReason, T>(new TimeoutError(timeout));
                     dest.RunSynchronously();
                 }
             });
@@ -47,11 +46,11 @@
         }
 
 
-        public static Task<Either<Error, TEventArgs>> FromEvent<THandler, TEventArgs>(Func<Action<TEventArgs>, THandler> taker, Action<THandler> bind, Action<THandler> unbind, TimeSpan timeout)
+        public static Task<Either<IFailedReason, TEventArgs>> FromEvent<THandler, TEventArgs>(Func<Action<TEventArgs>, THandler> taker, Action<THandler> bind, Action<THandler> unbind, TimeSpan timeout)
         {
             var sync = new object();
-            Either<Error, TEventArgs> result = new Left<Error, TEventArgs>(new NotImplementedError());
-            var task = new Task<Either<Error, TEventArgs>>(() => result);
+            Either<IFailedReason, TEventArgs> result = new Left<IFailedReason, TEventArgs>(new NotImplementedError());
+            var task = new Task<Either<IFailedReason, TEventArgs>>(() => result);
 
             THandler handler = default(THandler);
             handler = taker(args =>
@@ -64,7 +63,7 @@
                     }
 
                     unbind(handler);
-                    result = new Right<Error, TEventArgs>(args);
+                    result = new Right<IFailedReason, TEventArgs>(args);
                     task.RunSynchronously();
                 }
             });
@@ -81,7 +80,7 @@
                     }
 
                     unbind(handler);
-                    result = new Left<Error, TEventArgs>(new TimeoutError(timeout));
+                    result = new Left<IFailedReason, TEventArgs>(new TimeoutError(timeout));
                     task.RunSynchronously();
                 }
             });

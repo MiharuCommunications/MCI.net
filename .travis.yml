@@ -1,12 +1,12 @@
 language: csharp
-mono:
-  - latest
+mono: none
+dotnet: 2.0
 solution: ./src/MCI.net.sln
 install:
-  - nuget restore ./src/MCI.net.sln
-  - nuget install xunit.runner.console -Version 2.0.0 -OutputDirectory testrunner
+  - dotnet --version
 script:
-  - xbuild /p:Configuration=Release ./src/MCI.net.sln
-  - mono ./testrunner/xunit.runner.console.2.0.0/tools/xunit.console.exe ./src/MCI.Core.Tests/bin/Release/MCI.Core.Tests.dll
-  - mono ./testrunner/xunit.runner.console.2.0.0/tools/xunit.console.exe ./src/MCI.Reactive.Tests/bin/Release/MCI.Reactive.Tests.dll
-  - mono ./testrunner/xunit.runner.console.2.0.0/tools/xunit.console.exe ./src/MCI.Converters.Tests/bin/Release/MCI.Converters.Tests.dll
+  - dotnet restore ./src/MCI.Core/MCI.Core.csproj --verbosity m
+  - dotnet build ./src/MCI.Core/MCI.Core.csproj
+  - dotnet restore ./src/MCI.Core.Tests/MCI.Core.Tests.csproj --verbosity m
+  - cd src/MCI.Core.Tests
+  - dotnet xunit

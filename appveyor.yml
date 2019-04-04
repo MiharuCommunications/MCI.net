@@ -1,116 +1,35 @@
-# Notes:
-#   - Minimal appveyor.yml file is an empty file. All sections are optional.
-#   - Indent each level of configuration with 2 spaces. Do not use tabs!
-#   - All section names are case-sensitive.
-#   - Section names should be unique on each level.
-
-#---------------------------------#
-#      general configuration      #
-#---------------------------------#
-
-# version format
 version: 1.0.{build}
-
-# you can use {branch} name in version format too
-# version: 1.0.{build}-{branch}
-
-# branches to build
+image: Visual Studio 2017
 branches:
-  # blacklist
   except:
     - gh-pages
 
 
-#---------------------------------#
-#    environment configuration    #
-#---------------------------------#
-
-# Operating system (build VM template)
-os: Windows Server 2012
-
-
-
-#---------------------------------#
-#       build configuration       #
-#---------------------------------#
-
-# build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: Any CPU
-
-# to add several platforms to build matrix:
-#platform:
-#  - x86
-#  - Any CPU
-
-# build Configuration, i.e. Debug, Release, etc.
-configuration: Release
-
-# to add several configurations to build matrix:
-#configuration:
-#  - Debug
-#  - Release
-
-build:
-  parallel: true                  # enable MSBuild parallel builds
-  project: src/MCI.net.sln      # path to Visual Studio solution or project
-  publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
-  publish_wap_xcopy: true         # package Web Application Projects (WAP) for XCopy deployment
-  publish_azure: true             # package Azure Cloud Service projects and push to artifacts
-  publish_nuget: true             # package projects with .nuspec files and push to artifacts
-  publish_nuget_symbols: true     # generate and publish NuGet symbol packages
-  include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
-
-
-
-#---------------------------------#
-#       tests configuration       #
-#---------------------------------#
-
-test:
-  # assemblies to test - optional
-  assemblies:
-    - '**\*.Tests.dll'
-
+init:
+  - cmd: git config --global core.autocrlf true
+install:
+  # Install repo specific stuff here
 before_build:
-- ps: >-
-    nuget restore src/MCI.net.sln
-
-
+  - cmd: dotnet --version
+  # Display minimal restore text
+  - cmd: dotnet restore ./src/MCI.Core/MCI.Core.csproj --verbosity m
+build_script:
+  # output will be in ./src/bin/debug/netcoreapp1.1/publish
+  - cmd: dotnet build ./src/MCI.Core/MCI.Core.csproj
+after_build:
+  # For once the build has completed
+clone_depth: 1
 test_script:
-- ps: >-
-    $opencover = (Resolve-Path "src/packages/OpenCover.*/tools/OpenCover.Console.exe").ToString()
+  # restore packages for our unit tests
+  - cmd: dotnet restore ./src/MCI.Core.Tests/MCI.Core.Tests.csproj --verbosity m
+  - cmd: cd src/MCI.Core.Tests
+  - cmd: dotnet xunit -fxversion 2.0.7
+on_finish :
+  # any cleanup in here
+deploy: off
 
-    $runner = (Resolve-Path "src/packages/xunit.runner.console.*/tools/xunit.console.x86.exe").ToString()
-
-    $coveralls = (Resolve-Path "src/packages/coveralls.net.*/tools/csmacnz.coveralls.exe").ToString()
-
-    $targetdir = (Resolve-Path "src/MCI.Core.Tests/bin/Release").ToString()
-
-    $targetargs = """MCI.Core.Tests.dll"" -noshadow -appveyor"
-
-    $filter = " +[MCI.Core*]* -[MCI.Core.Tests*]*"
-
-
-    & $opencover -register:user -target:$runner "-targetargs:$targetargs" -targetdir:$targetdir "-filter:$filter" -returntargetcode -hideskipped:All -output:result.xml
-
-    & $coveralls --opencover -i result.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
-
-
-after_test:
-    - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
-    - pip install codecov
-    - codecov -f "result.xml" -X gcov
-
-
-
-
-#---------------------------------#
-#         notifications           #
-#---------------------------------#
 
 notifications:
-
-  # Email
   - provider: Email
     to:
       - inahata@miharu.co.jp

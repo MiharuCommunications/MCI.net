@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Utils
+﻿namespace Miharu.Utils
 {
     using System;
     using System.Collections.Generic;
@@ -81,24 +81,18 @@
 
 
 
-        public static object[] IEnumeratorTestSource
+        public static IEnumerable<object[]> IEnumeratorTestSource()
         {
-            get
-            {
-                return new object[]
-                {
-                    new object[] { new int[] { } },
-                    new object[] { new int[] { 1 } },
-                    new object[] { new int[] { 1, 2 } },
-                    new object[] { new int[] { 1, 2, 3 } },
-                    new object[] { new int[] { 1, 2, 3, 4 } },
-                    new object[] { new int[] { 1, 2, 3, 4, 5 } },
-                    new object[] { Enumerable.Range(0, 1000).ToArray() },
-                };
-            }
+            yield return new object[] { new int[] { } };
+            yield return new object[] { new int[] { 1 } };
+            yield return new object[] { new int[] { 1, 2 } };
+            yield return new object[] { new int[] { 1, 2, 3 } };
+            yield return new object[] { new int[] { 1, 2, 3, 4 } };
+            yield return new object[] { new int[] { 1, 2, 3, 4, 5 } };
+            yield return new object[] { Enumerable.Range(0, 1000).ToArray() };
         }
 
-        [Theory, MemberData("IEnumeratorTestSource")]
+        [Theory, MemberData(nameof(IEnumeratorTestSource))]
         public void IEnumeratorTest(int[] collection)
         {
             var buffer = new RingBuffer<int>(collection.Length);
@@ -113,7 +107,7 @@
 
 
 
-        [Theory, MemberData("IEnumeratorTestSource")]
+        [Theory, MemberData(nameof(IEnumeratorTestSource))]
         public void IEnumeratorTestRemoveHead(int[] collection)
         {
             for (var remove = 0; remove < collection.Length; remove++)

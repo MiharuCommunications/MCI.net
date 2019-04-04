@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="Future.cs" company="Miharu Communications Inc.">
 //     © 2015 Miharu Communications Inc.
 // </copyright>
@@ -10,10 +10,10 @@ namespace Miharu
 
     public sealed class Future<A>
     {
-        internal Task<Try<A>> FutureTask { get; private set; }
+        internal Task<Either<IFailedReason, A>> FutureTask { get; private set; }
 
 
-        internal Future(Task<Try<A>> task)
+        internal Future(Task<Either<IFailedReason, A>> task)
         {
             this.FutureTask = task;
         }
@@ -32,15 +32,14 @@ namespace Miharu
         {
             // 自身の task で ContinueWith
             // その後 出来た task でも ContinueWith
-            var result = Try<B>.Fail(new NotImplementedException());
-            var resultTask = new Task<Try<B>>(() => result);
+            Either<IFailedReason, B> result = new Left<IFailedReason, B>(new NotImplementedError());
+            var resultTask = new Task<Either<IFailedReason, B>>(() => result);
 
 
             this.FutureTask.ContinueWith(t =>
             {
-                if (t.Result.IsSuccess)
+                if (t.Result.IsRight)
                 {
-                    // Map した Task
                     f(t.Result.Get()).FutureTask.ContinueWith(tb =>
                     {
                         result = tb.Result;
@@ -49,8 +48,7 @@ namespace Miharu
                 }
                 else
                 {
-                    // そのまま？
-                    result = Try<B>.Fail(t.Result.GetException());
+                    result = new Left<IFailedReason, B>(t.Result.Left.Get());
                     resultTask.RunSynchronously();
                 }
             });
@@ -60,23 +58,23 @@ namespace Miharu
 
         public Future<C> SelectMany<B, C>(Func<A, Future<B>> f, Func<A, B, C> g)
         {
-            var result = Try<C>.Fail(new NotImplementedException());
-            var resultTask = new Task<Try<C>>(() => result);
+            Either<IFailedReason, C> result = new Left<IFailedReason, C>(new NotImplementedError());
+            var resultTask = new Task<Either<IFailedReason, C>>(() => result);
 
             this.FutureTask.ContinueWith(t =>
             {
-                if (t.Result.IsSuccess)
+                if (t.Result.IsRight)
                 {
                     var x = t.Result.Get();
                     f(x).FutureTask.ContinueWith(t2 =>
                     {
-                        if (t2.Result.IsSuccess)
+                        if (t2.Result.IsRight)
                         {
-                            result = Try<C>.Success(g(x, t2.Result.Get()));
+                            result = new Right<IFailedReason, C>(g(x, t2.Result.Get()));
                         }
                         else
                         {
-                            result = Try<C>.Fail(t2.Result.GetException());
+                            result = new Left<IFailedReason, C>(t2.Result.Left.Get());
                         }
 
                         resultTask.RunSynchronously();
@@ -84,7 +82,7 @@ namespace Miharu
                 }
                 else
                 {
-                    result = Try<C>.Fail(t.Result.GetException());
+                    result = new Left<IFailedReason, C>(t.Result.Left.Get());
                     resultTask.RunSynchronously();
                 }
             });
@@ -92,29 +90,14 @@ namespace Miharu
             return new Future<C>(resultTask);
         }
 
-        public Future<A> Where(Func<A, bool> f)
-        {
-            var result = Try<A>.Fail(new NotImplementedException());
-            var task = new Task<Try<A>>(() => result);
 
-            this.FutureTask.ContinueWith(t =>
-            {
-                result = t.Result.Where(f);
-                task.RunSynchronously();
-            });
-
-            return new Future<A>(task);
-        }
-
-
-
-        public Task<Try<A>> AsTask()
+        public Task<Either<IFailedReason, A>> AsTask()
         {
             return this.FutureTask;
         }
 
 
-        public Try<A> Wait()
+        public Either<IFailedReason, A> Wait()
         {
             return this.FutureTask.Result;
         }
@@ -122,66 +105,6 @@ namespace Miharu
         public A Get()
         {
             return this.FutureTask.Result.Get();
-        }
-
-        public bool IsCompleted
-        {
-            get
-            {
-                return this.FutureTask.IsCompleted;
-            }
-        }
-    }
-
-
-    public partial class Future
-    {
-        internal Task<Try> FutureTask { get; private set; }
-
-        internal Future(Task<Try> task)
-        {
-            this.FutureTask = task;
-        }
-
-
-        public Future Select(Action f)
-        {
-            return new Future(this.FutureTask.ContinueWith(task =>
-            {
-                return task.Result.Select(f);
-            }));
-        }
-
-
-        public Future SelectMany(Func<Future> f)
-        {
-            var result = Try.Fail(new NotImplementedException());
-            var resultTask = new Task<Try>(() => result);
-
-
-            this.FutureTask.ContinueWith(t =>
-            {
-                if (t.Result.IsSuccess)
-                {
-                    f().FutureTask.ContinueWith(tb =>
-                    {
-                        result = tb.Result;
-                        resultTask.RunSynchronously();
-                    });
-                }
-                else
-                {
-                    result = Try.Fail(t.Result.GetException());
-                    resultTask.RunSynchronously();
-                }
-            });
-
-            return new Future(resultTask);
-        }
-
-        public Task<Try> AsTask()
-        {
-            return this.FutureTask;
         }
 
         public bool IsCompleted

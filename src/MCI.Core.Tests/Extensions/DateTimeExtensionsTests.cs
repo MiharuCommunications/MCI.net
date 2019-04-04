@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Miharu.Core.Tests.Extensions
+﻿namespace Miharu.Extensions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Xunit;
+
     public class DateTimeExtensionsTests
     {
         public static IEnumerable<object[]> GetIsSameDateSource()
@@ -16,7 +16,7 @@ namespace Miharu.Core.Tests.Extensions
         }
 
 
-        [Theory, MemberData("GetIsSameDateSource")]
+        [Theory, MemberData(nameof(GetIsSameDateSource))]
         public void IsSameDateTest(bool expected, DateTime dt1, DateTime dt2)
         {
             Assert.Equal(expected, dt1.IsSameDate(dt2));
@@ -32,7 +32,7 @@ namespace Miharu.Core.Tests.Extensions
         }
 
 
-        [Theory, MemberData("GetToSource")]
+        [Theory, MemberData(nameof(GetToSource))]
         public void ToTest(DateTime[] expected, DateTime from, DateTime to)
         {
             Assert.Equal(expected, from.To(to));
@@ -45,9 +45,9 @@ namespace Miharu.Core.Tests.Extensions
         public static readonly Func<Tuple<int, DateTime>, DateTime> DateTimePicker = t => t.Item2;
 
 
-        public static readonly object[] GroupedWithTimeSpanSource =
+        public static IEnumerable<object[]> GroupedWithTimeSpanSource()
         {
-            new object[]
+            yield return new object[]
             {
                 new Tuple<int, DateTime>[]
                 {
@@ -62,9 +62,9 @@ namespace Miharu.Core.Tests.Extensions
                 DateTimePicker,
                 new DateTime(2015, 7, 1, 10, 0, 0),
                 TimeSpan.FromMinutes(5)
-            },
+            };
 
-            new object[]
+            yield return new object[]
             {
                 new Tuple<int, DateTime>[]
                 {
@@ -79,11 +79,11 @@ namespace Miharu.Core.Tests.Extensions
                 DateTimePicker,
                 new DateTime(2015, 7, 1, 0, 0, 0),
                 TimeSpan.FromMinutes(15)
-            },
-        };
+            };
+        }
 
 
-        [Theory, MemberData("GroupedWithTimeSpanSource")]
+        [Theory, MemberData(nameof(GroupedWithTimeSpanSource))]
         public void GroupedByTimeSpanTest(IEnumerable<Tuple<int, DateTime>> collection, Func<Tuple<int, DateTime>, DateTime> mapper, DateTime start, TimeSpan span)
         {
             var results = collection.GroupedWithTimeSpan(mapper, start, span);

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xunit;
-
-namespace Miharu.Core.Tests.Extensions.DateTimes
+﻿namespace Miharu.Extensions.DateTimes
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using Xunit;
+
     public class NextEachTests
     {
         public static IEnumerable<object[]> GetNextEachMinuteTestSource()
@@ -21,7 +21,7 @@ namespace Miharu.Core.Tests.Extensions.DateTimes
         }
 
         [Theory,
-        MemberData("GetNextEachMinuteTestSource")]
+        MemberData(nameof(GetNextEachMinuteTestSource))]
         public void NextEachMinuteTest(string expected, string source, int second)
         {
             var e = DateTime.Parse(expected);
@@ -45,7 +45,7 @@ namespace Miharu.Core.Tests.Extensions.DateTimes
         }
 
         [Theory,
-        MemberData("GetNextEachHourTestSource")]
+        MemberData(nameof(GetNextEachHourTestSource))]
         public void NextEachHourTest(string expected, string source, int minute, int second)
         {
             var e = DateTime.Parse(expected);
@@ -66,7 +66,7 @@ namespace Miharu.Core.Tests.Extensions.DateTimes
             yield return new object[] { new DateTime(2015, 8, 11, 10, 30, 30), new DateTime(2015, 8, 10, 10, 30, 40), 10, 30, 30 };
         }
 
-        [Theory, MemberData("GetNextEachDaySource")]
+        [Theory, MemberData(nameof(GetNextEachDaySource))]
         public void NextEachDay(DateTime expected, DateTime from, int hour, int minute, int second)
         {
             Assert.True(expected.IsSameSecond(from.NextEachDay(hour, minute, second)));

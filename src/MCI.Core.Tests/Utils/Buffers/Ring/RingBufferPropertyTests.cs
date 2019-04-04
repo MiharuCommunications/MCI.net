@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Utils.Buffers.Ring
+﻿namespace Miharu.Utils.Buffers.Ring
 {
     using System;
     using System.Collections.Generic;
@@ -11,7 +11,7 @@
 
     public class RingBufferPropertyTests
     {
-        public static IEnumerable<object> GetCountTestSource()
+        public static IEnumerable<object[]> GetCountTestSource()
         {
             yield return new object[] { 0, new int[] { } };
             yield return new object[] { 1, new int[] { 0 } };
@@ -21,7 +21,7 @@
             yield return new object[] { 5, new int[] { 0, 1, 2, 3, 4 } };
         }
 
-        [Theory, MemberData("GetCountTestSource")]
+        [Theory, MemberData(nameof(GetCountTestSource))]
         public void CountTest(int expected, int[] source)
         {
             var buffer = new RingBuffer<int>(source.Length * 2, source);
@@ -29,7 +29,7 @@
             Assert.Equal(expected, buffer.Count);
         }
 
-        [Theory, MemberData("GetCountTestSource")]
+        [Theory, MemberData(nameof(GetCountTestSource))]
         public void CountTestWithShift(int expected, int[] source)
         {
             var buffer = new RingBuffer<int>(source.Length * 2, source);

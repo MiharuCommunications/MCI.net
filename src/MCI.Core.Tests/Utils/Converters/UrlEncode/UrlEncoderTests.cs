@@ -1,29 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using Miharu.Utils.Converters.UrlEncode;
-using Xunit;
-
-namespace Miharu.Core.Tests.Utils.Converters.UrlEncode
+namespace Miharu.Utils.Converters.UrlEncode
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Web;
+    using Miharu.Utils.Converters.UrlEncode;
+    using Xunit;
+
     public class UrlEncoderTests
     {
-        public static object[] EncodeDecodeSources
+        public static IEnumerable<object[]> EncodeDecodeSources()
         {
-            get
-            {
-                return new object[]
-                {
-                    new object[] { "ウィキペディア", Encoding.UTF8, "%E3%82%A6%E3%82%A3%E3%82%AD%E3%83%9A%E3%83%87%E3%82%A3%E3%82%A2" },
-                };
-            }
+            yield return new object[] { "ウィキペディア", Encoding.UTF8, "%E3%82%A6%E3%82%A3%E3%82%AD%E3%83%9A%E3%83%87%E3%82%A3%E3%82%A2" };
         }
 
 
-        [Theory, MemberData("EncodeDecodeSources")]
+        [Theory, MemberData(nameof(EncodeDecodeSources))]
         public void EncodeTest(string source, Encoding code, string encoded)
         {
             Assert.Equal(encoded, UrlEncoder.Encode(source, code));
@@ -31,10 +25,8 @@ namespace Miharu.Core.Tests.Utils.Converters.UrlEncode
             Assert.Equal(source, UrlEncoder.Decode(encoded, code));
         }
 
-        /*
-        [Theory,
+        [Theory(Skip = "not implemented"),
         InlineData("this is a pen.")]
-        */
         public void Compare(string source)
         {
             var codes = new Encoding[]

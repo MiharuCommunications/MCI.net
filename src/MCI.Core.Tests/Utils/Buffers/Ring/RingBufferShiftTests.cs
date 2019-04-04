@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Utils.Buffers.Ring
+﻿namespace Miharu.Utils.Buffers.Ring
 {
     using System;
     using System.Collections.Generic;
@@ -11,13 +11,13 @@
 
     public class RingBufferShiftTests
     {
-        public static IEnumerable<object> GetShiftTestSource()
+        public static IEnumerable<object[]> GetShiftTestSource()
         {
             yield return new object[] { new int[] { } };
             yield return new object[] { new int[] { 1 } };
         }
 
-        [Theory, MemberData("GetShiftTestSource")]
+        [Theory, MemberData(nameof(GetShiftTestSource))]
         public void ShiftTest(int[] source)
         {
             var buffer = new RingBuffer<int>(source.Length * 2, source);

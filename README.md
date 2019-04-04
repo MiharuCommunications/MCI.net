@@ -6,15 +6,25 @@
 
 [![codecov](https://codecov.io/gh/MiharuCommunications/MCI.net/branch/develop/graph/badge.svg)](https://codecov.io/gh/MiharuCommunications/MCI.net)
 
+| Channel | MCI.Core | MCI.Standard |
+|:--------|:--------:|:------------:|
+| .NET Standard | 1.1 | 2.0 |
+
+
 
 ## Table of Contents
 
-* [Background](#background)
-* [Requirements](#requirements)
-* [Installation](#installation)
-* [Usage](#usage)
-* [Contribute](#contribute)
-* [License](#license)
+- [MCI.net](#mcinet)
+  - [Table of Contents](#table-of-contents)
+  - [Background](#background)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contribute](#contribute)
+    - [Set UP](#set-up)
+    - [Build](#build)
+    - [Cover](#cover)
+  - [License](#license)
 
 ## Background
 

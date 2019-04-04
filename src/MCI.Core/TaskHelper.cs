@@ -1,6 +1,5 @@
-﻿namespace Miharu
+namespace Miharu
 {
-    using Miharu.Errors;
     using System;
     using System.Threading.Tasks;
 
@@ -51,11 +50,11 @@
         }
 
 
-        public static Task<Either<Error, Tuple<T1, T2>>> AwaitAll<T1, T2>(Task<T1> task1, Task<T2> task2, TimeSpan timeout)
+        public static Task<Either<IFailedReason, Tuple<T1, T2>>> AwaitAll<T1, T2>(Task<T1> task1, Task<T2> task2, TimeSpan timeout)
         {
             var sync = new object();
-            Either<Error, Tuple<T1, T2>> result = null;
-            var task = new Task<Either<Error, Tuple<T1, T2>>>(() => result);
+            Either<IFailedReason, Tuple<T1, T2>> result = null;
+            var task = new Task<Either<IFailedReason, Tuple<T1, T2>>>(() => result);
             var hasFinished = false;
 
             task1.ContinueWith(t1 =>
@@ -68,7 +67,7 @@
                         {
                             hasFinished = true;
 
-                            result = new Right<Error, Tuple<T1, T2>>(Tuple.Create(task1.Result, task2.Result));
+                            result = new Right<IFailedReason, Tuple<T1, T2>>(Tuple.Create(task1.Result, task2.Result));
                             task.RunSynchronously();
                         }
                     }
@@ -85,7 +84,7 @@
                         {
                             hasFinished = true;
 
-                            result = new Right<Error, Tuple<T1, T2>>(Tuple.Create(task1.Result, task2.Result));
+                            result = new Right<IFailedReason, Tuple<T1, T2>>(Tuple.Create(task1.Result, task2.Result));
                             task.RunSynchronously();
                         }
                     }
@@ -100,7 +99,7 @@
                     {
                         hasFinished = true;
 
-                        result = new Left<Error, Tuple<T1, T2>>(new TimeoutError(timeout));
+                        result = new Left<IFailedReason, Tuple<T1, T2>>(new TimeoutError(timeout));
                         task.RunSynchronously();
                     }
                 }

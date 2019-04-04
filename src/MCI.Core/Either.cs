@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="Either.cs" company="Miharu Communications Inc.">
 //     © 2015 Miharu Communications Inc.
 // </copyright>
@@ -71,5 +71,32 @@ namespace Miharu
 
         public abstract Either<L, R> RecoverWith(Func<L, Either<L, R>> f);
 
+
+        public static Either<L, R> ToLeft(L value)
+        {
+            return new Left<L, R>(value);
+        }
+
+        public static Either<L, R> ToRight(R value)
+        {
+            return new Right<L, R>(value);
+        }
+    }
+
+    public sealed class Either
+    {
+        private Either()
+        {
+        }
+
+        public static Either<L, R> ToLeft<L, R>(L value)
+        {
+            return new Left<L, R>(value);
+        }
+
+        public static Either<L, R> ToRight<L, R>(R value)
+        {
+            return new Right<L, R>(value);
+        }
     }
 }

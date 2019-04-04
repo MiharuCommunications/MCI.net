@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Monads
+﻿namespace Miharu.Monads
 {
     using System;
     using System.Collections.Generic;
@@ -122,7 +122,7 @@
             Assert.False(this.l.Exists(i => true));
         }
 
-
+        [Fact]
         public void ForEachTest()
         {
             Assert.Throws<InvalidOperationException>(() =>

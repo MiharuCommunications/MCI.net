@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Async.AsyncLocker2Tests
+namespace Miharu.Async.AsyncLocker2Tests
 {
     using System;
     using System.Threading.Tasks;
@@ -8,7 +8,7 @@
 
     public class AsyncLockerTimeoutTests
     {
-        [Fact]
+        [Fact(Skip = "required too long time.")]
         public void Timeout()
         {
             var timeout = TimeSpan.FromSeconds(5);
@@ -28,7 +28,7 @@
             {
                 await Task.Delay(delay);
 
-                return new Right<Error, int>(0);
+                return new Right<IFailedReason, int>(0);
             });
         }
 
@@ -38,7 +38,7 @@
             {
                 await Task.Delay(0);
 
-                return new Right<Error, int>(0);
+                return new Right<IFailedReason, int>(0);
             });
 
             Assert.True(result.IsLeft);

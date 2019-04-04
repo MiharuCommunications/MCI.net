@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Monads
+﻿namespace Miharu.Monads
 {
     using System;
     using Xunit;

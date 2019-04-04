@@ -1,4 +1,4 @@
-﻿namespace Miharu.Core.Tests.Helpers
+﻿namespace Miharu.Helpers
 {
     using System;
     using System.Collections.Generic;
