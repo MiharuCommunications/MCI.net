@@ -9,6 +9,8 @@
     <Copyright>Copyright (C) Miharu Communications Inc. 2018</Copyright>
     <Company>Miharu Communications Inc.</Company>
     <Authors>Miharu Communications Inc.</Authors>
+    <PackageProjectUrl>https://github.com/MiharuCommunications/MCI.net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MiharuCommunications/MCI.net</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

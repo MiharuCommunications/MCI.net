@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Miharu</RootNamespace>
+    <PackageProjectUrl>https://github.com/MiharuCommunications/MCI.net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MiharuCommunications/MCI.net</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
