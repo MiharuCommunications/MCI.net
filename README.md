@@ -16,8 +16,6 @@
 
 - [MCI.net](#mcinet)
   - [Table of Contents](#table-of-contents)
-  - [Background](#background)
-  - [Requirements](#requirements)
   - [Installation](#installation)
   - [Usage](#usage)
   - [Contribute](#contribute)
@@ -26,9 +24,6 @@
     - [Cover](#cover)
   - [License](#license)
 
-## Background
-
-## Requirements
 
 ## Installation
 

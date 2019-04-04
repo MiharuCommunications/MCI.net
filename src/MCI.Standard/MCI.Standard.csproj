@@ -5,6 +5,9 @@
     <RootNamespace>Miharu</RootNamespace>
     <PackageProjectUrl>https://github.com/MiharuCommunications/MCI.net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MiharuCommunications/MCI.net</RepositoryUrl>
+    <Version>0.10.0.0</Version>
+    <Authors>Miharu Communications Inc.</Authors>
+    <Copyright>Copyright (C) Miharu Communications Inc. 2019</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
