@@ -1,4 +1,4 @@
-﻿namespace Miharu.Monads
+namespace Miharu.Monads
 {
     using System;
     using System.Collections.Generic;
@@ -137,6 +137,35 @@
             {
                 throw new InvalidOperationException();
             });
+        }
+
+
+        public Either<string, int> ParseInt(string input)
+        {
+            int i;
+
+            if (int.TryParse(input, out i))
+            {
+                return new Right<string, int>(i);
+            }
+            else
+            {
+                return new Left<string, int>("Error");
+            }
+        }
+
+        [Fact]
+        public void LinqTest()
+        {
+            var result = from i1 in ParseInt("1")
+                         from i2 in ParseInt("2")
+                         from i3 in ParseInt("3")
+                         from i4 in ParseInt("4")
+                         from i5 in ParseInt("5")
+                         select i1 + i2 + i3 + i4 + i5;
+
+            Assert.True(result.IsRight);
+            Assert.Equal(15, result.Get());
         }
     }
 }

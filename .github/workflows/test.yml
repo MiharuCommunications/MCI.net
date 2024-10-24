@@ -1,0 +1,22 @@
+name: test
+on:
+  push:
+    branches:
+      - develop
+env:
+  TZ: 'Asia/Tokyo'
+
+
+jobs:
+  test:
+    name: test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+      - name: build
+        run: |
+          cd src/
+          dotnet build MCI.net.sln

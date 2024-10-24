@@ -1,6 +1,6 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="ReaderWriterLocker.cs" company="Miharu Communications Inc.">
-//     © 2015 Miharu Communications Inc.
+//     © 2024 Miharu Communications Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace Miharu.Async
@@ -75,7 +75,7 @@ namespace Miharu.Async
                     writeLockCount.Decrement();
                     if (maxCounter < writeLockCount.Counter)
                     {
-//                        Debuggers.AddError("ReaderWriterLocker.WriteAsync の Counter が増えています: Counter =" + writeLockCount.Counter.ToString());
+                        //                        Debuggers.AddError("ReaderWriterLocker.WriteAsync の Counter が増えています: Counter =" + writeLockCount.Counter.ToString());
                     }
 #endif
 
@@ -147,7 +147,7 @@ namespace Miharu.Async
                     readLockCount.Decrement();
                     if (maxCounter < readLockCount.Counter)
                     {
-//                        Debuggers.AddError("ReaderWriterLocker.ReadAsync の Counter が増えています: Counter =" + readLockCount.Counter.ToString());
+                        //                        Debuggers.AddError("ReaderWriterLocker.ReadAsync の Counter が増えています: Counter =" + readLockCount.Counter.ToString());
                     }
 #endif
 

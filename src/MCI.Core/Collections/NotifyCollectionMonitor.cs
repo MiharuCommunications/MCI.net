@@ -1,6 +1,6 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="NotifyCollectionMonitor.cs" company="Miharu Communications Inc.">
-//     © 2015 Miharu Communications Inc.
+//     © 2024 Miharu Communications Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace Miharu.Collections

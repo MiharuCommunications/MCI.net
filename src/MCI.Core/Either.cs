@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------
 // <copyright file="Either.cs" company="Miharu Communications Inc.">
-//     © 2015 Miharu Communications Inc.
+//     © 2024 Miharu Communications Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace Miharu
@@ -65,7 +65,7 @@ namespace Miharu
         public abstract R GetOrElse(R value);
         public abstract R GetOrElse(Func<R> f);
 
-        public abstract Either<L, R> OrElse(Func<Either<L,R>> f);
+        public abstract Either<L, R> OrElse(Func<Either<L, R>> f);
 
         public abstract Either<L, R> Recover(Func<L, R> f);
 
