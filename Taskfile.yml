@@ -8,4 +8,8 @@ tasks:
 
   test:
     cmds:
-      - dotnet build MCI.net.sln
+      - dotnet test MCI.net.sln
+
+  clean:
+    cmds:
+      - dotnet clean MCI.net.sln

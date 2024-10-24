@@ -6,7 +6,6 @@ on:
 env:
   TZ: 'Asia/Tokyo'
 
-
 jobs:
   test:
     name: test
@@ -18,5 +17,7 @@ jobs:
           dotnet-version: '8.x'
       - name: build
         run: |
-          cd src/
           dotnet build MCI.net.sln
+      - name: test
+        run: |
+          dotnet test MCI.net.sln
