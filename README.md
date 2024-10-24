@@ -6,11 +6,9 @@
 
 [![codecov](https://codecov.io/gh/MiharuCommunications/MCI.net/branch/develop/graph/badge.svg)](https://codecov.io/gh/MiharuCommunications/MCI.net)
 
-| Channel | MCI.Core | MCI.Standard |
-|:--------|:--------:|:------------:|
-| .NET Standard | 1.1 | 2.0 |
-
-
+| Channel       | MCI.Core | MCI.Standard |
+| :------------ | :------: | :----------: |
+| .NET Standard |   1.1    |     2.0      |
 
 ## Table of Contents
 
@@ -24,7 +22,6 @@
     - [Cover](#cover)
   - [License](#license)
 
-
 ## Installation
 
 This project uses .net Framework and NuGet.
@@ -35,8 +32,8 @@ PM> Install-Package MCI.Core
 
 ## Usage
 
-* Functional programming
-    * [Monad](./doc/fp/monad.md)
+- Functional programming
+  - [Monad](./doc/fp/monad.md)
 
 ## Contribute
 
@@ -60,5 +57,5 @@ make cover
 
 ## License
 
-Code copyright 1955 - 2016 Miharu Communications Inc.  
-Code released under [the MIT license](https://github.com/MiharuCommunications/MCI.net/blob/master/LICENSE).
+Code copyright 1955 - 2024 Miharu Communications Inc.  
+Code released under [the MIT license](./LICENSE).

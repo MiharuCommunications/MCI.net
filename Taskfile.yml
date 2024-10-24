@@ -1,0 +1,11 @@
+version: '3'
+
+tasks:
+  format:
+    cmds:
+      - dotnet format MCI.net.sln
+      - dotnet format whitespace MCI.net.sln
+
+  test:
+    cmds:
+      - dotnet build MCI.net.sln
