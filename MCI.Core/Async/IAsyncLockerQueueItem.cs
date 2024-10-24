@@ -1,4 +1,4 @@
-﻿namespace Miharu.Async
+namespace Miharu.Async
 {
     using System;
     using System.Collections.Generic;

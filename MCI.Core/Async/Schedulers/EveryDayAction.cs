@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="EveryDayAction.cs" company="Miharu Communications Inc.">
 //     © 2016 Miharu Communications Inc.
 // </copyright>

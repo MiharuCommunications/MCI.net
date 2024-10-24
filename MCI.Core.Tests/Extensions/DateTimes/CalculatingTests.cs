@@ -1,4 +1,4 @@
-﻿namespace Miharu.Extensions.DateTimes
+namespace Miharu.Extensions.DateTimes
 {
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace Miharu.Utils
+namespace Miharu.Utils
 {
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,7 @@
     public class RingBufferTests
     {
         [Theory,
-        InlineData(1,1),
+        InlineData(1, 1),
         InlineData(16, 16),
         InlineData(16, 15),
         InlineData(16, 14)]
@@ -51,7 +51,7 @@
         }
 
 
-        [Fact(Skip="Either 版への移行に対応できていない")]
+        [Fact(Skip = "Either 版への移行に対応できていない")]
         public void CapacityTestWithInsertFirst()
         {
             var buffer = new RingBuffer<int>(3);

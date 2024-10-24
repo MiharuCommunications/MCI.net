@@ -1,4 +1,4 @@
-﻿namespace Miharu.Helpers
+namespace Miharu.Helpers
 {
     using System;
     using System.Collections.Generic;
@@ -27,7 +27,7 @@
 
             Assert.Equal(count, results.Length);
 
-            foreach(var actual in results)
+            foreach (var actual in results)
             {
                 Assert.Equal(year, actual.Year);
             }
@@ -54,7 +54,7 @@
 
             Assert.Equal(count, results.Length);
 
-            foreach(var actual in results)
+            foreach (var actual in results)
             {
                 Assert.Equal(year, actual.Year);
                 Assert.Equal(month, actual.Month);

@@ -1,4 +1,4 @@
-﻿namespace Miharu.Maths
+namespace Miharu.Maths
 {
     using System;
     using System.Collections.Generic;

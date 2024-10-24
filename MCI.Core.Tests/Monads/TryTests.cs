@@ -1,4 +1,4 @@
-﻿namespace Miharu.Monads
+namespace Miharu.Monads
 {
     using System;
     using System.Collections.Generic;

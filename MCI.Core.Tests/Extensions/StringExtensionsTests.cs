@@ -1,4 +1,4 @@
-﻿namespace Miharu.Extensions
+namespace Miharu.Extensions
 {
     using System;
     using System.Collections.Generic;
@@ -42,7 +42,7 @@
 
         public static IEnumerable<object[]> GetIntercalateSource()
         {
-            yield return new object[] { string.Empty, new string[] {  }, string.Empty };
+            yield return new object[] { string.Empty, new string[] { }, string.Empty };
             yield return new object[] { "a", new string[] { "a" }, string.Empty };
         }
 

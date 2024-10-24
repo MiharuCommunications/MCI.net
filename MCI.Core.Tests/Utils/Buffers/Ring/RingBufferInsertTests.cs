@@ -1,4 +1,4 @@
-﻿namespace Miharu.Utils.Buffers.Ring
+namespace Miharu.Utils.Buffers.Ring
 {
     using System;
     using System.Collections.Generic;

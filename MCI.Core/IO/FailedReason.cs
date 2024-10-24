@@ -4,5 +4,5 @@ namespace Miharu.IO
     using System.Collections.Generic;
     using System.Text;
 
-    
+
 }

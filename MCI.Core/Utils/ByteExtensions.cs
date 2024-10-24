@@ -1,4 +1,4 @@
-﻿namespace Miharu.Utils
+namespace Miharu.Utils
 {
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace Miharu.Collections
+namespace Miharu.Collections
 {
     using System;
     using System.Collections;

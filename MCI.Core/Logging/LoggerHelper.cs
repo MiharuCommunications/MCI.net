@@ -35,7 +35,7 @@ namespace Miharu.Logging
 
             return date + "\t" + prefix + "\t" + threadId.ToString() + "\t" + message + Environment.NewLine
                 + error.GetType().Name + Environment.NewLine;
-                // + error.ErrorMessage + Environment.NewLine;
+            // + error.ErrorMessage + Environment.NewLine;
         }
 
 

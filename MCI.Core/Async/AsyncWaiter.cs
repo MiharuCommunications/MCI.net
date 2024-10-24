@@ -1,4 +1,4 @@
-﻿namespace Miharu.Async
+namespace Miharu.Async
 {
     /*
      * http://stackoverflow.com/questions/5095183/how-would-i-run-an-async-taskt-method-synchronously

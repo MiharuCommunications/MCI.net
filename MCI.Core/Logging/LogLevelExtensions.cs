@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="LogLevelExtensions.cs" company="Miharu Communications Inc.">
 //     © 2017 Miharu Communications Inc.
 // </copyright>

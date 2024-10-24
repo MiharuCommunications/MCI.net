@@ -1,4 +1,4 @@
-﻿namespace Miharu.Extensions
+namespace Miharu.Extensions
 {
     using System;
     using System.Collections.Generic;

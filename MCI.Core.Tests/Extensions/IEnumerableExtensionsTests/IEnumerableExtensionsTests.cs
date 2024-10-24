@@ -1,4 +1,4 @@
-﻿namespace Miharu.Extensions.IEnumerableExtensionsTests
+namespace Miharu.Extensions.IEnumerableExtensionsTests
 {
     using System;
     using System.Collections.Generic;

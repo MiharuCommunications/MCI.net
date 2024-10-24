@@ -53,7 +53,7 @@ namespace Miharu.Net
 
                 result = Either.ToLeft<IFailedReason, Unit>(new UnresolvedError(ex));
 
-                  task.RunSynchronously();
+                task.RunSynchronously();
             }
 
             return task;
