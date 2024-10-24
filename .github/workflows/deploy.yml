@@ -1,0 +1,24 @@
+name: deploy
+on:
+  push:
+    branches:
+      - develop
+env:
+  TZ: 'Asia/Tokyo'
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+      - name: build
+        run: |
+          dotnet build --configuration Release MCI.net.sln
+      - name: deploy
+        run: |
+          dotnet nuget push "MCI.Core/bin/Release/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json
+          dotnet nuget push "MCI.Standard/bin/Release/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json
