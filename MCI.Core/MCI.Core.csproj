@@ -4,14 +4,14 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <RootNamespace>Miharu</RootNamespace>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <AssemblyVersion></AssemblyVersion>
-        <FileVersion></FileVersion>
+
+        <Version>0.10.0-alpha.2</Version>
+
         <Copyright>Copyright (C) Miharu Communications Inc. 2024</Copyright>
         <Company>Miharu Communications Inc.</Company>
         <Authors>Miharu Communications Inc.</Authors>
         <PackageProjectUrl>https://github.com/MiharuCommunications/MCI.net</PackageProjectUrl>
         <RepositoryUrl>https://github.com/MiharuCommunications/MCI.net</RepositoryUrl>
-        <Version>0.10.0-alpha.1</Version>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
