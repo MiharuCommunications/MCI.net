@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Miharu.Extensions
+namespace Miharu
 {
+    using System.Collections.Generic;
+    using Xunit;
+
     public class ArrayExtensionsTests
     {
         [Fact]

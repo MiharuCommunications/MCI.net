@@ -1,4 +1,4 @@
-namespace Miharu.Monads
+namespace Miharu
 {
     using System;
     using Xunit;

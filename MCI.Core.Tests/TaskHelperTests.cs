@@ -1,11 +1,10 @@
-namespace Miharu.Helpers.TaskHelperTests
+namespace Miharu
 {
-    using Miharu.Errors;
     using System;
     using System.Threading.Tasks;
     using Xunit;
 
-    public class TaskHelperAwaitAllTests
+    public class TaskHelperTests
     {
         [Fact]
         public async Task AwaitAll2TestAsync()

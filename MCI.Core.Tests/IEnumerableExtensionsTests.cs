@@ -1,11 +1,8 @@
-namespace Miharu.Extensions.IEnumerableExtensionsTests
+namespace Miharu
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
     using Xunit;
 
     public class IEnumerableExtensionsTests
@@ -106,8 +103,8 @@ namespace Miharu.Extensions.IEnumerableExtensionsTests
         [Fact]
         public void IsSame()
         {
-            Assert.True((new List<int>() { 1, 2, 3 }).IsSame<int>(new List<int>() { 1, 2, 3 }));
-            Assert.True((new List<string>() { "1", "2", "3" }).IsSame<string>(new List<string>() { "1", "2", "3" }));
+            Assert.True(new List<int>() { 1, 2, 3 }.IsSame(new List<int>() { 1, 2, 3 }));
+            Assert.True(new List<string>() { "1", "2", "3" }.IsSame(new List<string>() { "1", "2", "3" }));
         }
 
 

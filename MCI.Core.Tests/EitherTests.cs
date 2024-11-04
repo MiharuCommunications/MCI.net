@@ -1,10 +1,6 @@
-namespace Miharu.Monads
+namespace Miharu
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Xunit;
 
     public class EitherTests
@@ -19,46 +15,46 @@ namespace Miharu.Monads
 
         public EitherTests()
         {
-            this.rValue = 0;
-            this.lValue = "0";
+            rValue = 0;
+            lValue = "0";
 
-            this.r = new Right<string, int>(this.rValue);
-            this.l = new Left<string, int>(this.lValue);
+            r = new Right<string, int>(rValue);
+            l = new Left<string, int>(lValue);
         }
 
         [Fact]
         public void IsTest()
         {
-            Assert.True(this.r.IsRight);
-            Assert.False(this.r.IsLeft);
+            Assert.True(r.IsRight);
+            Assert.False(r.IsLeft);
 
-            Assert.False(this.l.IsRight);
-            Assert.True(this.l.IsLeft);
+            Assert.False(l.IsRight);
+            Assert.True(l.IsLeft);
         }
 
         [Fact]
         public void GetTest()
         {
-            Assert.Equal(this.rValue, this.r.Get());
+            Assert.Equal(rValue, r.Get());
 
             Assert.Throws<InvalidOperationException>(() =>
             {
-                this.l.Get();
+                l.Get();
             });
         }
 
         [Fact]
         public void GetOrElseTest()
         {
-            Assert.Equal(this.rValue, this.r.GetOrElse(10));
-            Assert.Equal(10, this.l.GetOrElse(10));
+            Assert.Equal(rValue, r.GetOrElse(10));
+            Assert.Equal(10, l.GetOrElse(10));
 
-            Assert.Equal(this.rValue, this.r.GetOrElse(() =>
+            Assert.Equal(rValue, r.GetOrElse(() =>
             {
                 throw new InvalidOperationException();
             }));
 
-            Assert.Equal(10, this.l.GetOrElse(() =>
+            Assert.Equal(10, l.GetOrElse(() =>
             {
                 return 10;
             }));
@@ -67,33 +63,33 @@ namespace Miharu.Monads
         [Fact]
         public void OrElseTest()
         {
-            Assert.Equal(this.rValue, this.r.OrElse(() =>
+            Assert.Equal(rValue, r.OrElse(() =>
             {
                 throw new InvalidOperationException();
             }).Get());
 
-            Assert.Equal(this.rValue, this.l.OrElse(() =>
+            Assert.Equal(rValue, l.OrElse(() =>
             {
-                return this.r;
+                return r;
             }).Get());
         }
 
         [Fact]
         public void SwapTest()
         {
-            Assert.True(this.r.Swap().IsLeft);
-            Assert.True(this.l.Swap().IsRight);
+            Assert.True(r.Swap().IsLeft);
+            Assert.True(l.Swap().IsRight);
         }
 
         [Fact]
         public void RecoverTest()
         {
-            Assert.Equal(this.rValue, this.r.Recover(l =>
+            Assert.Equal(rValue, r.Recover(l =>
             {
                 throw new InvalidOperationException();
             }).Get());
 
-            Assert.Equal(10, this.l.Recover(l =>
+            Assert.Equal(10, l.Recover(l =>
             {
                 return 10;
             }).Get());
@@ -102,12 +98,12 @@ namespace Miharu.Monads
         [Fact]
         public void RecoverWithTest()
         {
-            Assert.Equal(this.rValue, this.r.RecoverWith(l =>
+            Assert.Equal(rValue, r.RecoverWith(l =>
             {
                 throw new InvalidOperationException();
             }).Get());
 
-            Assert.Equal(10, this.l.RecoverWith(l =>
+            Assert.Equal(10, l.RecoverWith(l =>
             {
                 return new Right<string, int>(10);
             }).Get());
@@ -116,10 +112,10 @@ namespace Miharu.Monads
         [Fact]
         public void ExistsTest()
         {
-            Assert.True(this.r.Exists(i => i == this.rValue));
-            Assert.False(this.r.Exists(i => i != this.rValue));
+            Assert.True(r.Exists(i => i == rValue));
+            Assert.False(r.Exists(i => i != rValue));
 
-            Assert.False(this.l.Exists(i => true));
+            Assert.False(l.Exists(i => true));
         }
 
         [Fact]
@@ -127,13 +123,13 @@ namespace Miharu.Monads
         {
             Assert.Throws<InvalidOperationException>(() =>
             {
-                this.r.ForEach(i =>
+                r.ForEach(i =>
                 {
                     throw new InvalidOperationException();
                 });
             });
 
-            this.l.ForEach(i =>
+            l.ForEach(i =>
             {
                 throw new InvalidOperationException();
             });
