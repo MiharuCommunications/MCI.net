@@ -21,4 +21,3 @@ jobs:
       - name: deploy
         run: |
           dotnet nuget push "MCI.Core/bin/Release/**.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json
-          dotnet nuget push "MCI.Standard/bin/Release/**.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json
